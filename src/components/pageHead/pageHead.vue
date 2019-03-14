@@ -1,16 +1,20 @@
 <template>
-    <div id="user">
-        <div class="u-avatar-wrap">
-            <div class="u-avatar">
-                <img src="../../assets/images/index/avatar.jpg" alt="">
-            </div>
-        </div>
-    </div>
+  <div class="u-header">
+    <i @click="goPrev" class="u-arrow-icon"></i>
+    {{title}}
+  </div>
 </template>
 <script>
 export default {
-    
-}
+    props:{
+        title:String
+    },
+    methods:{
+        goPrev(){
+            this.$router.go(-1)
+        }
+    }
+};
 </script>
 <style lang="less" scoped>
 .images(@url){
@@ -39,15 +43,4 @@ export default {
         left:35px;
     }
 }
-.u-avatar-wrap{
-    height: 178px;
-    width: 738px;
-    .u-avatar{
-        width: 118px;
-        height: 118px;
-        border-radius: 59px;
-        overflow: hidden;
-    }
-}
 </style>
-

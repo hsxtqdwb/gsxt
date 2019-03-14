@@ -12,12 +12,29 @@ const User = (resolve) => {
     resolve(module)
   })
 } 
-
+const UserRecord = (resolve) => {
+  import('../pages/userRecord/userRecord').then(module =>{
+    resolve(module)
+  })
+} 
+const WaterAmount = (resolve) => {
+  import('../pages/waterAmount/waterAmount.vue').then(module =>{
+    resolve(module)
+  })
+} 
 export default new Router({
   routes: [
     {
       path: '/',
-      component: User
-    }
+      component: App
+    },
+    {
+      path:'/userrecord',
+      component:UserRecord
+    },
+    {
+      path:'/wateramount',
+      component:WaterAmount
+    },
   ]
 })
