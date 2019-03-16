@@ -8,13 +8,8 @@
       <span>用户名</span>
       <span>深圳市环保质量监督局</span>
     </div>
-    <div class="tip">
-      <p>
-        尊敬的用户：账户金额是您每个月缴费的实时查询账号，为防止
-        因为欠费关停水阀而无水可用，您可提前预付较多金额在您的账
-        户上，当该账户欠费-50.00元时，我们会自动关闭水阀，敬请留
-        意！
-      </p>
+    <div class="p">
+      <p>尊敬的用户：账户金额是您每个月缴费的实时查询账号，为防止因为欠费关停水阀而无水可用，您可提前预付较多金额在您的账户上，当该账户欠费-50.00元时，我们会自动关闭水阀，敬请留意！</p>
     </div>
     <div class="content">
       <div class="title">充值面额</div>
@@ -35,7 +30,9 @@
         </p>
         <p>充值欠费</p>
       </div>
+      <input type="button" class="save" value="立即缴费"/>
     </div>
+    
   </div>
 </template>
 <script>
@@ -66,6 +63,7 @@ export default {
 }
 .payment {
   background: #eeeeee;
+  height:100vh;
 }
 .u_header {
   text-align: center;
@@ -101,12 +99,12 @@ export default {
     }
   }
 }
-.tip {
-  padding: 20px 35px;
-  p {
-    font-size: 24px;
-    line-height: 30px;
-    color: #999999;
+.p{
+  padding:20px 35px;
+  p{
+    font-size:24px;
+    color:rgba(153,153,153,1);
+    line-height:30px;
   }
 }
 .content {
@@ -118,7 +116,6 @@ export default {
     font-size: 24px;
   }
   .price {
-    font-size: 0;
     overflow: hidden;
     span {
       display: inline-block;
@@ -137,6 +134,7 @@ export default {
       }
       &.active {
         border: solid 1px #34b8ef;
+        color: #34b8ef;
       }
     }
   }
@@ -146,18 +144,51 @@ export default {
     color: #999999;
   }
   .userInput {
-    height: 80px;
+    height:80px;
     width: 620px;
     padding: 0 30px;
     font-size: 24px;
     color: #999999;
+    border:solid 1px #d3d3d3;
+    margin-bottom:30px;
+    border-radius:10px;
+    line-height:80px;
+    outline:none;
     &::placeholder {
       font-size: 24px;
-      color: #666666;
+      color: #999999;
     }
   }
   .arrears {
+    border-top:solid 1px #eeeeee;
+    line-height:88px;
+    overflow:hidden;
+    p{
+      color:#333333;
+      font-size:28px;
+      float:left;
+      &:last-of-type{
+        float:right;
+        color:#34B8EF;
+      }
+      span{
+        color:orange;
+      }
+    }
+  }
+  .save{
+    width:680px;
+    height:90px;
+    background:linear-gradient(90deg,rgba(52,184,239,1),rgba(90,206,251,1));
+    border-radius:5px;
+    font-size:28px;
+    margin:50px 0;
+    color:#ffffff;
+    border-radius:10px;
+    border:none;
+    outline:none;
   }
 }
+
 </style>
 

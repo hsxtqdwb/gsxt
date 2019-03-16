@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div id="app">
     <div class="i_header">
       <div class="i_userinfo">
         <div class="i_avatar_wrap">
@@ -17,7 +17,7 @@
     </div>
     <div class="i_content">
       <!-- <div> -->
-        <div class="i_nav_list">
+        <div @click="getUrl('/userrecord')" class="i_nav_list">
           <div class="i_list_icon">
             <img src="../../assets/images/index/icon-1.png" alt="">
           </div>
@@ -26,13 +26,13 @@
             <p class="i_desc_info">个人信息登记</p>
           </div>
         </div>
-        <div class="i_nav_list">
+        <div @click="getUrl('/wateramount')" class="i_nav_list">
           <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-1.png" alt="">
+            <img src="../../assets/images/index/icon-2.png" alt="">
           </div>
           <div class="i_list_desc">
-            <p class="i_desc_title">我的档案</p>
-            <p class="i_desc_info">个人信息登记</p>
+            <p class="i_desc_title">水费账单</p>
+            <p class="i_desc_info">了解当月账单</p>
           </div>
         </div>
         <div class="i_nav_list">
@@ -105,7 +105,12 @@
 
 <script>
 export default {
-  name: "App"
+  name: "App",
+  methods:{
+    getUrl(url){
+        this.$router.push(url)
+    }
+  }
 };
 </script>
 <style lang='less' scoped>
@@ -177,15 +182,16 @@ export default {
   border-radius: 10px;
   position: relative;
   top: -35px;
-  padding: 0 40px 200px;
   box-sizing: border-box;
+  box-shadow: 2px 2px 2px rgba(51, 51, 51, 0.06);
   .i_nav_list {
-    margin-top: 50px;
-    width: 50%;
+    width: 340px;
+    box-sizing: border-box;
+    position: relative;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    height: 70px;
+    height: 160px;
     box-sizing: border-box;
     .i_list_icon{
       width: 70px;
@@ -209,19 +215,30 @@ export default {
         color: #999;
       }
     }
-    &:nth-of-type(2n){
-      padding-left:50px;
+    &:nth-of-type(2n-1)::after{
+      content: "";
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 160px;
+      width: 1px;
+      background: rgba(238, 238, 238, 1);
     }
-  }
-  &::after{
-    position: absolute;
-    top:0;
-    left:340px;
-    width: 1px;
-    height: 100%;
-    background-color: rgba(238,238,238,1);
-    content:"",;
-    display:block;
+    &:nth-of-type(1)::before,&:nth-of-type(2)::before{
+      width: 0;
+      height: 0;
+    }
+    &::before{
+      content: "";
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 1px;
+      width: 340px;
+      background: rgba(238, 238, 238, 1);
+    }
   }
 }
 </style>
