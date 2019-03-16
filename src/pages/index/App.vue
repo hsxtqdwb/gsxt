@@ -12,7 +12,7 @@
             <span class="i_verify">已认证</span>
           </div>
         </div>
-        <div class="i_view-detail">查看详情</div>
+        <div @click="getUrl('/user')" class="i_view-detail">查看详情</div>
       </div>
     </div>
     <div class="i_content">
@@ -80,13 +80,13 @@
             <p class="i_desc_info">个人信息登记</p>
           </div>
         </div>
-        <div class="i_nav_list">
+        <div class="i_nav_list" @click="getUrl('/taggleuser')">
           <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-1.png" alt="">
+            <img src="../../assets/images/index/icon-8.png" alt="">
           </div>
           <div class="i_list_desc">
-            <p class="i_desc_title">我的档案</p>
-            <p class="i_desc_info">个人信息登记</p>
+            <p class="i_desc_title">绑定用户</p>
+            <p class="i_desc_info">便于操作</p>
           </div>
         </div>
         <div class="i_nav_list">

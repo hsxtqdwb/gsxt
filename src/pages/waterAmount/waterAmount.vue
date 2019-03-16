@@ -14,6 +14,10 @@
           <div>充值缴费时间</div>
           <div>充值缴费金额</div>
         </div>
+        <div class="w-right">
+          <div class="w-recharge-time">2017年12月23日23点23分24秒</div>
+          <div class="w-recharge-amount">￥1230</div>
+        </div>
       </div>
     </div>
   </div>
@@ -65,23 +69,38 @@ export default {
   display: flex;
 }
 .w-content-wrap {
-    margin-top: 30px;
-    box-sizing: border-box;
-    padding: 0 36px;
-    background: #fff;
+  margin-top: 30px;
+  box-sizing: border-box;
+  padding: 0 36px;
+  background: #fff;
   .w-content {
     height: 142px;
     width: 100%;
     box-sizing: border-box;
     border-top: 1px solid rgba(238, 238, 238, 1);
     display: flex;
-
     justify-content: space-between;
     align-items: center;
     .w-left {
       font-size: 28px;
       line-height: 56px;
       color: rgba(51, 51, 51, 1);
+    }
+    .w-right {
+      font-size: 28px;
+      line-height: 56px;
+      color: rgba(51, 51, 51, 1);
+      display: flex;
+      flex-direction: column;
+      .w-recharge-time{
+        color:rgba(102, 102, 102, 1);
+        // line-height: 30px;
+        text-align: right;
+      }
+      .w-recharge-amount{
+        color:rgba(52, 184, 239, 1);
+        text-align: right;
+      }
     }
     &:nth-of-type(1) {
       border-top: none;

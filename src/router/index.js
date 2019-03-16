@@ -27,6 +27,11 @@ const WaterAmount = (resolve) => {
     resolve(module)
   })
 } 
+const TaggleUser = (resolve) => {
+  import('../pages/taggleUser/taggleUser.vue').then(module =>{
+    resolve(module)
+  })
+} 
 export default new Router({
   routes: [
     {
@@ -45,5 +50,13 @@ export default new Router({
       path:'/payment',
       component:Payment
     },
+    {
+      path:'/user',
+      component:User
+    },
+    {
+      path:'/taggleuser',
+      component:TaggleUser
+    }
   ]
 })
