@@ -11,16 +11,12 @@ const User = (resolve) => {
   import('../pages/user/user').then(module => {
     resolve(module)
   })
-<<<<<<< HEAD
-}
+} 
 const Payment = (resolve) => {
   import('../pages/payment/payment').then(module => {
     resolve(module)
   })
 }
-
-=======
-} 
 const UserRecord = (resolve) => {
   import('../pages/userRecord/userRecord').then(module =>{
     resolve(module)
@@ -31,15 +27,10 @@ const WaterAmount = (resolve) => {
     resolve(module)
   })
 } 
->>>>>>> 05efb749ab459ecb19023986f115e5ce47a30d38
 export default new Router({
   routes: [
     {
       path: '/',
-<<<<<<< HEAD
-      component: Payment
-    }
-=======
       component: App
     },
     {
@@ -50,6 +41,9 @@ export default new Router({
       path:'/wateramount',
       component:WaterAmount
     },
->>>>>>> 05efb749ab459ecb19023986f115e5ce47a30d38
+    {
+      path:'/payment',
+      component:Payment
+    },
   ]
 })
