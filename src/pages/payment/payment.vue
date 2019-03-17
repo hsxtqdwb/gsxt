@@ -1,9 +1,6 @@
 <template>
   <div class="payment">
-    <div class="u_header">
-      <i class="u_arrow_icon"></i>
-      充值缴费
-    </div>
+    <page-head title="充值缴费"></page-head>
     <div class="user">
       <span>用户名</span>
       <span>深圳市环保质量监督局</span>
@@ -36,7 +33,11 @@
   </div>
 </template>
 <script>
+import PageHead from '../../components/pageHead/pageHead'
 export default {
+  components:{
+    PageHead
+  },
   data() {
     return {
       price: [100, 300, 500, 1000],
@@ -64,24 +65,6 @@ export default {
 .payment {
   background: #eeeeee;
   height:100vh;
-}
-.u_header {
-  text-align: center;
-  font-size: 32px;
-  height: 90px;
-  line-height: 90px;
-  width: 750px;
-  background-color: #fff;
-  position: relative;
-  .u_arrow_icon {
-    .images("l_arrow");
-    width: 16px;
-    height: 30px;
-    display: block;
-    position: absolute;
-    top: 30px;
-    left: 35px;
-  }
 }
 .user {
   margin-top: 20px;
