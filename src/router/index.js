@@ -32,6 +32,21 @@ const TaggleUser = (resolve) => {
     resolve(module)
   })
 } 
+const Business = (resolve) => {
+  import('../pages/business/business.vue').then(module =>{
+    resolve(module)
+  })
+} 
+const ApplySign = (resolve) => {
+  import('../pages/business/applySign/applySign.vue').then(module =>{
+    resolve(module)
+  })
+} 
+const AuditingSign = (resolve) => {
+  import('../pages/business/auditingSign/auditingSign.vue').then(module =>{
+    resolve(module)
+  })
+} 
 export default new Router({
   routes: [
     {
@@ -57,6 +72,20 @@ export default new Router({
     {
       path:'/taggleuser',
       component:TaggleUser
+    },
+    {
+      path:'/business',
+      component:Business,
+      children:[
+        {
+          path: 'applysign',
+          component: ApplySign
+        },
+        {
+          path:'auditingsign',
+          component:AuditingSign
+        }
+      ]
     }
   ]
 })

@@ -35,13 +35,13 @@
             <p class="i_desc_info">了解当月账单</p>
           </div>
         </div>
-        <div class="i_nav_list">
+        <div class="i_nav_list" @click="getUrl('/business')">
           <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-1.png" alt="">
+            <img src="../../assets/images/index/icon-3.png" alt="">
           </div>
           <div class="i_list_desc">
-            <p class="i_desc_title">我的档案</p>
-            <p class="i_desc_info">个人信息登记</p>
+            <p class="i_desc_title">业务办理</p>
+            <p class="i_desc_info">快速办理</p>
           </div>
         </div>
         <div class="i_nav_list">
