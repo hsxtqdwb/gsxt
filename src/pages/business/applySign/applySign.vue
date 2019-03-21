@@ -24,6 +24,7 @@ export default {};
 }
 .apply-sign-wrap {
   height: 1200px;
+  width: 620px;
   margin: 30px auto 0;
   border-radius: 10px;
   box-shadow: 5px 5px 20px rgba(51, 51, 51, 0.06);
