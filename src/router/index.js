@@ -47,6 +47,11 @@ const AuditingSign = (resolve) => {
     resolve(module)
   })
 } 
+const ContractList = (resolve) => {
+  import('../pages/business/contractList/contractList.vue').then(module =>{
+    resolve(module)
+  })
+} 
 export default new Router({
   routes: [
     {
@@ -84,6 +89,10 @@ export default new Router({
         {
           path:'auditingsign',
           component:AuditingSign
+        },
+        {
+          path:'contractList',
+          component:ContractList
         }
       ]
     }
