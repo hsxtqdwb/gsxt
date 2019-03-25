@@ -51,6 +51,11 @@ const ContractList = (resolve) => {
   import('../pages/business/contractList/contractList.vue').then(module =>{
     resolve(module)
   })
+}
+const StopWater = (resolve) => {
+  import('../pages/stopWater/stopWater.vue').then(module =>{
+    resolve(module)
+  })
 } 
 export default new Router({
   routes: [
@@ -77,6 +82,10 @@ export default new Router({
     {
       path:'/taggleuser',
       component:TaggleUser
+    },
+    {
+      path:'/stopWater',
+      component:StopWater
     },
     {
       path:'/business',
