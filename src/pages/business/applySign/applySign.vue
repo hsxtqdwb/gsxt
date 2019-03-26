@@ -159,11 +159,11 @@ export default {
   }
 }
 .van-uploader {
-  width: 300px;
-  height: 260px;
+  width: 296px;
+  height: 188px;
   img {
-    width: 300px;
-    height: 200px;
+    width: 296px;
+    height: 188px;
   }
 }
 .van-tabs__content {
