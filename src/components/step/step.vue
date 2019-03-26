@@ -1,7 +1,7 @@
 <template>
   <div id="step">
     <div v-if="step" class="step-wrap">
-      <div v-for="(item,key) in getStep" :key="key" :class="['no-step',failIndex&&failIndex==key?'fail':'',index&&index==key?'active':'']">{{item}}</div>
+      <div v-for="(item,key) in getStep" :key="key" :class="['no-step',failIndex&&failIndex==key+1?'fail':'',index&&index==key+1?'active':'']">{{item}}</div>
     </div>
   </div>
 </template>
