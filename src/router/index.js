@@ -62,6 +62,11 @@ const WaterPrice = (resolve) => {
     resolve(module)
   })
 }
+const InvoiceMsg = (resolve) => {
+  import('../pages/InvoiceMsg/InvoiceMsg.vue').then(module => {
+    resolve(module)
+  })
+}
 export default new Router({
   routes: [{
       path: '/',
@@ -94,6 +99,10 @@ export default new Router({
     {
       path: '/waterPrice',
       component: WaterPrice
+    },
+    {
+      path: '/invoiceMsg',
+      component: InvoiceMsg
     },
     {
       path: '/business',
