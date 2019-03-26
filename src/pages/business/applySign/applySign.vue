@@ -14,7 +14,7 @@
       <p class="apply-sign-title">一户一表供用水协议</p>
       <div class="apply-sing-msg">
         <p>甲方</p>
-        <mt-field label placeholder="请输入甲方名称"></mt-field>
+        <!-- <mt-field label placeholder="请输入甲方名称"></mt-field>
         <p>地址</p>
         <mt-field label placeholder="请输入甲方地址"></mt-field>
         <p>乙方</p>
@@ -30,7 +30,7 @@
         <p>验证码</p>
         <mt-field label placeholder="请输入您手机收到得验证码"></mt-field>
         <p>身份证号码</p>
-        <mt-field label placeholder="请输入您的身份证号码"></mt-field>
+        <mt-field label placeholder="请输入您的身份证号码"></mt-field>-->
       </div>
       <div class="apply-sing-content">
         <p>
@@ -82,6 +82,11 @@
         <p>1.您的证件信息需要提交审核才能通过</p>
         <p>2.以下图片上传部分，支持JPG、JEPG、PNG和BMP格式的图片格式，文件大小在1K和5M之间</p>
       </div>
+      <van-uploader :after-read="onRead">
+        <!-- <van-icon name="photograph"/> -->
+        上传
+        <img :src="imgurl">
+      </van-uploader>
     </div>
     <div class="apply-sign-save">
       <input type="button" value="提交审核">
@@ -91,16 +96,25 @@
 <script>
 import Vue from "vue";
 import Step from "components/step/step";
-import { Field } from "mint-ui";
-Vue.component(Field.name, Field);
+import { Uploader } from "vant";
+// import { Field } from "mint-ui";
+// Vue.component(Field.name, Field);
+Vue.use(Uploader);
 export default {
   return: {
     data: {
-      username: ""
+      username: "",
+      imgurl: null
     }
   },
   components: {
     Step
+  },
+  methods: {
+    onRead(file) {
+      console.log(file);
+      this.imgurl = file.content;
+    }
   }
 };
 </script>

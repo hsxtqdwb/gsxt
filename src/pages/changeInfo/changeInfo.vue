@@ -24,15 +24,15 @@
 </template>
 <script>
 import Vue from "vue";
-import { Navbar, TabContainer, TabContainerItem, TabItem } from "mint-ui";
+// import { Navbar, TabContainer, TabContainerItem, TabItem } from "mint-ui";
 import PageHead from "../../components/pageHead/pageHead";
 import ApplySign from "./applySign/applySign";
 import AuditingSign from "./auditingSign/auditingSign";
 import ContractList from "./contractList/contractList";
-Vue.component(Navbar.name, Navbar);
-Vue.component(TabItem.name, TabItem);
-Vue.component(TabContainer.name, TabContainer);
-Vue.component(TabContainerItem.name, TabContainerItem);
+// Vue.component(Navbar.name, Navbar);
+// Vue.component(TabItem.name, TabItem);
+// Vue.component(TabContainer.name, TabContainer);
+// Vue.component(TabContainerItem.name, TabContainerItem);
 export default {
   data() {
     return {

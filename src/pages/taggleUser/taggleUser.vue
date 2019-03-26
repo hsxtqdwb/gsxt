@@ -23,9 +23,9 @@
 </template>
 <script>
 import PageHead from "../../components/pageHead/pageHead";
-import { CellSwipe } from "mint-ui";
+// import { CellSwipe } from "mint-ui";
 import Vue from 'vue'
-Vue.component(CellSwipe.name, CellSwipe);
+// Vue.component(CellSwipe.name, CellSwipe);
 export default {
   components: {
     PageHead
