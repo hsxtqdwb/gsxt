@@ -46,37 +46,37 @@
         </div>
         <div class="i_nav_list">
           <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-1.png" alt="">
+            <img src="../../assets/images/index/icon-4.png" alt="">
           </div>
           <div class="i_list_desc">
-            <p class="i_desc_title">我的档案</p>
+            <p class="i_desc_title">停水通知</p>
             <p class="i_desc_info">个人信息登记</p>
           </div>
         </div>
         <div class="i_nav_list">
           <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-1.png" alt="">
+            <img src="../../assets/images/index/icon-5.png" alt="">
           </div>
           <div class="i_list_desc">
-            <p class="i_desc_title">我的档案</p>
+            <p class="i_desc_title">水价标准</p>
             <p class="i_desc_info">个人信息登记</p>
           </div>
         </div>
         <div class="i_nav_list">
           <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-1.png" alt="">
+            <img src="../../assets/images/index/icon-6.png" alt="">
           </div>
           <div class="i_list_desc">
-            <p class="i_desc_title">我的档案</p>
+            <p class="i_desc_title">发票管家</p>
             <p class="i_desc_info">个人信息登记</p>
           </div>
         </div>
         <div class="i_nav_list">
           <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-1.png" alt="">
+            <img src="../../assets/images/index/icon-7.png" alt="">
           </div>
           <div class="i_list_desc">
-            <p class="i_desc_title">我的档案</p>
+            <p class="i_desc_title">报漏举报</p>
             <p class="i_desc_info">个人信息登记</p>
           </div>
         </div>
@@ -91,10 +91,10 @@
         </div>
         <div class="i_nav_list">
           <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-1.png" alt="">
+            <img src="../../assets/images/index/icon-9.png" alt="">
           </div>
           <div class="i_list_desc">
-            <p class="i_desc_title">我的档案</p>
+            <p class="i_desc_title">水质报告</p>
             <p class="i_desc_info">个人信息登记</p>
           </div>
         </div>

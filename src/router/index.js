@@ -57,8 +57,17 @@ const StopWater = (resolve) => {
     resolve(module)
   })
 } 
+const Invoice = (resolve) => {
+  import('../pages/invoice/invoice.vue').then(module =>{
+    resolve(module)
+  })
+} 
 export default new Router({
   routes: [
+    {
+      path:"/test",
+      component:Invoice
+    },
     {
       path: '/',
       component: App
