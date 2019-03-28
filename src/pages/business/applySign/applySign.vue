@@ -14,23 +14,23 @@
       <p class="apply-sign-title">一户一表供用水协议</p>
       <div class="apply-sing-msg">
         <p>甲方</p>
-        <!-- <mt-field label placeholder="请输入甲方名称"></mt-field>
+        <van-field v-model="value1" placeholder="请输入甲方名称"/>
         <p>地址</p>
-        <mt-field label placeholder="请输入甲方地址"></mt-field>
+        <van-field v-model="value2" placeholder="请输入甲方地址"/>
         <p>乙方</p>
-        <mt-field label placeholder="请输入用户名称"></mt-field>
+        <van-field v-model="value3" placeholder="请输入用户名称"/>
         <p>地址</p>
-        <mt-field label placeholder="请选择地址"></mt-field>
+        <van-field v-model="value4" placeholder="请选择地址"/>
         <p>详细地址</p>
-        <mt-field label placeholder="请输入您的详细地址"></mt-field>
+        <van-field v-model="value5" placeholder="请输入您的详细地址"/>
         <p>联系人</p>
-        <mt-field label placeholder="请输入联系人姓名"></mt-field>
+        <van-field v-model="value6" placeholder="请输入联系人姓名"/>
         <p>联系电话</p>
-        <mt-field label placeholder="请输入您的联系方式"></mt-field>
+        <van-field v-model="value7" placeholder="请输入您的联系方式"/>
         <p>验证码</p>
-        <mt-field label placeholder="请输入您手机收到得验证码"></mt-field>
+        <van-field v-model="value8" placeholder="请输入您手机收到得验证码"/>
         <p>身份证号码</p>
-        <mt-field label placeholder="请输入您的身份证号码"></mt-field>-->
+        <van-field v-model="value9" placeholder="请输入您的身份证号码"/>
       </div>
       <div class="apply-sing-content">
         <p>
@@ -83,9 +83,13 @@
         <p>2.以下图片上传部分，支持JPG、JEPG、PNG和BMP格式的图片格式，文件大小在1K和5M之间</p>
       </div>
       <van-uploader :after-read="onRead">
-        <!-- <van-icon name="photograph"/> -->
-        上传
-        <img :src="imgurl">
+        <img :src="sfzz">
+      </van-uploader>
+      <van-uploader :after-read="onRead">
+        <img :src="sfzf">
+      </van-uploader>
+      <van-uploader :after-read="onRead">
+        <img :src="fcz">
       </van-uploader>
     </div>
     <div class="apply-sign-save">
@@ -96,16 +100,27 @@
 <script>
 import Vue from "vue";
 import Step from "components/step/step";
-import { Uploader } from "vant";
-// import { Field } from "mint-ui";
-// Vue.component(Field.name, Field);
-Vue.use(Uploader);
+import { Field, Uploader } from "vant";
+Vue.use(Field).use(Uploader);
+import sfzz from "../../../assets/images/up/sf.png";
+import sfzf from "../../../assets/images/up/s.png";
+import fcz from "../../../assets/images/up/f.png";
 export default {
-  return: {
-    data: {
-      username: "",
-      imgurl: null
-    }
+  data() {
+    return {
+      sfzz: sfzz,
+      sfzf: sfzf,
+      fcz: fcz,
+      value1: "",
+      value2: "",
+      value3: "",
+      value4: "",
+      value5: "",
+      value6: "",
+      value7: "",
+      value8: "",
+      value9: ""
+    };
   },
   components: {
     Step
@@ -113,7 +128,7 @@ export default {
   methods: {
     onRead(file) {
       console.log(file);
-      this.imgurl = file.content;
+      this.sfzz = file.content;
     }
   }
 };
@@ -122,97 +137,7 @@ export default {
 #apply-sign {
   width: 100%;
 }
-.apply-sign-wrap {
-  // height: 1200px;
-  &:last-of-type {
-    margin-bottom: 15px;
-  }
-  width: 620px;
-  margin: 30px auto 0;
-  border-radius: 10px;
-  box-shadow: 5px 5px 20px rgba(51, 51, 51, 0.06);
-  background: #fff;
-  padding: 0 30px 30px 30px;
-  .auditing-step {
-    width: 680px;
-    height: 116px;
-    display: flex;
-    justify-items: center;
-    padding-left: 150px;
-    box-sizing: border-box;
-  }
-  .apply-sign-tip {
-    padding: 40px 30px;
-    height: 80px;
-    border: solid rgba(52, 184, 239, 0.07) 1px;
-    box-shadow: 0px 2px 16px 4px rgba(52, 184, 239, 0.07);
-    p {
-      overflow: hidden;
-      line-height: 40px;
-      span {
-        &:first-of-type {
-          float: left;
-          font-size: 28px;
-          color: #34b8ef;
-        }
-        &:last-of-type {
-          float: right;
-          font-size: 24px;
-          color: #999999;
-        }
-      }
-      &:last-of-type {
-        font-size: 26px;
-        color: #666666;
-      }
-    }
-  }
-  .apply-sign-title {
-    color: #333333;
-    font-size: 28px;
-    line-height: 106px;
-    font-weight: bold;
-    letter-spacing: 4px;
-  }
-  .apply-sing-msg {
-    /deep/ p {
-      font-size: 24px;
-      font-family: PingFang-SC-Medium;
-      font-weight: 500;
-      color: rgba(153, 153, 153, 1);
-      line-height: 68px;
-      border: none;
-    }
-    /deep/ .mint-field-core {
-      font-size: 26px;
-      font-family: PingFang-SC-Medium;
-      font-weight: 500;
-      color: #666666;
-      line-height: 68px;
-      border-bottom: solid 1px #eeeeee;
-      /deep/ .mintui {
-        font-size: 26px !important;
-      }
-    }
-  }
-  .apply-sing-content {
-    p {
-      font-size: 24px;
-      font-weight: 500;
-      color: #666666;
-      line-height: 42px;
-      text-indent: 2em;
-    }
-  }
-  .apply-sing-content-bottom {
-    p {
-      font-size: 24px;
-      font-weight: 500;
-      color: #666666;
-      line-height: 42px;
-    }
-  }
-}
+
 .apply-sign-save {
   width: 680px;
   height: 90px;
@@ -231,6 +156,107 @@ export default {
     font-weight: bold;
     color: #ffffff;
     line-height: 90px;
+  }
+}
+.van-uploader {
+  width: 296px;
+  height: 188px;
+  img {
+    width: 296px;
+    height: 188px;
+  }
+}
+.van-tabs__content {
+  overflow: hidden;
+  .apply-sign-wrap {
+    &:last-of-type {
+      margin-bottom: 15px;
+    }
+    width: 620px;
+    margin: 60px auto 0;
+    border-radius: 10px;
+    box-shadow: 5px 5px 20px rgba(51, 51, 51, 0.06);
+    background: #fff;
+    padding: 0 30px 30px 30px;
+    .auditing-step {
+      width: 680px;
+      height: 116px;
+      display: flex;
+      justify-items: center;
+      padding-left: 150px;
+      box-sizing: border-box;
+    }
+    .apply-sign-tip {
+      padding: 40px 30px;
+      height: 80px;
+      border: solid rgba(52, 184, 239, 0.07) 1px;
+      box-shadow: 0px 2px 16px 4px rgba(52, 184, 239, 0.07);
+      p {
+        overflow: hidden;
+        line-height: 40px;
+        span {
+          &:first-of-type {
+            float: left;
+            font-size: 28px;
+            color: #34b8ef;
+          }
+          &:last-of-type {
+            float: right;
+            font-size: 24px;
+            color: #999999;
+          }
+        }
+        &:last-of-type {
+          font-size: 26px;
+          color: #666666;
+        }
+      }
+    }
+    .apply-sign-title {
+      color: #333333;
+      font-size: 28px;
+      line-height: 106px;
+      font-weight: bold;
+      letter-spacing: 4px;
+    }
+    .apply-sing-msg {
+      /deep/ p {
+        font-size: 24px;
+        font-family: PingFang-SC-Medium;
+        font-weight: 500;
+        color: rgba(153, 153, 153, 1);
+        line-height: 68px;
+        border: none;
+      }
+      .van-cell {
+        padding: 0 0;
+        line-height: 68px;
+        font-size: 26px;
+        color: #666666;
+        input {
+          &::placeholder {
+            color: #999999;
+          }
+        }
+      }
+    }
+    .apply-sing-content {
+      p {
+        font-size: 24px;
+        font-weight: 500;
+        color: #666666;
+        line-height: 42px;
+        text-indent: 2em;
+      }
+    }
+    .apply-sing-content-bottom {
+      p {
+        font-size: 24px;
+        font-weight: 500;
+        color: #666666;
+        line-height: 42px;
+      }
+    }
   }
 }
 </style>

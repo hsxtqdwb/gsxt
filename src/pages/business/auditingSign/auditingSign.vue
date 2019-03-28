@@ -2,7 +2,7 @@
     <div id="auditing-sign">
         <div class="auditing-sign-wrap">
             <div>
-                <Step class="auditing-step" :index="1" :step="2"></Step>
+                <Step class="auditing-step" :index="2" :step="2"></Step>
             </div>
             <div class="auditing-audit-brand">
                 <div class="auditing-brand-l">
