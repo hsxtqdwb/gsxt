@@ -1,38 +1,27 @@
 <template>
   <div id="changeInfo">
     <page-head title="业务办理"></page-head>
-    <mt-navbar v-model="selected">
-      <mt-tab-item id="1">申请签约</mt-tab-item>
-      <mt-tab-item id="2">审核签约</mt-tab-item>
-      <mt-tab-item id="3">签约列表</mt-tab-item>
-    </mt-navbar>
-    <!-- tab-container -->
-    <mt-tab-container :swipeable="true" v-model="selected">
-      <mt-tab-container-item id="1">
+    <van-tabs v-model="active" swipeable animated>
+      <van-tab title="申请签约" id="1">
         <apply-sign></apply-sign>
-        <!-- <router-view></router-view> -->
-      </mt-tab-container-item>
-      <mt-tab-container-item id="2">
-        <auditing-sign></auditing-sign>
-        <!-- <router-view></router-view> -->
-      </mt-tab-container-item>
-      <mt-tab-container-item id="3">
-        <contract-list></contract-list>
-      </mt-tab-container-item>
-    </mt-tab-container>
+      </van-tab>
+      <van-tab title="变更审核" id="1">
+        <change-auditing></change-auditing>
+      </van-tab>
+      <van-tab title="变更列表" id="1">
+        <change-contract></change-contract>
+      </van-tab>
+    </van-tabs>
   </div>
 </template>
 <script>
 import Vue from "vue";
-// import { Navbar, TabContainer, TabContainerItem, TabItem } from "mint-ui";
+import { Tab, Tabs } from "vant";
 import PageHead from "../../components/pageHead/pageHead";
 import ApplySign from "./applySign/applySign";
-import AuditingSign from "./auditingSign/auditingSign";
-import ContractList from "./contractList/contractList";
-// Vue.component(Navbar.name, Navbar);
-// Vue.component(TabItem.name, TabItem);
-// Vue.component(TabContainer.name, TabContainer);
-// Vue.component(TabContainerItem.name, TabContainerItem);
+import ChangeAuditing from "./changeAuditing/changeAuditing";
+import ChangeContract from "./changeContract/changeContract";
+Vue.use(Tab).use(Tabs);
 export default {
   data() {
     return {
@@ -41,6 +30,7 @@ export default {
   },
   components: {
     PageHead,
+    ChangeAuditing
   }
 };
 </script>
@@ -57,13 +47,13 @@ export default {
         color: #999999;
         font-size: 26px;
         line-height: 74px;
-        font-weight:bold;
+        font-weight: bold;
       }
     }
     /deep/ .is-selected {
       /deep/ .mint-tab-item-label {
         border-bottom: solid 4px #34b8ef;
-        color: #34B8EF;
+        color: #34b8ef;
       }
     }
   }

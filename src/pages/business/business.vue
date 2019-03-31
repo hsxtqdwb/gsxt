@@ -5,10 +5,10 @@
       <van-tab title="申请签约" id="1">
         <apply-sign></apply-sign>
       </van-tab>
-      <van-tab title="签约列表" id="1">
+      <van-tab title="审核列表" id="1">
         <auditing-sign></auditing-sign>
       </van-tab>
-      <van-tab title="签约审核" id="1">
+      <van-tab title="签约列表" id="1">
         <contract-list></contract-list>
       </van-tab>
     </van-tabs>

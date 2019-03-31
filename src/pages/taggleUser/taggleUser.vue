@@ -4,28 +4,32 @@
     <div class="u-list-wrap">
       <div class="u-list-title">已绑定用户列表</div>
       <div class="u-list-content-wrap">
-        <mt-cell-swipe
-            :right="[
-                    {
-                    content: '删除',
-                    handler: () => this.$messagebox('delete')
-                    }
-                ]"
-        >
-        <div class="u-list-content">
-            <div>0100000</div>
-            <div>深圳******局</div>
-        </div>
-        </mt-cell-swipe>
+        <van-swipe-cell :right-width="113">
+          <van-cell-group>
+            <!-- <van-cell title="0100000" />
+             <van-cell title="深圳******局"/> -->
+             <div class="u-list-content">
+               <div>
+                  0100000
+               </div>
+               <div>
+                  深圳******局
+               </div>
+             </div>
+          </van-cell-group>
+          <span slot="right">删除</span>
+        </van-swipe-cell>
       </div>
     </div>
   </div>
 </template>
 <script>
 import PageHead from "../../components/pageHead/pageHead";
-// import { CellSwipe } from "mint-ui";
-import Vue from 'vue'
-// Vue.component(CellSwipe.name, CellSwipe);
+import { SwipeCell, CellGroup, Cell } from "vant";
+import Vue from "vue";
+Vue.use(SwipeCell);
+Vue.use(CellGroup);
+Vue.use(Cell);
 export default {
   components: {
     PageHead
@@ -37,9 +41,6 @@ export default {
   background: #fff;
   margin-top: 20px;
   overflow: hidden;
-  .u-list-content-wrap{
-      padding: 0 30px;
-  }
   .u-list-title {
     color: rgba(51, 51, 51, 1);
     font-family: "PingFang-SC-Bold";
@@ -49,26 +50,43 @@ export default {
     line-height: 86px;
     padding: 0 35px;
   }
-  .u-list-content{
-      color: rgba(102, 102, 102, 1);
-      font-size: 26px;
-      line-height: 40px;
-      height: 127px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    //   padding: 0 30px;
+  .u-list-content {
+    color: rgba(102, 102, 102, 1);
+    font-size: 26px;
+    line-height: 40px;
+    height: 127px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 30px;
   }
-  & /deep/ .mint-cell-title{
-      flex:0;
+  & /deep/ .van-cell__title {
+    color: rgba(102, 102, 102, 1);
+    font-size: 26px;
+    line-height: 40px;
+    // padding: 0 35px;
   }
-  & /deep/ .mint-cell-swipe-button{
-      color: #fff;
-      background: rgba(255, 156, 0, 1);
-      line-height: 127px;
-      text-align: center;
-      font-size: 28px;
-      width: 177px;
+  & /deep/ .van-cell__value {
+    color: rgba(102, 102, 102, 1);
+    font-size: 26px;
+    line-height: 40px;
+    // color: #fff;
+    // background: rgba(255, 156, 0, 1);
+    // line-height: 127px;
+    // text-align: center;
+    // font-size: 28px;
+    // width: 177px;
+  }
+  & /deep/ .van-swipe-cell__right {
+    color: #fff;
+    background: rgba(255, 156, 0, 1);
+    line-height: 127px;
+    text-align: center;
+    font-size: 28px;
+    width: 177px;
+  }
+  & /deep/ .van-cell{
+    padding: 0 35px;
   }
 }
 </style>
