@@ -72,11 +72,16 @@ const InvoiceMsg = (resolve) => {
     resolve(module)
   })
 }
+const ChangeWaterProperty = (resolve) =>{
+  import('../pages/changeWaterProperty/index.vue').then(module =>{
+    resolve(module)
+  })
+}
 export default new Router({
   routes: [
    {		
       path:"/test",
-      component:Invoice
+      component:ChangeWaterProperty
     },{
       path: '/',
       component: App
