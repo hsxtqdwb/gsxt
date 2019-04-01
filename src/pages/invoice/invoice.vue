@@ -39,15 +39,25 @@
       </div>
     </div>
     <div class="btn">
-      <div>申请发票作废</div>
+      <div @click="applyCancel">申请发票作废</div>
       <div @click="getAccount">推送邮箱</div>
       <div>下载电子发票</div>
     </div>
     <van-dialog v-model="show" :before-close="beforeClose">
       <div class="dialog-content">
         <div class="hint">提示</div>
-        <p class="label">请输入您的发票接收账号：</p>
-        <van-field v-model="username" placeholder="请输入用户名"/>
+        <div v-if="canCancel">
+          <p class="label">请输入您的发票接收账号：</p>
+          <van-field v-model="username" placeholder="请输入用户名"/>
+        </div>
+        <div v-if="!canCancel">
+          <p class="label">您不能申请作废</p>
+          <p class="cancel-desc">
+            尊敬的用户，符合以下2个条件，均不能作废发
+            票：1、收到退回的发票联、抵扣联时间超过了
+            销售方开票当月；2、开票抬头为自然人。
+          </p>
+        </div>
       </div>
     </van-dialog>
   </div>
@@ -61,14 +71,17 @@ export default {
   data() {
     return {
       show: false,
-      username: ""
+      username: "",
+      canCancel: false
     };
   },
   methods: {
     getAccount: function() {
       this.show = true;
     },
-    beforeClose: function() {}
+    beforeClose: function() {
+      this.show = false;
+    }
   },
   components: {
     PageHead
@@ -180,8 +193,8 @@ export default {
 }
 
 .dialog-content {
-    padding: 0 30px;
-    box-sizing: border-box;
+  padding: 0 35px;
+  box-sizing: border-box;
   .hint {
     text-align: center;
     margin-top: 40px;
@@ -190,28 +203,38 @@ export default {
     font-family: "PingFang-SC-Bold";
     font-weight: bold;
   }
-  .label{
-      line-height: 35px;
-      height: 35px;
-      color: rgba(102, 102, 102, 1);
-      font-size: 26px;
-      margin-top: 30px;
+  .label {
+    line-height: 35px;
+    height: 35px;
+    color: rgba(102, 102, 102, 1);
+    font-size: 26px;
+    margin-top: 30px;
   }
-  & /deep/ .van-field__body{
-      border:1px solid rgba(211, 211, 211, 1);
+  & /deep/ .van-field__body {
+    border: 1px solid rgba(211, 211, 211, 1);
   }
-  & /deep/ .van-field__control{
-      height: 80px;
-      line-height: 80px;
-      width: 560px;
-      margin: 0 auto;
-      font-size: 30px;
+  & /deep/ .van-field__control {
+    height: 80px;
+    line-height: 80px;
+    width: 560px;
+    margin: 0 auto;
+    font-size: 30px;
   }
 }
-/deep/ .van-dialog .van-button{
-      font-size: 26px;
-      color: rgba(72, 188, 201, 1);
-      line-height: 100px;
-      height: 100px;
-  }
+/deep/ .van-dialog .van-button {
+  font-size: 26px;
+  color: rgba(72, 188, 201, 1);
+  line-height: 100px;
+  height: 100px;
+}
+/deep/ .van-dialog{
+  width: 575px;
+}
+.cancel-desc{
+  font-size: 24px;
+  line-height: 35px;
+  color: rgba(102, 102, 102, 1);
+  width: 495px;
+  margin: 30px auto 0;
+}
 </style>
