@@ -77,11 +77,26 @@ const ChangeWaterProperty = (resolve) =>{
     resolve(module)
   })
 }
+const ApplyCancle = (resolve) =>{
+  import('../pages/invoice/applyCancle/applyCancle.vue').then(module =>{
+    resolve(module)
+  })
+}
+const Burst = (resolve) =>{
+  import('../pages/burst/burst.vue').then(module =>{
+    resolve(module)
+  })
+}
+const AddBurst = (resolve) =>{
+  import('../pages/burst/addBurst/addBurst.vue').then(module =>{
+    resolve(module)
+  })
+}
 export default new Router({
   routes: [
    {		
       path:"/test",
-      component:ChangeWaterProperty
+      component:ApplyCancle
     },{
       path: '/',
       component: App
@@ -134,6 +149,14 @@ export default new Router({
           component: ContractList
         }
       ]
+    },
+    {
+      path: '/burst',
+      component: Burst      
+    },
+    {
+      path: '/addBurst',
+      component: AddBurst      
     }
   ]
 })

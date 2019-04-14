@@ -2,6 +2,7 @@
   <div class="u-header">
     <i @click="goPrev" class="u-arrow-icon"></i>
     {{title}}
+    <slot></slot>    
   </div>
 </template>
 <script>
