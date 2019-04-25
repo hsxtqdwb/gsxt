@@ -11,12 +11,20 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/connect':{
-        target:'https://open.weixin.qq.com/connect',
-        changeOrigin:true,
+      '/connect': {
+        target: 'https://open.weixin.qq.com/connect',
+        changeOrigin: true,
         pathRewrite: {
           '^/connect': ''
-      }
+        },
+
+      },
+      '/sw': {
+        target: "http://www.cyszls.com:81/sw",
+        changeOrigin: true,
+        pathRewrite: {
+          '^/sw': ''
+        },
       }
     },
 
@@ -28,7 +36,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */
