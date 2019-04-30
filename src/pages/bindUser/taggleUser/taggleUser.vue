@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import PageHead from "../../components/pageHead/pageHead";
+import PageHead from "../../../components/pageHead/pageHead";
 import { SwipeCell, CellGroup, Cell } from "vant";
 import Vue from "vue";
 Vue.use(SwipeCell);

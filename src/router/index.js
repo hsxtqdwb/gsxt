@@ -28,7 +28,12 @@ const WaterAmount = (resolve) => {
   })
 }
 const TaggleUser = (resolve) => {
-  import('../pages/taggleUser/taggleUser.vue').then(module => {
+  import('../pages/bindUser/taggleUser/taggleUser.vue').then(module => {
+    resolve(module)
+  })
+}
+const bindUser = (resolve) => {
+  import('../pages/bindUser/bindUser.vue').then(module => {
     resolve(module)
   })
 }
