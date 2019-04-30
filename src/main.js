@@ -5,10 +5,7 @@ import App from 'pages/wrap/index'
 import router from './router'
 import FastClick from 'fastclick'
 import Http from './utils/axios'
-<<<<<<< HEAD
 // import axios from 'axios'
-=======
->>>>>>> 5e17b472d31423823e98dfbe0bc96a4c7efb6a35
 import wx from 'weixin-js-sdk'
 import 'lib-flexible'
 
