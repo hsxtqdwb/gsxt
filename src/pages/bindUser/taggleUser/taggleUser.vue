@@ -31,6 +31,15 @@ Vue.use(SwipeCell);
 Vue.use(CellGroup);
 Vue.use(Cell);
 export default {
+  mounted(){
+    console.log(this.http)
+    this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10003&grantcode=88888888`,{OPEN_ID:"1215451121215145501575242GHN"}).then(res=>{
+      if(res.invokeResultCode==='000'){
+        this.userData = res.result
+        console.log(res.result)
+      }
+    })
+  },
   components: {
     PageHead
   }

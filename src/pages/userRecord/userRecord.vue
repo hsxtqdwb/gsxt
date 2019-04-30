@@ -11,44 +11,44 @@
       <div class="r-content">
         <div class="r-left">户名</div>
         <div class="r-right">
-          <div>01000030</div>
+          <div>{{userData&&userData.USER_NO}}</div>
           <i class="r-arrow"></i>
         </div>
       </div>
       <div class="r-content">
         <div class="r-left">用户名称</div>
         <div class="r-right">
-          01000030
+          {{userData&&userData.NAME}}
         </div>
       </div>
        <div class="r-content">
         <div class="r-left">地址</div>
         <div class="r-right">
-          01000030
+          {{userData&&userData.ADDRESS}}
         </div>
       </div>
        <div class="r-content">
         <div class="r-left">性质</div>
         <div class="r-right">
-          01000030
+          {{userData&&userData.WATER_NATURE}}
         </div>
       </div>
        <div class="r-content">
         <div class="r-left">电话</div>
         <div class="r-right">
-          01000030
+          {{userData&&userData.PHONE}}
         </div>
       </div>
        <div class="r-content">
         <div class="r-left">口径</div>
         <div class="r-right">
-          01000030
+          {{userData&&userData.CALIBER}}
         </div>
       </div>
        <div class="r-content">
         <div class="r-left">大小表</div>
         <div class="r-right">
-          01000030
+          {{userData&&userData.METER_TYPE}}
         </div>
       </div>
     </div>
@@ -57,6 +57,21 @@
 <script>
 import PageHead from "components/pageHead/pageHead";
 export default {
+  data(){
+    return{
+      userData:{
+
+      }
+    }
+  },
+  mounted(){
+    this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10009&grantcode=88888888`,{OPEN_ID:'1215451121215145501575242GHN'})
+    .then(res=>{
+      if(res.invokeResultCode === '000'){
+        this.userData = res.result
+      }
+    })
+  },
   components: {
     PageHead
   }

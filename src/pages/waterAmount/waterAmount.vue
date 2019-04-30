@@ -25,6 +25,12 @@
 <script>
 import PageHead from "components/pageHead/pageHead";
 export default {
+  mounted(){
+    this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10010&grantcode=88888888`,{PAGE_SIZE:10,CURRENT_PAGE:1,USER_NO:'0244W',OPEN_ID:'1215451121215145501575242GHN'})
+      .then(res =>{
+        console.log(res)
+      })
+  },
   components: {
     PageHead
   }

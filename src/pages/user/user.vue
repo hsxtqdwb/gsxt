@@ -10,20 +10,20 @@
     <div class="u-content">
       <div class="u-left">户名</div>
       <div class="u-right">
-        <div>01000030</div>
+        <div>{{userData.USER_NO}}</div>
         <i class="u-arrow"></i>
       </div>
     </div>
     <div class="u-content">
       <div class="u-left">用户名称</div>
       <div class="u-right mr-37">
-        <div>01000030</div>
+        <div>{{userData.NAME}}</div>
       </div>
     </div>
     <div class="u-content">
       <div class="u-left">地址</div>
       <div class="u-right mr-37">
-        <div>01000030</div>
+        <div>{{userData.ADDRESS}}</div>
       </div>
     </div>
     <div class="u-content">
@@ -32,7 +32,7 @@
         <i @click="taggleModal(true)" class="help"></i>
       </div>
       <div class="u-right mr-37">
-        <div>01000030</div>
+        <div>{{userData.ACCOUNT_AMOUNT}}</div>
       </div>
     </div>
     <div class="u-btn">立即缴费</div>
@@ -61,8 +61,17 @@ import Help from "../../components/help/help";
 export default {
   data() {
     return {
-      visible: false
+      visible: false,
+      userData:{}
     };
+  },
+  mounted(){
+    this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10006&grantcode=88888888`,{OPEN_ID:"1215451121215145501575242GHN"}).then(res=>{
+      if(res.invokeResultCode==='000'){
+        this.userData = res.result
+        console.log(res.result)
+      }
+    })
   },
   methods: {
     taggleModal(isShow) {
