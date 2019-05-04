@@ -21,12 +21,6 @@ const request = (url,type,option,config) =>{
 }
 
 class Http  {
-<<<<<<< HEAD
-=======
-    constructor(){
-
-    }
->>>>>>> 5e17b472d31423823e98dfbe0bc96a4c7efb6a35
     get(url,option){
         return new Promise((resolve,reject) => {
             request(url,'GET',option).then(res=>resolve(res))

@@ -2,13 +2,13 @@
   <div id="changeInfo">
     <page-head title="业务办理"></page-head>
     <van-tabs v-model="active" swipeable animated>
-      <van-tab title="申请签约" id="1">
+      <van-tab title="申请变更" id="1">
         <apply-sign></apply-sign>
       </van-tab>
-      <van-tab title="变更审核" id="1">
+      <van-tab title="变更审核" id="2">
         <change-auditing></change-auditing>
       </van-tab>
-      <van-tab title="变更列表" id="1">
+      <van-tab title="变更列表" id="3">
         <change-contract></change-contract>
       </van-tab>
     </van-tabs>

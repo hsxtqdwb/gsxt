@@ -82,6 +82,21 @@ const ChangeWaterProperty = (resolve) =>{
     resolve(module)
   })
 }
+const ChangeAuditing = (resolve) =>{
+  import('../pages/changeWaterProperty/changeAuditing/').then(module=>{
+    resolve(module)
+  })
+}
+const ChangeList = (resolve) =>{
+  import('../pages/changeWaterProperty/changeList/index.vue').then(module =>{
+    resolve(module)
+  })
+}
+const Management = (resolve) =>{
+  import('../pages/management/management.vue').then(module =>{
+    resolve(module)
+  })
+}
 const ApplyCancle = (resolve) =>{
   import('../pages/invoice/applyCancle/applyCancle.vue').then(module =>{
     resolve(module)
@@ -94,6 +109,11 @@ const Burst = (resolve) =>{
 }
 const AddBurst = (resolve) =>{
   import('../pages/burst/addBurst/addBurst.vue').then(module =>{
+    resolve(module)
+  })
+}
+const Presentation = (resolve) =>{
+  import('../pages/presentation').then(module =>{
     resolve(module)
   })
 }
@@ -139,6 +159,10 @@ export default new Router({
       component: InvoiceMsg
     },
     {
+      path: '/management',
+      component: Management
+    },
+    {
       path: '/business',
       component: Business,
       children: [{
@@ -156,12 +180,30 @@ export default new Router({
       ]
     },
     {
+      path: '/changeWaterProperty',
+      component: ChangeWaterProperty,
+      children: [
+        {
+          path: 'changeAuditing',
+          component: ChangeAuditing
+        },
+        {
+          path: 'changeList',
+          component: ChangeList
+        }
+      ]
+    },
+    {
       path: '/burst',
       component: Burst      
     },
     {
       path: '/addBurst',
       component: AddBurst      
+    },
+    {
+      path: '/presentation',
+      component: Presentation      
     }
   ]
 })

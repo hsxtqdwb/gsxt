@@ -33,6 +33,8 @@ waterAmount 水费账单
 waterPice 水价表准
 stopWater 停水通知
 userRecord 个人档案
+management 业务办理
+presentation 水质报告
 
 #component
 step 步骤组件

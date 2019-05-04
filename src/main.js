@@ -23,12 +23,9 @@ if ('addEventListener' in document) {
 // axios.get(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect`)
 
 
-<<<<<<< HEAD
 // axios.get(`/connect/oauth2/authorize?appid=wx88a319f29c9a7c51&redirect_url=http://192.168.0.101&response_type=code&scope=snsapi_userinfo#wechat_redirect`).then(res =>{
 //   alter(res)
 // })
-=======
->>>>>>> 5e17b472d31423823e98dfbe0bc96a4c7efb6a35
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
