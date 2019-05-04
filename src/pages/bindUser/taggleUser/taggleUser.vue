@@ -7,15 +7,11 @@
         <van-swipe-cell :right-width="113">
           <van-cell-group>
             <!-- <van-cell title="0100000" />
-             <van-cell title="深圳******局"/> -->
-             <div class="u-list-content">
-               <div>
-                  0100000
-               </div>
-               <div>
-                  深圳******局
-               </div>
-             </div>
+            <van-cell title="深圳******局"/>-->
+            <div class="u-list-content">
+              <div>0100000</div>
+              <div>深圳******局</div>
+            </div>
           </van-cell-group>
           <span slot="right">删除</span>
         </van-swipe-cell>
@@ -31,14 +27,19 @@ Vue.use(SwipeCell);
 Vue.use(CellGroup);
 Vue.use(Cell);
 export default {
-  mounted(){
-    console.log(this.http)
-    this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10003&grantcode=88888888`,{OPEN_ID:"1215451121215145501575242GHN"}).then(res=>{
-      if(res.invokeResultCode==='000'){
-        this.userData = res.result
-        console.log(res.result)
-      }
-    })
+  mounted() {
+    console.log(this.http);
+    this.http
+      .get(
+        `/sw/metadata/DataSerController/getdata.do?servicecode=10003&grantcode=88888888`,
+        { OPEN_ID: "1215451121215145501575242GHN" }
+      )
+      .then(res => {
+        if (res.invokeResultCode === "000") {
+          this.userData = res.result;
+          console.log(res.result);
+        }
+      });
   },
   components: {
     PageHead
@@ -94,7 +95,7 @@ export default {
     font-size: 28px;
     width: 177px;
   }
-  & /deep/ .van-cell{
+  & /deep/ .van-cell {
     padding: 0 35px;
   }
 }

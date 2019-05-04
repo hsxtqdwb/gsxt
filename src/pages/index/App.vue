@@ -17,87 +17,87 @@
     </div>
     <div class="i_content">
       <!-- <div> -->
-        <div @click="getUrl('/userrecord')" class="i_nav_list">
-          <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-1.png" alt="">
-          </div>
-          <div class="i_list_desc">
-            <p class="i_desc_title">我的档案</p>
-            <p class="i_desc_info">个人信息登记</p>
-          </div>
+      <div @click="getUrl('/userrecord')" class="i_nav_list">
+        <div class="i_list_icon">
+          <img src="../../assets/images/index/icon-1.png" alt>
         </div>
-        <div @click="getUrl('/wateramount')" class="i_nav_list">
-          <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-2.png" alt="">
-          </div>
-          <div class="i_list_desc">
-            <p class="i_desc_title">水费账单</p>
-            <p class="i_desc_info">了解当月账单</p>
-          </div>
+        <div class="i_list_desc">
+          <p class="i_desc_title">我的档案</p>
+          <p class="i_desc_info">个人信息登记</p>
         </div>
-        <div class="i_nav_list" @click="getUrl('/business')">
-          <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-3.png" alt="">
-          </div>
-          <div class="i_list_desc">
-            <p class="i_desc_title">业务办理</p>
-            <p class="i_desc_info">快速办理</p>
-          </div>
+      </div>
+      <div @click="getUrl('/wateramount')" class="i_nav_list">
+        <div class="i_list_icon">
+          <img src="../../assets/images/index/icon-2.png" alt>
         </div>
-        <div class="i_nav_list">
-          <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-4.png" alt="">
-          </div>
-          <div class="i_list_desc">
-            <p class="i_desc_title">停水通知</p>
-            <p class="i_desc_info">个人信息登记</p>
-          </div>
+        <div class="i_list_desc">
+          <p class="i_desc_title">水费账单</p>
+          <p class="i_desc_info">了解当月账单</p>
         </div>
-        <div class="i_nav_list">
-          <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-5.png" alt="">
-          </div>
-          <div class="i_list_desc">
-            <p class="i_desc_title">水价标准</p>
-            <p class="i_desc_info">个人信息登记</p>
-          </div>
+      </div>
+      <div class="i_nav_list" @click="getUrl('/management')">
+        <div class="i_list_icon">
+          <img src="../../assets/images/index/icon-3.png" alt>
         </div>
-        <div class="i_nav_list">
-          <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-6.png" alt="">
-          </div>
-          <div class="i_list_desc">
-            <p class="i_desc_title">发票管家</p>
-            <p class="i_desc_info">个人信息登记</p>
-          </div>
+        <div class="i_list_desc">
+          <p class="i_desc_title">业务办理</p>
+          <p class="i_desc_info">快速办理</p>
         </div>
-        <div class="i_nav_list" @click="getUrl('/burst')">
-          <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-7.png" alt="">
-          </div>
-          <div class="i_list_desc">
-            <p class="i_desc_title">报漏举报</p>
-            <p class="i_desc_info">个人信息登记</p>
-          </div>
+      </div>
+      <div @click="getUrl('/stopWater')" class="i_nav_list">
+        <div class="i_list_icon">
+          <img src="../../assets/images/index/icon-4.png" alt>
         </div>
-        <div class="i_nav_list" @click="getUrl('/taggleuser')">
-          <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-8.png" alt="">
-          </div>
-          <div class="i_list_desc">
-            <p class="i_desc_title">绑定用户</p>
-            <p class="i_desc_info">便于操作</p>
-          </div>
+        <div class="i_list_desc">
+          <p class="i_desc_title">停水通知</p>
+          <p class="i_desc_info">个人信息登记</p>
         </div>
-        <div class="i_nav_list">
-          <div class="i_list_icon">
-            <img src="../../assets/images/index/icon-9.png" alt="">
-          </div>
-          <div class="i_list_desc">
-            <p class="i_desc_title">水质报告</p>
-            <p class="i_desc_info">个人信息登记</p>
-          </div>
+      </div>
+      <div @click="getUrl('/waterPrice')" class="i_nav_list">
+        <div class="i_list_icon">
+          <img src="../../assets/images/index/icon-5.png" alt>
         </div>
+        <div class="i_list_desc">
+          <p class="i_desc_title">水价标准</p>
+          <p class="i_desc_info">个人信息登记</p>
+        </div>
+      </div>
+      <div @click="getUrl('/invoiceMsg')" class="i_nav_list">
+        <div class="i_list_icon">
+          <img src="../../assets/images/index/icon-6.png" alt>
+        </div>
+        <div class="i_list_desc">
+          <p class="i_desc_title">发票管家</p>
+          <p class="i_desc_info">个人信息登记</p>
+        </div>
+      </div>
+      <div class="i_nav_list" @click="getUrl('/burst')">
+        <div class="i_list_icon">
+          <img src="../../assets/images/index/icon-7.png" alt>
+        </div>
+        <div class="i_list_desc">
+          <p class="i_desc_title">报漏举报</p>
+          <p class="i_desc_info">个人信息登记</p>
+        </div>
+      </div>
+      <div class="i_nav_list" @click="getUrl('/taggleuser')">
+        <div class="i_list_icon">
+          <img src="../../assets/images/index/icon-8.png" alt>
+        </div>
+        <div class="i_list_desc">
+          <p class="i_desc_title">绑定用户</p>
+          <p class="i_desc_info">便于操作</p>
+        </div>
+      </div>
+      <div @click="getUrl('/presentation')" class="i_nav_list">
+        <div class="i_list_icon">
+          <img src="../../assets/images/index/icon-9.png" alt>
+        </div>
+        <div class="i_list_desc">
+          <p class="i_desc_title">水质报告</p>
+          <p class="i_desc_info">个人信息登记</p>
+        </div>
+      </div>
       <!-- </div> -->
     </div>
   </div>
@@ -106,9 +106,9 @@
 <script>
 export default {
   name: "App",
-  methods:{
-    getUrl(url){
-        this.$router.push(url)
+  methods: {
+    getUrl(url) {
+      this.$router.push(url);
     }
   }
 };
@@ -193,29 +193,29 @@ export default {
     align-items: center;
     height: 160px;
     box-sizing: border-box;
-    .i_list_icon{
+    .i_list_icon {
       width: 70px;
       height: 70px;
       display: flex;
       justify-content: center;
       align-items: center;
-      img{
+      img {
         max-width: 100%;
         max-height: 100%;
       }
     }
     .i_list_desc {
-      .i_desc_title{
+      .i_desc_title {
         color: #333;
         font-size: 28px;
       }
-      .i_desc_info{
+      .i_desc_info {
         margin-top: 15px;
         font-size: 24px;
         color: #999;
       }
     }
-    &:nth-of-type(2n-1)::after{
+    &:nth-of-type(2n-1)::after {
       content: "";
       display: block;
       position: absolute;
@@ -225,11 +225,12 @@ export default {
       width: 1px;
       background: rgba(238, 238, 238, 1);
     }
-    &:nth-of-type(1)::before,&:nth-of-type(2)::before{
+    &:nth-of-type(1)::before,
+    &:nth-of-type(2)::before {
       width: 0;
       height: 0;
     }
-    &::before{
+    &::before {
       content: "";
       display: block;
       position: absolute;

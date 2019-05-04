@@ -4,10 +4,10 @@
     <van-tabs v-model="active" swipeable animated>
       <van-tab title="申请变更" id="1">
       </van-tab>
-      <van-tab title="审核列表" id="1">
+      <van-tab title="审核列表" id="2">
         <auditing-sign></auditing-sign>
       </van-tab>
-      <van-tab title="变更列表" id="1">
+      <van-tab title="变更列表" id="3">
           <change-list></change-list>
       </van-tab>
     </van-tabs>
@@ -18,7 +18,7 @@ import Vue from "vue";
 import { Tab, Tabs } from "vant";
 import PageHead from "../../components/pageHead/pageHead";
 import AuditingSign from "./changeAuditing/";
-import ChangeList from './changeList/changeList'
+import ChangeList from './changeList/'
 Vue.use(Tab).use(Tabs);
 export default {
   data() {
