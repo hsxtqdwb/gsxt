@@ -11,6 +11,7 @@ import 'lib-flexible'
 
 Vue.prototype.$http = new Http()
 import './assets/css/reset.css'
+import { setItem } from './utils';
 const appid = 'wx88a319f29c9a7c51'
 const redirect_uri = 'http://192.168.0.101'
 Vue.config.productionTip = false;
@@ -20,6 +21,8 @@ if ('addEventListener' in document) {
       FastClick.attach(document.body);
   }, false);
 }
+setItem('OPEN_ID','oB4nYjnoHhuWrPVi2pYLuPjnCaU0')
+setItem('USER_NO','TEST0001')
 // axios.get(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect`)
 
 

@@ -11,6 +11,7 @@
                     <p class="apply-content-p">联系人</p>
                     <p class="apply-content-value"> 
                         <van-field
+                            v-model="LINK_MAN"
                             placeholder="请输入真实姓名"
                         ></van-field>   
                     </p>
@@ -21,6 +22,7 @@
                     <p class="apply-content-p">手机号码</p>
                     <p class="apply-content-value"> 
                         <van-field
+                            v-model="PHONE"
                             placeholder="请输入手机号码"
                         ></van-field> 
                     </p>
@@ -31,6 +33,7 @@
                     <p class="apply-content-p">地址</p>
                     <p class="apply-content-value"> 
                          <van-field
+                            v-model="ADDRESS"
                             placeholder="请输入真实地址"
                         ></van-field> 
                     </p>
@@ -39,14 +42,14 @@
             <div class="apply-content">
                 <div class="apply-content-list">
                     <p class="apply-content-p">类型</p>
-                    <p class="apply-content-value"> 
-                         <van-button slot="button" size="small">
-                             类型
-                         </van-button>
-                         <van-button slot="button" size="small">
-                             类型
-                         </van-button>
-                    </p>
+                    <div class="apply-content-value apply-content-type"> 
+                         <div @click="chooseType(0,$event)" class="type active">
+                            报漏
+                         </div>
+                         <div @click="chooseType(1,$event)" class="type" >
+                            举报
+                         </div>
+                    </div>
                 </div>
             </div>
             <div class="apply-content-title">
@@ -57,6 +60,7 @@
                     <p class="apply-content-p">问题描述</p>
                     <p class="apply-content-value"> 
                         <van-field
+                            v-model="PROBLEM_DESC"
                             type="textarea"
                             placeholder="问题描述"
                             autosize
@@ -73,7 +77,7 @@
                 <van-icon name="photograph" />
             </van-uploader>
         </div>
-        <div class="sub-btn">
+        <div @click="submitInfo" class="sub-btn">
             提交信息
         </div>
     </div>
@@ -82,14 +86,60 @@
 import PageHead from '../../../components/pageHead/pageHead'
 import Vue from 'vue'
 import { Field,Button,Icon,Uploader } from 'vant';
+import { getItem, hasClass, addClass } from '../../../utils';
 Vue.use(Field).use(Button).use(Uploader).use(Icon)
 export default {
+    data(){
+        return{
+            LINK_MAN:'',
+            PHONE:'',
+            ADDRESS:'',
+            PROBLEM_DESC:'',
+            TYPE:0
+        }
+    },
+    methods:{
+        chooseType(active,ev){
+            if(active!==this.TYPE){
+                this.TYPE = active
+               const nodes = document.querySelectorAll('type')
+               
+               addClass(ev.currentTarget,'active')
+            }
+            // hasClass(ev.currentTarget,'active')
+        },
+        submitInfo(){
+            const OPEN_ID = getItem('OPEN_ID')
+
+        }
+    },
     components:{
         PageHead
     }
 }
 </script>
 <style lang="less" scoped>
+.apply-content-type{
+    display: flex;
+}
+.type{
+    box-sizing: border-box;
+    width: 104px;
+    height:50px;
+    line-height: 50px;
+    border-radius: 10px;
+    color:#D3D3D3;
+    border:1px  solid #D3D3D3;
+    text-align: center;
+    &.active{
+        color: #fff;
+        background: #34B8EF;
+        border:1px solid #34B8EF;
+    }
+    &:nth-of-type(2){
+        margin-left: 20px;
+    }
+}
 .apply-content-wrap{
     background: #fff;
     border-radius: 10px;

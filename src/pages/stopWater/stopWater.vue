@@ -1,13 +1,19 @@
 <template>
   <div id="stopWater">
-    <page-head title="停水通知"></page-head>
-    <div class="stopWater-msg" v-for="(item,index) in msg" :key="index">
-      <div class="stopWater-msg-top">
-        <div class="stopWater-msg-title">{{item.title}}</div>
-        <div class="stopWater-msg-time">{{item.time}}</div>
-      </div>
-      <div class="stopWater-msg-bottom">
-        <p>{{item.detail}}</p>
+    <page-head class="headN" title="停水通知"></page-head>
+    <div class="scroll-wrapper">
+      <div class="scroll-wrapp">
+        <template v-if="msg.length">
+          <div class="stopWater-msg" v-for="(item,index) in msg" :key="index">
+            <div class="stopWater-msg-top">
+              <div class="stopWater-msg-title">{{item.TITLE}}</div>
+              <div class="stopWater-msg-time">{{item.UPDATE_TIME}}</div>
+            </div>
+            <div class="stopWater-msg-bottom">
+              <p>{{item.CONTENTS}}</p>
+            </div>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -15,25 +21,57 @@
 <script>
 import Vue from "vue";
 import PageHead from "../../components/pageHead/pageHead";
+import BScroll from "better-scroll";
 export default {
   data() {
     return {
       selected: "1",
+      page: {
+        CURRENT_PAGE: 1,
+        PAGE_SIZE: 10
+      },
       msg: [
-        {
-          title: "停水通知",
-          time: "2017-03-21",
-          detail:
-            "广东省深圳市宝安区固戍某某某村，由于水厂检修，决定于2018年3月14日早上8点开始停水，于下午五点恢复正常，请做好停水准备。"
-        },
-        {
-          title: "停水通知",
-          time: "2017-03-21",
-          detail:
-            "广东省深圳市宝安区固戍某某某村，由于水厂检修，决定于2018年3月14日早上8点开始停水，于下午五点恢复正常，请做好停水准备。"
-        }
       ]
     };
+  },
+  mounted() {
+    this.getList();
+    this.$nextTick(() => {
+      this.initScroll();
+    });
+  },
+  methods: {
+    initScroll() {
+      const scrollNode = document.querySelector(".scroll-wrapper");
+      const headNode = document.querySelector(".headN");
+      scrollNode.style.height =
+        document.documentElement.clientHeight -
+        headNode.offsetHeight +
+        "px";
+      this.scroll = new BScroll(".scroll-wrapper", {
+        pullUpLoad: true,
+        click: true
+      });
+      this.scroll.on("pullingUp", () => {
+        this.getList();
+      });
+    },
+    getList: function() {
+      this.http
+        .get(
+          `/sw/metadata/DataSerController/getdata.do?servicecode=10020&grantcode=88888888`,
+          {
+            TYPE: 1,
+            CURRENT_PAGE: this.page.CURRENT_PAGE,
+            PAGE_SIZE: this.page.PAGE_SIZE
+          }
+        )
+        .then(res => {
+          if (res.invokeResultCode === "000") {
+            this.msg = [...this.msg, ...res.result.list];
+          }
+        });
+    }
   },
   components: {
     PageHead
@@ -42,6 +80,9 @@ export default {
 </script>
 <style lang="less" scoped>
 #stopWater {
+  .scroll-wrapper{
+    overflow: hidden;
+  }
   .stopWater-msg {
     background: #ffffff;
     margin: 20px 0 10px 0;

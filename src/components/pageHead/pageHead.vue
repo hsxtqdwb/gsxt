@@ -27,6 +27,7 @@ export default {
     background-size: 100% 100%;
 }
 .u-header{
+    z-index:99;
     text-align: center;
     font-size: 32px;
     height: 90px;

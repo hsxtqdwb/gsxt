@@ -56,6 +56,7 @@
 </template>
 <script>
 import PageHead from "components/pageHead/pageHead";
+import {getItem} from '../../utils/index.js'
 export default {
   data(){
     return{
@@ -65,7 +66,9 @@ export default {
     }
   },
   mounted(){
-    this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10009&grantcode=88888888`,{OPEN_ID:'1215451121215145501575242GHN'})
+    const USER_NO = getItem('USER_NO')
+    const OPEN_ID = getItem('OPEN_ID')
+    this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10009&grantcode=88888888`,{OPEN_ID})
     .then(res=>{
       if(res.invokeResultCode === '000'){
         this.userData = res.result
