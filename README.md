@@ -35,7 +35,7 @@ stopWater 停水通知
 userRecord 个人档案
 management 业务办理
 presentation 水质报告
-
+identityVerification 身份验证
 #component
 step 步骤组件
 pageHead 头部组件
