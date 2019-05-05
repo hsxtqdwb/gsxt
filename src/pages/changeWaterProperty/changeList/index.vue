@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="change-wrap">
-        <div class="font-s">通</div>
+      <div class="font-s">通</div>
       <div class="label">变更信息</div>
       <div class="change-list-wrap">
         <div class="change-list">
@@ -80,7 +80,7 @@ export default {};
       }
     }
   }
-  .font-s{
+  .font-s {
     position: absolute;
     right: 0;
     top: 0;

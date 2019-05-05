@@ -22,7 +22,7 @@
         <p class="i_desc_title">一户一表供水协议</p>
         <img class="i_icon_after" src="../../assets/images/management/arr.png" alt>
       </div>
-      <div @click="getUrl('/userrecord')" class="i_nav_list">
+      <div @click="getUrl('/changeInfo')" class="i_nav_list">
         <img class="i_icon_before" src="../../assets/images/management/m2.png" alt>
         <p class="i_desc_title">变更用户名称及过户登记</p>
         <img class="i_icon_after" src="../../assets/images/management/arr.png" alt>

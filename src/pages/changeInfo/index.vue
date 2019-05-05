@@ -2,14 +2,14 @@
   <div id="business">
     <page-head title="业务办理"></page-head>
     <van-tabs v-model="active" swipeable animated>
-      <van-tab  title="申请签约" id="1">
-        <apply-sign></apply-sign>
+      <van-tab title="申请变更" id="1">
+        <change-apply></change-apply>
       </van-tab>
-      <van-tab  title="审核列表" id="2">
+      <van-tab title="变更审核" id="2">
         <auditing-sign></auditing-sign>
       </van-tab>
-      <van-tab  title="签约列表" id="3">
-        <contract-list></contract-list>
+      <van-tab title="变更列表" id="3">
+        <change-list></change-list>
       </van-tab>
     </van-tabs>
   </div>
@@ -18,9 +18,9 @@
 import Vue from "vue";
 import { Tab, Tabs } from "vant";
 import PageHead from "../../components/pageHead/pageHead";
-import ApplySign from "./applySign/applySign";
-import AuditingSign from "./auditingSign/auditingSign";
-import ContractList from "./contractList/contractList";
+import ChangeApply from "./changeinfoAuditing/";
+import AuditingSign from "./changeinfoSign/";
+import ChangeList from "./changeinfoContract/";
 Vue.use(Tab).use(Tabs);
 export default {
   data() {
@@ -30,11 +30,10 @@ export default {
   },
   components: {
     PageHead,
-    ApplySign,
+    ChangeApply,
     AuditingSign,
-    ContractList
-  },
-
+    ChangeList
+  }
 };
 </script>
 <style lang="less" scoped>

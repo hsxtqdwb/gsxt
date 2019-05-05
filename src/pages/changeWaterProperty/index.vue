@@ -3,6 +3,7 @@
     <page-head title="业务办理"></page-head>
     <van-tabs v-model="active" swipeable animated>
       <van-tab title="申请变更" id="1">
+        <change-apply></change-apply>
       </van-tab>
       <van-tab title="审核列表" id="2">
         <auditing-sign></auditing-sign>
@@ -17,6 +18,7 @@
 import Vue from "vue";
 import { Tab, Tabs } from "vant";
 import PageHead from "../../components/pageHead/pageHead";
+import ChangeApply from './changeApply/'
 import AuditingSign from "./changeAuditing/";
 import ChangeList from './changeList/'
 Vue.use(Tab).use(Tabs);
@@ -28,6 +30,7 @@ export default {
   },
   components: {
     PageHead,
+    ChangeApply,
     AuditingSign,
     ChangeList
   }

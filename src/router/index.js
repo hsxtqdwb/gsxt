@@ -66,63 +66,93 @@ const WaterPrice = (resolve) => {
   import('../pages/waterPrice/waterPrice.vue').then(module => {
     resolve(module)
   })
-} 
+}
 const Invoice = (resolve) => {
-  import('../pages/invoice/invoice.vue').then(module =>{
+  import('../pages/invoice/invoice.vue').then(module => {
     resolve(module)
   })
-} 
+}
 const InvoiceMsg = (resolve) => {
   import('../pages/InvoiceMsg/InvoiceMsg.vue').then(module => {
     resolve(module)
   })
 }
-const ChangeWaterProperty = (resolve) =>{
-  import('../pages/changeWaterProperty/index.vue').then(module =>{
+const ChangeInfo = (resolve) => {
+  import('../pages/changeInfo/').then(module => {
     resolve(module)
   })
 }
-const ChangeAuditing = (resolve) =>{
-  import('../pages/changeWaterProperty/changeAuditing/').then(module=>{
+const ChangeinfoAuditing = (resolve) => {
+  import('../pages/ChangeInfo/changeinfoAuditing/').then(module => {
     resolve(module)
   })
 }
-const ChangeList = (resolve) =>{
-  import('../pages/changeWaterProperty/changeList/index.vue').then(module =>{
+const ChangeinfoContract = (resolve) => {
+  import('../pages/ChangeInfo/changeinfoContract/').then(module => {
     resolve(module)
   })
 }
-const Management = (resolve) =>{
-  import('../pages/management/management.vue').then(module =>{
+const ChangeinfoSign = (resolve) => {
+  import('../pages/ChangeInfo/changeinfoSign/').then(module => {
     resolve(module)
   })
 }
-const ApplyCancle = (resolve) =>{
-  import('../pages/invoice/applyCancle/applyCancle.vue').then(module =>{
+const ChangeWaterProperty = (resolve) => {
+  import('../pages/changeWaterProperty/index.vue').then(module => {
     resolve(module)
   })
 }
-const Burst = (resolve) =>{
-  import('../pages/burst/burst.vue').then(module =>{
+const ChangeApply = (resolve) => {
+  import('../pages/changeWaterProperty/changeApply/').then(module => {
     resolve(module)
   })
 }
-const AddBurst = (resolve) =>{
-  import('../pages/burst/addBurst/addBurst.vue').then(module =>{
+const ChangeAuditing = (resolve) => {
+  import('../pages/changeWaterProperty/changeAuditing/').then(module => {
     resolve(module)
   })
 }
-const Presentation = (resolve) =>{
-  import('../pages/presentation').then(module =>{
+const ChangeList = (resolve) => {
+  import('../pages/changeWaterProperty/changeList/index.vue').then(module => {
+    resolve(module)
+  })
+}
+const Management = (resolve) => {
+  import('../pages/management/management.vue').then(module => {
+    resolve(module)
+  })
+}
+const ApplyCancle = (resolve) => {
+  import('../pages/invoice/applyCancle/applyCancle.vue').then(module => {
+    resolve(module)
+  })
+}
+const Burst = (resolve) => {
+  import('../pages/burst/burst.vue').then(module => {
+    resolve(module)
+  })
+}
+const AddBurst = (resolve) => {
+  import('../pages/burst/addBurst/addBurst.vue').then(module => {
+    resolve(module)
+  })
+}
+const Presentation = (resolve) => {
+  import('../pages/presentation').then(module => {
+    resolve(module)
+  })
+}
+const IdentityVerification = (resolve) => {
+  import('../pages/identityVerification').then(module => {
     resolve(module)
   })
 }
 export default new Router({
   routes: [
-   {		
-      path:"/test",
-      component:ApplyCancle
-    },{
+    {
+      path: "/test",
+      component: ApplyCancle
+    }, {
       path: '/',
       component: App
     },
@@ -166,23 +196,27 @@ export default new Router({
       path: '/business',
       component: Business,
       children: [{
-          path: 'applysign',
-          component: ApplySign
-        },
-        {
-          path: 'auditingsign',
-          component: AuditingSign
-        },
-        {
-          path: 'contractList',
-          component: ContractList
-        }
+        path: 'applysign',
+        component: ApplySign
+      },
+      {
+        path: 'auditingsign',
+        component: AuditingSign
+      },
+      {
+        path: 'contractList',
+        component: ContractList
+      }
       ]
     },
     {
       path: '/changeWaterProperty',
       component: ChangeWaterProperty,
       children: [
+        {
+          path: 'changeApply',
+          component: ChangeApply
+        },
         {
           path: 'changeAuditing',
           component: ChangeAuditing
@@ -194,16 +228,38 @@ export default new Router({
       ]
     },
     {
+      path: '/changeInfo',
+      component: ChangeInfo,
+      children: [
+        {
+          path: 'changeinfoAuditing',
+          component: ChangeinfoAuditing
+        },
+        {
+          path: 'changeinfoContract',
+          component: ChangeinfoContract
+        },
+        {
+          path: 'changeinfoSign',
+          component: ChangeinfoSign
+        }
+      ]
+    },
+    {
       path: '/burst',
-      component: Burst      
+      component: Burst
     },
     {
       path: '/addBurst',
-      component: AddBurst      
+      component: AddBurst
     },
     {
       path: '/presentation',
-      component: Presentation      
+      component: Presentation
+    },
+    {
+      path: '/identityVerification',
+      component: IdentityVerification
     }
   ]
 })

@@ -6,7 +6,18 @@
       <van-cell title="用户名" value="深圳市环保质量监督局"/>
     </div>
     <div class="invoice-select">
-      <p @select="onSelect">这里的下拉列表不会写</p>
+      <div>
+        <span>选择时间</span>
+        <img src="../../assets/images/invoice/bottom.png" alt srcset>
+      </div>
+      <div>
+        <span>实缴发票</span>
+        <img src="../../assets/images/invoice/bottom.png" alt srcset>
+      </div>
+      <div>
+        <span>未开票</span>
+        <img src="../../assets/images/invoice/bottom.png" alt srcset>
+      </div>
     </div>
     <div class="invoice-batch">
       <div>
@@ -15,26 +26,30 @@
       </div>
     </div>
     <div class="invoice-list-msg">
-      <div v-for="(item,index) in list" :key="index">
-        <p>
-          <span class="invoice-batch-left">{{item.name}}</span>
-          <span class="invoice-batch-right">{{item.status}}</span>
-        </p>
-        <p>
-          <span class="invoice-batch-left">{{item.time}}</span>
-          <span class="invoice-batch-right">{{item.price}}</span>
-        </p>
-      </div>
+      <van-checkbox-group v-model="result">
+        <van-checkbox v-for="(item, index) in list" :key="index" :name="item">
+          <p class="invoice-list-msg-top">
+            <span class="invoice-batch-left">{{item.name}}</span>
+            <span class="invoice-batch-right">{{item.status}}</span>
+          </p>
+          <p class="invoice-list-msg-bottom">
+            <span class="invoice-batch-left">{{item.time}}</span>
+            <span class="invoice-batch-right">{{item.price}}</span>
+          </p>
+        </van-checkbox>
+      </van-checkbox-group>
     </div>
   </div>
 </template>
 <script>
 import Vue from "vue";
 import PageHead from "../../components/pageHead/pageHead";
-import { Cell, CellGroup, Actionsheet } from "vant";
+import { Cell, CellGroup, Actionsheet, Checkbox, CheckboxGroup } from "vant";
 Vue.use(Cell)
   .use(CellGroup)
-  .use(Actionsheet);
+  .use(Actionsheet)
+  .use(Checkbox)
+  .use(CheckboxGroup);
 export default {
   data() {
     return {
@@ -43,7 +58,7 @@ export default {
           name: "实缴发票",
           status: "未开发票",
           time: "2018年10月",
-          price: "100元"
+          price: "200元"
         },
         {
           name: "实缴发票",
@@ -75,7 +90,8 @@ export default {
           time: "2018年10月",
           price: "100元"
         }
-      ]
+      ],
+      result: []
     };
   },
   components: {
@@ -92,8 +108,8 @@ export default {
 </script>
 <style lang="less" scoped>
 #invoice {
-  background: #ffffff;
   .invoice-user-list {
+    background: #ffffff;
     margin-top: 20px;
     .van-cell {
       padding: 0 35px;
@@ -114,7 +130,26 @@ export default {
       }
     }
   }
+  .invoice-select {
+    margin-top: 20px;
+    background: #ffffff;
+    overflow: hidden;
+    line-height: 73px;
+    div {
+      float: left;
+      width: 33.33%;
+      text-align: center;
+      font-size: 24px;
+      color: #010101;
+      img {
+        vertical-align: middle;
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
   .invoice-batch {
+    background: #ffffff;
     div {
       overflow: hidden;
       line-height: 84px;
@@ -136,9 +171,24 @@ export default {
     }
   }
   .invoice-list-msg {
+    background: #ffffff;
     div {
       border-bottom: solid 1px #eeeeee;
       padding: 17px 35px;
+      /deep/.van-checkbox {
+        padding-right: 0;
+        .van-checkbox__icon {
+          display: none;
+          margin: -30px 10px 0 0;
+          .van-icon {
+            transform: scale(1.6);
+          }
+        }
+        .van-checkbox__label{
+          width:600px;
+        }
+      }
+
       p {
         overflow: hidden;
         line-height: 46px;
