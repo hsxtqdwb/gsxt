@@ -11,14 +11,16 @@ export const hasClass = (node,name)=>{
  return arr.includes(name)
 }
 export const addClass = (node,name)=>{
-  if(!hasClass(name)){
-   const arr = node.className.split(' ').push(name)
+  if(!hasClass(node,name)){
+   const arr = node.className.split(' ')
+   arr.push(name)
    node.className=arr.join(' ')
   }
  }
 
  export const removeClass = (node,name)=>{
-  if(hasClass(name)){
-    removeClass
+  if(hasClass(node,name)){
+    var rex = new RegExp(name)
+    node.className = node.className.replace(rex,'')
   }
  }

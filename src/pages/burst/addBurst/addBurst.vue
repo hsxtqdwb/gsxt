@@ -12,6 +12,7 @@
                     <p class="apply-content-value"> 
                         <van-field
                             v-model="LINK_MAN"
+                            :required="true"
                             placeholder="请输入真实姓名"
                         ></van-field>   
                     </p>
@@ -86,7 +87,7 @@
 import PageHead from '../../../components/pageHead/pageHead'
 import Vue from 'vue'
 import { Field,Button,Icon,Uploader } from 'vant';
-import { getItem, hasClass, addClass } from '../../../utils';
+import { getItem, hasClass, addClass, removeClass } from '../../../utils';
 Vue.use(Field).use(Button).use(Uploader).use(Icon)
 export default {
     data(){
@@ -102,11 +103,12 @@ export default {
         chooseType(active,ev){
             if(active!==this.TYPE){
                 this.TYPE = active
-               const nodes = document.querySelectorAll('type')
-               
-               addClass(ev.currentTarget,'active')
+               const nodes = document.querySelectorAll('.type')
+            Object.keys(nodes).map(item =>{
+                removeClass(nodes[item],'active')
+            })
+               addClass(ev.target,'active')
             }
-            // hasClass(ev.currentTarget,'active')
         },
         submitInfo(){
             const OPEN_ID = getItem('OPEN_ID')
