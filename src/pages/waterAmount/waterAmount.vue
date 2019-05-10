@@ -92,6 +92,9 @@ export default {
         });
     }
   },
+  beforeDestroy(){
+    this.scroll.destroy()
+  },
   components: {
     PageHead
   }

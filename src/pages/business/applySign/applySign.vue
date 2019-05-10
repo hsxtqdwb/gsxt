@@ -82,13 +82,13 @@
         <p>1.您的证件信息需要提交审核才能通过</p>
         <p>2.以下图片上传部分，支持JPG、JEPG、PNG和BMP格式的图片格式，文件大小在1K和5M之间</p>
       </div>
-      <van-uploader :after-read="onRead">
+      <van-uploader :max-size="maxSize" :after-read="(file,detail)=>onRead('one',file,detail)">
         <img :src="sfzz">
       </van-uploader>
-      <van-uploader :after-read="onRead">
+      <van-uploader :max-size="maxSize" :after-read="(file,detail)=>onRead('tow',file,detail)">
         <img :src="sfzf">
       </van-uploader>
-      <van-uploader :after-read="onRead">
+      <van-uploader :max-size="maxSize" :after-read="(file,detail)=>onRead('three',file,detail)">
         <img :src="fcz">
       </van-uploader>
     </div>
@@ -108,6 +108,7 @@ import fcz from "../../../assets/images/up/f.png";
 export default {
   data() {
     return {
+      maxSize:5000000,
       sfzz: sfzz,
       sfzf: sfzf,
       fcz: fcz,
@@ -127,7 +128,6 @@ export default {
   },
   methods: {
     onRead(file) {
-      console.log(file);
       this.sfzz = file.content;
     }
   }

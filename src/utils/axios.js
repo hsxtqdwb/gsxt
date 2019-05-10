@@ -12,7 +12,7 @@ const request = (url,type,option,config) =>{
                    return index!==len?`${current}${item}=${decodeURIComponent(option[item])}&`:`${current}${item}=${decodeURIComponent(option[item])}`
                },`${url}&`)
             case "POST":
-            Object.assign(defaultConfig,{data:option})
+            Object.assign(defaultConfig,{data:option,method:"POST"})
         }
         axios(url,defaultConfig).then(res=>{
             resolve(res.data)

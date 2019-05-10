@@ -18,9 +18,9 @@
 import Vue from "vue";
 import { Tab, Tabs } from "vant";
 import PageHead from "../../components/pageHead/pageHead";
-import ChangeApply from "./changeinfoAuditing/";
-import AuditingSign from "./changeinfoSign/";
-import ChangeList from "./changeinfoContract/";
+import ChangeApply from "./changeinfoAuditing/index"
+import AuditingSign from "./changeinfoSign/index";
+import ChangeList from "./changeinfoContract/index";
 Vue.use(Tab).use(Tabs);
 export default {
   data() {

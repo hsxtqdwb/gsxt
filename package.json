@@ -17,6 +17,7 @@
     "fastclick": "^1.0.6",
     "less": "^3.9.0",
     "lib-flexible": "^0.3.2",
+    "postcss-pxtorem": "^4.0.1",
     "px2rem-loader": "^0.1.9",
     "qs": "^6.7.0",
     "vant": "^1.6.11",

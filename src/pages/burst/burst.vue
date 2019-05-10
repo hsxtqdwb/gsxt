@@ -15,10 +15,40 @@
 </template>
 <script>
 import PageHead from '../../components/pageHead/pageHead'
+import { getItem } from '../../utils';
+import { Toast } from 'vant';
 export default {
+    data(){
+        return{
+            params:{
+                CURRENT_PAGE:1,
+                PAGE_SIZE:15,
+                OPEN_ID:null
+            },
+            burstList:[]
+        }
+    },
+    mounted(){
+        const OPEN_ID = getItem('OPEN_ID')
+        this.params.OPEN_ID = OPEN_ID
+        this.getBurstList()
+    },
     methods:{
         join:function(){
             this.$router.push('/addBurst')
+        },
+        getBurstList(){
+            this.params
+            this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10021&grantcode=88888888`,{
+                ...this.params
+            })
+            .then(res=>{
+                if(res.invokeResultCode === '000'){
+                        this.burstList = [...this.burstList,...res.result.list]
+                }else{
+                    Toast(res.msg)
+                }
+            })
         }
     },
     components:{
