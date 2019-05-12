@@ -21,6 +21,11 @@ Vue.use(Cell)
 export default {
   data() {
     return {
+      params:{
+        CURRENT_PAGE:1,
+        PAGE_SIZE:10,
+        TYPE:3
+      },
       list: [
         {
           title: "某某小区水质量抽查报告",
@@ -44,6 +49,13 @@ export default {
         }
       ]
     };
+  },
+  mounted(){
+    this.http.get(`sw/metadata/DataSerController/getdata.do?servicecode=10020&grantcode=88888888`,{
+      ...this.params
+    }).then(res =>{
+      console.log(res)
+    })
   },
   components: {
     PageHead

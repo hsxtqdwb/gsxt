@@ -13,34 +13,35 @@
                     <P>2019年03月16日</P>
                 </div>
             </div>
-            <div class="auditing-list-wrap">
+            <!-- -->
+            <div class="auditing-list-wrap" v-if="data" >
                 <div class="auditing-list">
                     <div class="auditing-list-l">用户名</div>
-                    <div class="auditing-list-r">0100030</div>
+                    <div class="auditing-list-r">{{data.USER_NO}}</div>
                 </div>
                 <div class="auditing-list">
                     <div class="auditing-list-l">用户名称</div>
-                    <div class="auditing-list-r">0100030</div>
+                    <div class="auditing-list-r">{{data.NAME}}</div>
                 </div>
                 <div class="auditing-list">
                     <div class="auditing-list-l">性质</div>
-                    <div class="auditing-list-r">0100030</div>
+                    <div class="auditing-list-r">{{data.WATER_NATURE}}</div>
                 </div>
                 <div class="auditing-list">
                     <div class="auditing-list-l">地址</div>
-                    <div class="auditing-list-r">0100030</div>
+                    <div class="auditing-list-r">{{data.ADDRESS}}</div>
                 </div>
                 <div class="auditing-list">
                     <div class="auditing-list-l">电话</div>
-                    <div class="auditing-list-r">0100030</div>
+                    <div class="auditing-list-r">{{data.PHONE}}</div>
                 </div>
                 <div class="auditing-list">
                     <div class="auditing-list-l">口径</div>
-                    <div class="auditing-list-r">0100030</div>
+                    <div class="auditing-list-r">{{data.CALIBER}}</div>
                 </div>
                 <div class="auditing-list">
                     <div class="auditing-list-l">大小表</div>
-                    <div class="auditing-list-r">0100030</div>
+                    <div class="auditing-list-r">{{data.METER_TYPE}}</div>
                 </div>
             </div>
         </div>
@@ -48,7 +49,28 @@
 </template>
 <script>
 import Step from 'components/step/step'
+import Vue from 'vue'
+import { getItem } from '../../../utils';
+import { Toast } from 'vant';
+Vue.use(Toast)
 export default {
+    data(){
+        return {
+            data:null
+        }
+    },
+    mounted(){
+        const OPEN_ID =getItem('OPEN_ID')
+        this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10012&grantcode=88888888`,{
+            OPEN_ID
+        }).then(res=>{
+            if(res.invokeResultCode === '000'){
+                this.data=res.result
+            }else{
+                Toast.error(res.msg)
+            }
+        })
+    },
     components:{
         Step
     }

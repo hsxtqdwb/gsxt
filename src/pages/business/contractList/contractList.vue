@@ -1,42 +1,71 @@
 <template>
   <div id="contract-list">
-    <div class="contract-list-wrap">
-      <div class="contract-list-title">通过审核</div>
-      <div class="contract-list-wrapper">
-        <div class="contract-list">
-          <div class="contract-list-l">用户名</div>
-          <div class="contract-list-r">0100030</div>
-        </div>
-        <div class="contract-list">
-          <div class="contract-list-l">用户名称</div>
-          <div class="contract-list-r">0100030</div>
-        </div>
-        <div class="contract-list">
-          <div class="contract-list-l">性质</div>
-          <div class="contract-list-r">0100030</div>
-        </div>
-        <div class="contract-list">
-          <div class="contract-list-l">地址</div>
-          <div class="contract-list-r">0100030</div>
-        </div>
-        <div class="contract-list">
-          <div class="contract-list-l">电话</div>
-          <div class="contract-list-r">0100030</div>
-        </div>
-        <div class="contract-list">
-          <div class="contract-list-l">口径</div>
-          <div class="contract-list-r">0100030</div>
-        </div>
-        <div class="contract-list">
-          <div class="contract-list-l">大小表</div>
-          <div class="contract-list-r">0100030</div>
+    <template v-if="list.length">
+      <div v-for="(item, index) in list" :key="index" class="contract-list-wrap">
+        <div class="contract-list-title">{{item.APPLY_STATUS===0?'待审核':item.APPLY_STATUS===1?"审核通过":"审核不通过"}}</div>
+        <div class="contract-list-wrapper">
+          <div class="contract-list">
+            <div class="contract-list-l">用户名</div>
+            <div class="contract-list-r">{{item.USER_NO}}</div>
+          </div>
+          <div class="contract-list">
+            <div class="contract-list-l">用户名称</div>
+            <div class="contract-list-r">{{item.NAME}}</div>
+          </div>
+          <div class="contract-list">
+            <div class="contract-list-l">性质</div>
+            <div class="contract-list-r">{{item.WATER_NATURE}}</div>
+          </div>
+          <div class="contract-list">
+            <div class="contract-list-l">地址</div>
+            <div class="contract-list-r">{{item.ADDRESS}}</div>
+          </div>
+          <div class="contract-list">
+            <div class="contract-list-l">电话</div>
+            <div class="contract-list-r">{{item.PHONE}}</div>
+          </div>
+          <div class="contract-list">
+            <div class="contract-list-l">口径</div>
+            <div class="contract-list-r">{{item.CALIBER}}</div>
+          </div>
+          <div class="contract-list">
+            <div class="contract-list-l">大小表</div>
+            <div class="contract-list-r">{{item.METER_TYPE}}</div>
+          </div>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 <script>
-export default {};
+import { getItem } from "../../../utils";
+export default {
+  data() {
+    return {
+      params: {
+        CURRENT_PAGE: 1,
+        PAGE_SIZE: 15
+      },
+      list: []
+    };
+  },
+  mounted() {
+    const OPEN_ID = getItem("OPEN_ID");
+    this.http
+      .get(
+        `/sw/metadata/DataSerController/getdata.do?servicecode=10013&grantcode=88888888`,
+        {
+          OPEN_ID,
+          ...this.params
+        }
+      )
+      .then(res => {
+        if (res.invokeResultCode === "000") {
+          this.list = [...this.list, ...res.result.list];
+        }
+      });
+  }
+};
 </script>
 <style lang="less" scoped>
 #contract-list {

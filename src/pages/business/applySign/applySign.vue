@@ -7,30 +7,30 @@
       <div class="apply-sign-tip">
         <p>
           <span>申请签约办理</span>
-          <span>2017年12月12日</span>
+          <span>{{new Date().getFullYear()}}年{{new Date().getMonth()+1}}月{{new Date().getDate()}}日</span>
         </p>
         <p>请认真填写核实下列资料</p>
       </div>
       <p class="apply-sign-title">一户一表供用水协议</p>
       <div class="apply-sing-msg">
         <p>甲方</p>
-        <van-field v-model="value1" placeholder="请输入甲方名称"/>
+        <van-field v-model="params.value1" placeholder="请输入甲方名称"/>
         <p>地址</p>
-        <van-field v-model="value2" placeholder="请输入甲方地址"/>
+        <van-field v-model="params.value2" placeholder="请输入甲方地址"/>
         <p>乙方</p>
-        <van-field v-model="value3" placeholder="请输入用户名称"/>
+        <van-field  v-model="params.NAME" placeholder="请输入用户名称"/>
         <p>地址</p>
-        <van-field v-model="value4" placeholder="请选择地址"/>
+        <van-field v-model="params.ADDRESS" placeholder="请选择地址"/>
         <p>详细地址</p>
-        <van-field v-model="value5" placeholder="请输入您的详细地址"/>
+        <van-field  v-model="params.ADDRESS_DETAIL" placeholder="请输入您的详细地址"/>
         <p>联系人</p>
-        <van-field v-model="value6" placeholder="请输入联系人姓名"/>
+        <van-field  v-model="params.LINK_MAN" placeholder="请输入联系人姓名"/>
         <p>联系电话</p>
-        <van-field v-model="value7" placeholder="请输入您的联系方式"/>
+        <van-field  v-model="params.PHONE" maxLength="11" type="tel" placeholder="请输入您的联系方式"/>
         <p>验证码</p>
-        <van-field v-model="value8" placeholder="请输入您手机收到得验证码"/>
+        <!-- <van-field  v-model="params.value8" placeholder="请输入您手机收到得验证码"/> -->
         <p>身份证号码</p>
-        <van-field v-model="value9" placeholder="请输入您的身份证号码"/>
+        <van-field  v-model="params.ID_CARD_NO" placeholder="请输入您的身份证号码"/>
       </div>
       <div class="apply-sing-content">
         <p>
@@ -83,25 +83,27 @@
         <p>2.以下图片上传部分，支持JPG、JEPG、PNG和BMP格式的图片格式，文件大小在1K和5M之间</p>
       </div>
       <van-uploader :max-size="maxSize" :after-read="(file,detail)=>onRead('one',file,detail)">
-        <img :src="sfzz">
+        <img :src="CARD_POSITIVE_IMAGE?CARD_POSITIVE_IMAGE:require('../../../assets/images/up/f.png')">
       </van-uploader>
       <van-uploader :max-size="maxSize" :after-read="(file,detail)=>onRead('tow',file,detail)">
-        <img :src="sfzf">
+        <img :src="CARD_OPPOSITE_IMAGE?CARD_OPPOSITE_IMAGE:require('../../../assets/images/up/s.png')">
       </van-uploader>
       <van-uploader :max-size="maxSize" :after-read="(file,detail)=>onRead('three',file,detail)">
-        <img :src="fcz">
+        <img :src="PROPERTY_CERT?PROPERTY_CERT:require('../../../assets/images/up/sf.png')">
       </van-uploader>
     </div>
     <div class="apply-sign-save">
-      <input type="button" value="提交审核">
+      <van-button @click="applySign" type="info" size="large">提交审核</van-button>
     </div>
   </div>
 </template>
 <script>
+
 import Vue from "vue";
 import Step from "components/step/step";
-import { Field, Uploader } from "vant";
-Vue.use(Field).use(Uploader);
+import { Field,Toast, Uploader,Button  } from "vant";
+Vue.use(Field).use(Uploader).use(Toast).use(Button );
+import {getItem} from '../../../utils/index.js'
 import sfzz from "../../../assets/images/up/sf.png";
 import sfzf from "../../../assets/images/up/s.png";
 import fcz from "../../../assets/images/up/f.png";
@@ -109,26 +111,102 @@ export default {
   data() {
     return {
       maxSize:5000000,
-      sfzz: sfzz,
-      sfzf: sfzf,
-      fcz: fcz,
-      value1: "",
-      value2: "",
-      value3: "",
-      value4: "",
-      value5: "",
-      value6: "",
-      value7: "",
-      value8: "",
-      value9: ""
+      PROPERTY_CERT: null,
+      CARD_OPPOSITE_IMAGE: null,
+      CARD_POSITIVE_IMAGE: null,
+      params:{
+        value1: "",
+        value2: "",
+        NAME: "",
+        ADDRESS: "",
+        ADDRESS_DETAIL: "",
+        LINK_MAN: "",
+        PHONE: "",
+        value8: "",
+        ID_CARD_NO: ""
+      }
     };
+  },
+  mounted(){
   },
   components: {
     Step
   },
   methods: {
-    onRead(file) {
-      this.sfzz = file.content;
+    applySign(){
+      const {value1,value2,NAME,ADDRESS,ADDRESS_DETAIL,LINK_MAN,PHONE,value8,ID_CARD_NO,} = this.params
+      const {CARD_POSITIVE_IMAGE,CARD_OPPOSITE_IMAGE,PROPERTY_CERT } = this
+      if(!value1){
+          Toast('请输入甲方名称')
+          return
+      }else if(!value2){
+          Toast('请输入甲方地址')
+          return
+      }else if(!NAME){
+          Toast('请输入乙方用户名称')
+          return
+      }else if(!ADDRESS){
+          Toast('请输入乙方地址')
+          return
+      }else if(!ADDRESS_DETAIL){
+          Toast('请输入乙方详细地址')
+          return
+      }else if(!LINK_MAN){
+          Toast('请输入乙方联系人姓名')
+          return
+      }else if(!PHONE){
+          Toast('请输入乙方联系方式')
+          return
+      }else if(!ID_CARD_NO){
+          Toast('请输入身份证号码')
+          return
+      }
+      if(!CARD_POSITIVE_IMAGE||!CARD_OPPOSITE_IMAGE||!PROPERTY_CERT){
+        Toast('请上传证件照')
+        return
+      }
+      const OPEN_ID = getItem('OPEN_ID')
+      this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10012&grantcode=88888888`,{
+        OPEN_ID,
+        NAME,
+        ADDRESS:ADDRESS+ADDRESS_DETAIL,
+        LINK_MAN,
+        PHONE,
+        ID_CARD_NO,
+      }).then(res=>{
+        if(res.invokeResultCode ==='000'){
+          Toast.success(res.msg)
+          this.params={
+            value1: "",
+            value2: "",
+            NAME: "",
+            ADDRESS: "",
+            ADDRESS_DETAIL: "",
+            LINK_MAN: "",
+            PHONE: "",
+            value8: "",
+            ID_CARD_NO: ""
+          }
+            this.PROPERTY_CERT=null
+            this.CARD_OPPOSITE_IMAGE= null
+            this.CARD_POSITIVE_IMAGE=null
+        }else{
+          Toast.error(res.msg)
+        }
+      })
+    },
+    onRead(type,file) {
+      switch(type){
+        case 'one':
+          this.CARD_POSITIVE_IMAGE = file.content;
+          break;
+        case 'tow':
+          this.CARD_OPPOSITE_IMAGE = file.content;
+          break;
+        case 'three':
+          this.PROPERTY_CERT = file.content;
+          break;    
+      }
     }
   }
 };

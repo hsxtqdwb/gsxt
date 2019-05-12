@@ -9,7 +9,7 @@ import Http from './utils/axios'
 import wx from 'weixin-js-sdk'
 import 'lib-flexible'
 
-Vue.prototype.$http = new Http()
+// Vue.prototype.$http = new Http()
 import './assets/css/reset.css'
 import { setItem } from './utils';
 const appid = 'wx88a319f29c9a7c51'

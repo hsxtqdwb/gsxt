@@ -7,10 +7,13 @@ const request = (url,type,option,config) =>{
     return new Promise((resolve,reject) => {
         switch (type) {
             case 'GET':
-            const len = Object.keys(option).length-1
-            url = Object.keys(option).reduce((current,item,index)=>{
-                   return index!==len?`${current}${item}=${decodeURIComponent(option[item])}&`:`${current}${item}=${decodeURIComponent(option[item])}`
-               },`${url}&`)
+                if(option){
+                    const len = Object.keys(option).length-1
+                    url = Object.keys(option).reduce((current,item,index)=>{
+                        return index!==len?`${current}${item}=${decodeURIComponent(option[item])}&`:`${current}${item}=${decodeURIComponent(option[item])}`
+                    },`${url}&`)
+                }
+               break;
             case "POST":
             Object.assign(defaultConfig,{data:option,method:"POST"})
         }
