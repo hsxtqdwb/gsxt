@@ -44,7 +44,14 @@
 </template>
 <script>
 import Step from 'components/step/step'
+import { getItem } from '../../../utils';
 export default {
+    mounted(){
+        const OPEN_ID = getItem('OPEN_ID')
+        this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10018&grantcode=88888888`,{
+            OPEN_ID
+        })
+    },
     components:{
         Step
     }

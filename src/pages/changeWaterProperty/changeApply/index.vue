@@ -215,8 +215,10 @@ export default {
       }
       // TEST0001
       const OPEN_ID = getItem('OPEN_ID')
-      this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10017&grantcode=88888888`,{
+      this.http.post(`/sw/metadata/DataSerController/getdata.do`,{
           OPEN_ID,
+          servicecode:10017,
+          grantcode:88888888,
           ...this.params
       }).then(res=>{
         if(res.invokeResultCode==='000'){
