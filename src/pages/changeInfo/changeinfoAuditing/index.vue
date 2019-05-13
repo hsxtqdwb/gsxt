@@ -7,18 +7,18 @@
       <div class="apply-sign-tip">
         <p>
           <span>变更申请办理</span>
-          <span>2017年12月12日</span>
+          <span>{{new Date().getFullYear()}}年{{new Date().getMonth()+1}}月{{new Date().getDate()}}日</span>
         </p>
         <p>请认真填写核实下列资料</p>
       </div>
       <p class="apply-sign-title">变更前信息</p>
       <div class="apply-sing-msg">
         <p>用户编码</p>
-        <van-field v-model="value1" placeholder="请输入用户编码"/>
+        <van-field :disabled="disable" v-model="value1" placeholder="请输入用户编码"/>
         <p>用户名称</p>
-        <van-field v-model="value2" placeholder="请输入用户名称"/>
+        <van-field :disabled="disable" v-model="value2" placeholder="请输入用户名称"/>
         <p>用户地址</p>
-        <van-field v-model="value3" placeholder="请输入用户地址"/>
+        <van-field :disabled="disable" v-model="value3" placeholder="请输入用户地址"/>
       </div>
       <p class="apply-sign-title">变更后信息</p>
       <div class="apply-sing-msg">
@@ -68,6 +68,7 @@ import fcz from "../../../assets/images/up/f.png";
 export default {
   data() {
     return {
+      disable:true,
       sfzz: sfzz,
       sfzf: sfzf,
       fcz: fcz,

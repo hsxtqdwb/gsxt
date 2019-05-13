@@ -10,7 +10,7 @@
           <p>请耐心等待审核结果</p>
         </div>
         <div class="auditing-brand-time">
-          <P>2019年03月16日</P>
+          <P>{{new Date().getFullYear()}}年{{new Date().getMonth()+1}}{{new Date().getDate()+1}}</P>
         </div>
       </div>
       <!-- <div class="auditing-list-wrap">
@@ -85,6 +85,11 @@
 <script>
 import Step from "components/step/step";
 export default {
+  data(){
+    return {
+      disable:true
+    }
+  },
   components: {
     Step
   }
