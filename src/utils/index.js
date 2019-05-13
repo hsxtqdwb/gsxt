@@ -24,3 +24,14 @@ export const addClass = (node,name)=>{
     node.className = node.className.replace(rex,'')
   }
  }
+ 
+ export const volidateFields = (params,obj)=>{
+    if(typeof params==='object'&&params instanceof Array){
+        return params.every(item=>{
+          if(!item.name){
+            obj.error(item.msg)
+          }
+          return item.name
+        })
+    }
+ }

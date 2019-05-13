@@ -68,6 +68,7 @@ export default {
         )
         .then(res => {
           if (res.invokeResultCode === "000") {
+            this.page.CURRENT_PAGE = this.page.CURRENT_PAGE+1
             this.msg = [...this.msg, ...res.result.list];
           }
         });

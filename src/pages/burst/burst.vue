@@ -1,15 +1,21 @@
 <template>
     <div>
-        <page-head title="暴漏举报">
-            <i @click="join" class="burst-join"></i>
+        <page-head ref="head" title="暴漏举报">
+            <i  @click="join" class="burst-join"></i>
         </page-head>
-        <div class="burst-list-wrap">
-            <div class="burst-list">
-                <div class="burst-list-l">
-                    新闻路水漏
+        <div  class="burst-list-wrap">
+            <div ref="scrollNode" class="scroll-wrapper">
+                <div class="scroll-wrapp">
+                    <template v-if="burstList.length">
+                        <div v-for="item in burstList" :key="item.ID" class="burst-list">
+                            <div class="burst-list-l">
+                                {{item.PROBLEM_DESC}}
+                            </div>
+                            <i class="burst-list-r"></i>
+                        </div>
+                    </template>
                 </div>
-                <i class="burst-list-r"></i>
-            </div>
+            </div>    
         </div>
     </div>
 </template>
@@ -17,12 +23,13 @@
 import PageHead from '../../components/pageHead/pageHead'
 import { getItem } from '../../utils';
 import { Toast } from 'vant';
+import BScroll from "better-scroll";
 export default {
     data(){
         return{
             params:{
-                CURRENT_PAGE:1,
-                PAGE_SIZE:15,
+                CURRENT_PAGE:0,
+                PAGE_SIZE:20,
                 OPEN_ID:null
             },
             burstList:[]
@@ -30,8 +37,20 @@ export default {
     },
     mounted(){
         const OPEN_ID = getItem('OPEN_ID')
+        const {head,scrollNode} = this.$refs
         this.params.OPEN_ID = OPEN_ID
         this.getBurstList()
+        const headHeight = head.$el.offsetHeight
+        scrollNode.style.height = document.documentElement.clientHeight - headHeight +'px'
+        this.scroll = new BScroll(".scroll-wrapper", {
+                pullUpLoad: true,
+                click: true,
+                scrollY:true
+            });
+            this.scroll.on("pullingUp", () => {
+                this.params.CURRENT_PAGE = this.params.CURRENT_PAGE+1
+                this.getBurstList();
+            });
     },
     methods:{
         join:function(){
@@ -44,6 +63,9 @@ export default {
             })
             .then(res=>{
                 if(res.invokeResultCode === '000'){
+                        if(res.length===this.params.PAGE_SIZE){
+                            this.scroll.finishPullUp()
+                        }
                         this.burstList = [...this.burstList,...res.result.list]
                 }else{
                     Toast(res.msg)
