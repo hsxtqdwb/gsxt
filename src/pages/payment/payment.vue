@@ -3,7 +3,7 @@
     <page-head title="充值缴费"></page-head>
     <div class="user">
       <span>用户名</span>
-      <span>深圳市环保质量监督局</span>
+      <span v-if="userData">{{userData.NAME}}</span>
     </div>
     <div class="p">
       <p>尊敬的用户：账户金额是您每个月缴费的实时查询账号，为防止因为欠费关停水阀而无水可用，您可提前预付较多金额在您的账户上，当该账户欠费-50.00元时，我们会自动关闭水阀，敬请留意！</p>
@@ -23,32 +23,135 @@
       <div class="arrears">
         <p>
           你已欠费:
-          <span>1111</span>元
+          <span v-if="userData">{{userData.ACCOUNT_AMOUNT}}</span>元
         </p>
         <p>充值欠费</p>
       </div>
-      <input type="button" class="save" value="立即缴费"/>
+      <div @click="rechargeAmount" class="save">立即缴费</div>
     </div>
-    
   </div>
 </template>
 <script>
-import PageHead from '../../components/pageHead/pageHead'
+import Vue from "vue";
+import PageHead from "../../components/pageHead/pageHead";
+import { getItem } from "../../utils";
+import { Toast } from "vant";
+Vue.use(Toast);
 export default {
-  components:{
+  components: {
     PageHead
   },
   data() {
     return {
       price: [100, 300, 500, 1000],
       aClass: 0,
-      yourPrice: null
+      yourPrice: 100,
+      userData: null,
+      params:null
     };
+  },
+  mounted() {
+    this.getUserData();
   },
   methods: {
     active(i, index) {
       this.aClass = index;
-      console.log(i);
+      this.yourPrice = i;
+    },
+    getUserData() {
+      const OPEN_ID = getItem("OPEN_ID");
+      this.http
+        .get(
+          `/sw/metadata/DataSerController/getdata.do?servicecode=10006&grantcode=88888888`,
+          {
+            OPEN_ID
+          }
+        )
+        .then(res => {
+          if (res.invokeResultCode === "000") {
+            this.userData = res.result;
+          } else {
+            Toast.fail(res.msg);
+          }
+        });
+    },
+    rechargeAmount() {
+      const OPEN_ID = getItem("OPEN_ID");
+      this.http
+        .get(`/sw/wxpay?OPEN_ID=${OPEN_ID}`, {
+          MONEY: this.yourPrice,
+          BODY_DESC: "昌邑市自来水公司"
+        })
+        .then(res => {
+          if (res.success === true) {
+            console.log(wx)
+            this.params = {
+              OPEN_ID,
+              MONEY:this.yourPrice,
+              BODY_DESC:"昌邑市自来水公司"
+            }
+            console.log(res.result)
+            // timestamp times
+            // nonceStr nonce
+            // package packg
+            // signType signType
+            // paySign sign
+            const {
+              times:timeStamp,
+              nonce:nonceStr,
+              packg,
+              signType,
+              sign:paySign,
+              appId
+            } = res.result
+            wx.chooseWXPay(
+              {
+              appId,
+              timeStamp,
+              package:packg,
+              nonceStr,
+              signType,
+              paySign,
+              success:(res)=>{
+                console.log(res)
+              }
+            })
+          } else {
+            Toast.fail("出错");
+          }
+        });
+    },
+    onBridgeReady() {
+      WeixinJSBridge.invoke(
+        "getBrandWCPayRequest",
+        {
+          appId: "wx2421b1c4370ec43b", //公众号名称，由商户传入
+          timeStamp: "1395712654", //时间戳，自1970年以来的秒数
+          nonceStr: "e61463f8efa94090b1f366cccfbbb444", //随机串
+          package: "prepay_id=u802345jgfjsdfgsdg888",
+          signType: "MD5", //微信签名方式：
+          paySign: "70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名
+        },
+        function(res) {
+          if (res.err_msg == "get_brand_wcpay_request:ok") {
+            // 使用以上方式判断前端返回,微信团队郑重提示：
+            //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+
+          }
+        }
+      );
+    },
+    rechargeSuccess(){
+      // const {
+      //   MONEY,
+      //   OPEN_ID,
+      //   BODY_DESC
+      // } = this.params
+      this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10008&grantcode=88888888`,{
+        ...this.params
+      }).then(res=>{
+        console.log(res)
+      })
     }
   }
 };
@@ -64,7 +167,7 @@ export default {
 }
 .payment {
   background: #eeeeee;
-  height:100vh;
+  height: 100vh;
 }
 .user {
   margin-top: 20px;
@@ -82,12 +185,12 @@ export default {
     }
   }
 }
-.p{
-  padding:20px 35px;
-  p{
-    font-size:24px;
-    color:rgba(153,153,153,1);
-    line-height:30px;
+.p {
+  padding: 20px 35px;
+  p {
+    font-size: 24px;
+    color: rgba(153, 153, 153, 1);
+    line-height: 30px;
   }
 }
 .content {
@@ -127,51 +230,55 @@ export default {
     color: #999999;
   }
   .userInput {
-    height:80px;
+    height: 80px;
     width: 620px;
     padding: 0 30px;
     font-size: 24px;
     color: #999999;
-    border:solid 1px #d3d3d3;
-    margin-bottom:30px;
-    border-radius:10px;
-    line-height:80px;
-    outline:none;
+    border: solid 1px #d3d3d3;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    line-height: 80px;
+    outline: none;
     &::placeholder {
       font-size: 24px;
       color: #999999;
     }
   }
   .arrears {
-    border-top:solid 1px #eeeeee;
-    line-height:88px;
-    overflow:hidden;
-    p{
-      color:#333333;
-      font-size:28px;
-      float:left;
-      &:last-of-type{
-        float:right;
-        color:#34B8EF;
+    border-top: solid 1px #eeeeee;
+    line-height: 88px;
+    overflow: hidden;
+    p {
+      color: #333333;
+      font-size: 28px;
+      float: left;
+      &:last-of-type {
+        float: right;
+        color: #34b8ef;
       }
-      span{
-        color:orange;
+      span {
+        color: orange;
       }
     }
   }
-  .save{
-    width:680px;
-    height:90px;
-    background:linear-gradient(90deg,rgba(52,184,239,1),rgba(90,206,251,1));
-    border-radius:5px;
-    font-size:28px;
-    margin:50px 0;
-    color:#ffffff;
-    border-radius:10px;
-    border:none;
-    outline:none;
+  .save {
+    width: 680px;
+    height: 90px;
+    line-height: 90px;
+    background: linear-gradient(
+      90deg,
+      rgba(52, 184, 239, 1),
+      rgba(90, 206, 251, 1)
+    );
+    border-radius: 5px;
+    font-size: 28px;
+    margin: 50px 0;
+    color: #ffffff;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
   }
 }
-
 </style>
 

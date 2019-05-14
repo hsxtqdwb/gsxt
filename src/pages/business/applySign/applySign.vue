@@ -14,9 +14,9 @@
       <p class="apply-sign-title">一户一表供用水协议</p>
       <div class="apply-sing-msg">
         <p>甲方</p>
-        <van-field v-model="params.value1" placeholder="请输入甲方名称"/>
+        <van-field :disabled="true" v-model="value1" placeholder="请输入甲方名称"/>
         <p>地址</p>
-        <van-field v-model="params.value2" placeholder="请输入甲方地址"/>
+        <van-field :disabled="true" v-model="value2" placeholder="请输入甲方地址"/>
         <p>乙方</p>
         <van-field  v-model="params.NAME" placeholder="请输入用户名称"/>
         <p>地址</p>
@@ -114,9 +114,9 @@ export default {
       PROPERTY_CERT: null,
       CARD_OPPOSITE_IMAGE: null,
       CARD_POSITIVE_IMAGE: null,
+      value1: "昌巴市自来水公司",
+      value2: "昌巴市北海路486号",
       params:{
-        value1: "",
-        value2: "",
         NAME: "",
         ADDRESS: "",
         ADDRESS_DETAIL: "",
@@ -134,15 +134,9 @@ export default {
   },
   methods: {
     applySign(){
-      const {value1,value2,NAME,ADDRESS,ADDRESS_DETAIL,LINK_MAN,PHONE,value8,ID_CARD_NO,} = this.params
+      const {NAME,ADDRESS,ADDRESS_DETAIL,LINK_MAN,PHONE,value8,ID_CARD_NO,} = this.params
       const {CARD_POSITIVE_IMAGE,CARD_OPPOSITE_IMAGE,PROPERTY_CERT } = this
-      if(!value1){
-          Toast('请输入甲方名称')
-          return
-      }else if(!value2){
-          Toast('请输入甲方地址')
-          return
-      }else if(!NAME){
+       if(!NAME){
           Toast('请输入乙方用户名称')
           return
       }else if(!ADDRESS){
@@ -166,9 +160,7 @@ export default {
         return
       }
       const OPEN_ID = getItem('OPEN_ID')
-      this.http.post(`/sw/metadata/DataSerController/getdata.do`,{
-        grantcode:88888888,
-        servicecode:10012,
+      this.http.post(`/sw/metadata/DataSerController/getdata.do?servicecode=10012&grantcode=88888888&OPEN_ID=${OPEN_ID}`,{
         OPEN_ID,
         NAME,
         ADDRESS:ADDRESS+ADDRESS_DETAIL,
@@ -179,8 +171,6 @@ export default {
         if(res.invokeResultCode ==='000'){
           Toast.success(res.msg)
           this.params={
-            value1: "",
-            value2: "",
             NAME: "",
             ADDRESS: "",
             ADDRESS_DETAIL: "",

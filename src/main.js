@@ -6,14 +6,12 @@ import router from './router'
 import FastClick from 'fastclick'
 import Http from './utils/axios'
 // import axios from 'axios'
-import wx from 'weixin-js-sdk'
+// import wx from 'weixin-js-sdk'
 import 'lib-flexible'
 
 // Vue.prototype.$http = new Http()
 import './assets/css/reset.css'
 import { setItem } from './utils';
-const appid = 'wx88a319f29c9a7c51'
-const redirect_uri = 'http://192.168.0.101'
 Vue.config.productionTip = false;
 Vue.prototype.http = new Http()
 

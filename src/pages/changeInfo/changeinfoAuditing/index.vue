@@ -12,28 +12,30 @@
         <p>请认真填写核实下列资料</p>
       </div>
       <p class="apply-sign-title">变更前信息</p>
-      <div class="apply-sing-msg">
-        <p>用户编码</p>
-        <van-field :disabled="disable" v-model="value1" placeholder="请输入用户编码"/>
-        <p>用户名称</p>
-        <van-field :disabled="disable" v-model="value2" placeholder="请输入用户名称"/>
-        <p>用户地址</p>
-        <van-field :disabled="disable" v-model="value3" placeholder="请输入用户地址"/>
-      </div>
+      <template v-if="userData">
+        <div class="apply-sing-msg">
+          <p>用户编码</p>
+          <van-field :disabled="disable" v-model="userData.USER_NO" placeholder="请输入用户编码"/>
+          <p>用户名称</p>
+          <van-field :disabled="disable" v-model="userData.NAME" placeholder="请输入用户名称"/>
+          <p>用户地址</p>
+          <van-field :disabled="disable" v-model="userData.ADDRESS" placeholder="请输入用户地址"/>
+        </div>
+      </template>
       <p class="apply-sign-title">变更后信息</p>
       <div class="apply-sing-msg">
         <p>用户名称</p>
-        <van-field v-model="value4" placeholder="请输入用户名称"/>
+        <van-field v-model="params.CHANGE_USER_NAME" placeholder="请输入用户名称"/>
         <p>联系人</p>
-        <van-field v-model="value5" placeholder="请输入真实姓名"/>
+        <van-field v-model="params.CHANGE_LINK_MAN" placeholder="请输入真实姓名"/>
         <p>联系人电话</p>
-        <van-field v-model="value6" placeholder="请输入手机号（非常重要用于各项身份鉴权）"/>
-        <p>验证码</p>
-        <van-field v-model="value7" placeholder="请输入您手机收到得验证码"/>
+        <van-field maxLength="11" v-model="params.CHANGE_PHONE" placeholder="请输入手机号（非常重要用于各项身份鉴权）"/>
+        <!-- <p>验证码</p>
+        <van-field v-model="value7" placeholder="请输入您手机收到得验证码"/> -->
         <p>身份证号码</p>
-        <van-field v-model="value8" placeholder="请输入您的身份证号码"/>
+        <van-field maxLength="18" v-model="params.CHANGE_ID_CARD_NO" placeholder="请输入您的身份证号码"/>
         <p>申请理由</p>
-        <van-field v-model="value9" placeholder="请输入申请理由"/>
+        <van-field v-model="params.APPLY_REASON" placeholder="请输入申请理由"/>
       </div>
     </div>
     <div class="apply-sign-wrap">
@@ -42,54 +44,122 @@
         <p>1.您的证件信息需要提交审核才能通过</p>
         <p>2.以下图片上传部分，支持JPG、JEPG、PNG和BMP格式的图片格式，文件大小在1K和5M之间</p>
       </div>
-      <van-uploader :after-read="onRead">
-        <img :src="sfzz">
+      <van-uploader :after-read="(file)=>onRead('one',file)">
+        <img :src="params.PROPERTY_CERT?params.PROPERTY_CERT:require('../../../assets/images/up/f.png')">
       </van-uploader>
-      <van-uploader :after-read="onRead">
-        <img :src="sfzf">
+      <van-uploader :after-read="(file)=>onRead('tow',file)">
+        <img :src="params.CARD_OPPOSITE_IMAGE?params.CARD_OPPOSITE_IMAGE:require('../../../assets/images/up/s.png')">
       </van-uploader>
-      <van-uploader :after-read="onRead">
-        <img :src="fcz">
+      <van-uploader :after-read="(file)=>onRead('three',file)">
+        <img :src="params.CARD_POSITIVE_IMAGE?params.CARD_POSITIVE_IMAGE:require('../../../assets/images/up/sf.png')">
       </van-uploader>
     </div>
-    <div class="apply-sign-save">
-      <input type="button" value="提交审核">
+    <div @click="applyChange" class="apply-sign-save">
+      提交审核
     </div>
   </div>
 </template>
 <script>
 import Vue from "vue";
 import Step from "components/step/step";
-import { Field, Uploader } from "vant";
-Vue.use(Field).use(Uploader);
+import { Field, Uploader, Toast } from "vant";
+Vue.use(Field).use(Uploader).use(Toast);
 import sfzz from "../../../assets/images/up/sf.png";
 import sfzf from "../../../assets/images/up/s.png";
 import fcz from "../../../assets/images/up/f.png";
+import { getItem } from '../../../utils';
 export default {
   data() {
     return {
+      userData:null,
       disable:true,
-      sfzz: sfzz,
-      sfzf: sfzf,
-      fcz: fcz,
-      value1: "",
-      value2: "",
-      value3: "",
-      value4: "",
-      value5: "",
-      value6: "",
-      value7: "",
-      value8: "",
-      value9: ""
+      params:{
+        APPLY_REASON:"",
+        CHANGE_USER_NAME:"",
+        CHANGE_LINK_MAN:"",
+        CHANGE_PHONE:"",
+        CHANGE_ID_CARD_NO:"",
+        PROPERTY_CERT:null,
+        CARD_OPPOSITE_IMAGE:null,
+        CARD_POSITIVE_IMAGE:null,
+      }
     };
+  },
+  mounted(){
+    this.getUserInfo()
   },
   components: {
     Step
   },
   methods: {
-    onRead(file) {
-      console.log(file);
-      this.sfzz = file.content;
+    applyChange(){
+      const {APPLY_REASON,
+          CHANGE_USER_NAME,
+          CHANGE_LINK_MAN,
+          CHANGE_PHONE,
+          CHANGE_ID_CARD_NO,
+          PROPERTY_CERT,
+          CARD_OPPOSITE_IMAGE,
+          CARD_POSITIVE_IMAGE,} = this.params
+          if(!CHANGE_USER_NAME){
+            Toast('请输入变更后的用户名称')
+            return
+          } else if(!CHANGE_LINK_MAN){
+            Toast('请输入联系人')
+            return
+          } else if(!CHANGE_PHONE){
+            Toast('请输入联系电话')
+            return
+          } else if(!PROPERTY_CERT){
+            Toast('请上传房产证照片')
+            return
+          } else if(!CARD_OPPOSITE_IMAGE){
+            Toast('请上传身份证反面照')
+            return
+          } else if(!APPLY_REASON){
+            Toast('请上传身份证正面照')
+            return
+          }
+        this.changeUserInfo()
+    },
+    onRead(type,file) {
+      switch(type){
+        case 'one':
+          this.params.PROPERTY_CERT = file.content
+          break;
+        case 'tow':
+          this.params.CARD_OPPOSITE_IMAGE = file.content
+          break;
+        case 'three':
+          this.params.CARD_POSITIVE_IMAGE = file.content
+          break;    
+      }
+    },
+    //获取用户信息
+    getUserInfo(){
+      const OPEN_ID = getItem('OPEN_ID')
+      this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10006&grantcode=88888888`,{
+        OPEN_ID
+      }).then(res =>{
+        if(res.invokeResultCode === '000'){
+          this.userData = res.result
+        }
+      })
+    },
+    //请求变更
+    changeUserInfo(){
+      const OPEN_ID = getItem('OPEN_ID')
+      this.http.post(`/sw/metadata/DataSerController/getdata.do?servicecode=10014&grantcode=88888888&OPEN_ID=${OPEN_ID}`,{
+        ...this.params,
+        USER_NO:this.userData.USER_NO,
+        NAME:this.userData.NAME
+      }).then(res=>{
+        if(res.invokeResultCode==='000'){
+          Toast.success(res.msg)
+        }else{
+          Toast.fail(res.msg)
+        }
+      })
     }
   }
 };
@@ -103,11 +173,7 @@ export default {
   width: 680px;
   height: 90px;
   margin: 35px;
-  input {
-    width: 680px;
-    height: 90px;
-    border: none;
-    background: linear-gradient(
+  background: linear-gradient(
       90deg,
       rgba(52, 184, 239, 1),
       rgba(90, 206, 251, 1)
@@ -117,7 +183,22 @@ export default {
     font-weight: bold;
     color: #ffffff;
     line-height: 90px;
-  }
+    text-align: center;
+  // input {
+  //   width: 680px;
+  //   height: 90px;
+  //   border: none;
+  //   background: linear-gradient(
+  //     90deg,
+  //     rgba(52, 184, 239, 1),
+  //     rgba(90, 206, 251, 1)
+  //   );
+  //   border-radius: 5px;
+  //   font-size: 28px;
+  //   font-weight: bold;
+  //   color: #ffffff;
+  //   line-height: 90px;
+  // }
 }
 .van-uploader {
   width: 296px;

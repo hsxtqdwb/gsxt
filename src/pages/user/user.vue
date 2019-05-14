@@ -35,7 +35,7 @@
         <div>{{userData.ACCOUNT_AMOUNT}}</div>
       </div>
     </div>
-    <div class="u-btn">立即缴费</div>
+    <div class="u-btn" @click="payment">立即缴费</div>
     <help @close="taggleModal(false)" :visible="visible">
       <div class="hint">
         <div class="hint-title">提示</div>
@@ -58,6 +58,7 @@
 <script>
 import PageHead from "../../components/pageHead/pageHead";
 import Help from "../../components/help/help";
+import { getItem } from '../../utils';
 export default {
   data() {
     return {
@@ -66,16 +67,19 @@ export default {
     };
   },
   mounted(){
-    this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10006&grantcode=88888888`,{OPEN_ID:"1215451121215145501575242GHN"}).then(res=>{
+    const OPEN_ID = getItem('OPEN_ID')
+    this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10006&grantcode=88888888`,{OPEN_ID}).then(res=>{
       if(res.invokeResultCode==='000'){
         this.userData = res.result
-        console.log(res.result)
       }
     })
   },
   methods: {
     taggleModal(isShow) {
       this.visible = isShow;
+    },
+    payment(){
+      this.$router.push('/payment')
     }
   },
   components: {

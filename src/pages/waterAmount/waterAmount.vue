@@ -5,7 +5,7 @@
       <div class="w-user">
         <div class="w-left">户名</div>
         <div class="w-right">
-          <div>01000030</div>
+          <div v-if="userData">{{userData.USER_NO}}</div>
           <i class="w-arrow"></i>
         </div>
       </div>
@@ -34,6 +34,7 @@
 import PageHead from "components/pageHead/pageHead";
 import { getItem } from "../../utils";
 import BScroll from "better-scroll";
+import { Toast } from 'vant';
 export default {
   data() {
     return {
@@ -41,10 +42,12 @@ export default {
         CURRENT_PAGE: 1,
         PAGE_SIZE: 10
       },
-      list: []
+      list: [],
+      userData:null
     };
   },
   mounted() {
+    this.getUserData()
     this.getList();
     this.$nextTick(() => {
       this.initScroll()
@@ -90,6 +93,19 @@ export default {
             }
           }
         });
+    },
+    getUserData(){
+      const OPEN_ID =getItem('OPEN_ID')
+      this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10006&grantcode=88888888`,{
+        OPEN_ID
+      }).then(res =>{
+        if(res.invokeResultCode === '000'){
+          Toast.success(res.msg)
+          this.userData = res.result
+        }else{
+          Toast.fail(res.msg)
+        }
+      })
     }
   },
   beforeDestroy(){
