@@ -173,6 +173,10 @@ export default new Router({
       component: User
     },
     {
+      path:"/bindUser",
+      component:bindUser
+    },
+    {
       path: '/taggleuser',
       component: TaggleUser
     },

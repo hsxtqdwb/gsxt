@@ -80,7 +80,7 @@
           <p class="i_desc_info">个人信息登记</p>
         </div>
       </div>
-      <div class="i_nav_list" @click="getUrl('/taggleuser')">
+      <div class="i_nav_list" @click="getUrl('/bindUser')">
         <div class="i_list_icon">
           <img src="../../assets/images/index/icon-8.png" alt>
         </div>
