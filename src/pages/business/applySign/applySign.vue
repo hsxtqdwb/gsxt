@@ -166,7 +166,9 @@ export default {
         return
       }
       const OPEN_ID = getItem('OPEN_ID')
-      this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10012&grantcode=88888888`,{
+      this.http.post(`/sw/metadata/DataSerController/getdata.do`,{
+        grantcode:88888888,
+        servicecode:10012,
         OPEN_ID,
         NAME,
         ADDRESS:ADDRESS+ADDRESS_DETAIL,
