@@ -208,6 +208,7 @@ export default new Router({
     {
       path: '/business',
       component: Business,
+      redirect:"/business/applysign",
       children: [{
         path: 'applysign',
         components: {

@@ -2,18 +2,19 @@
   <div id="business">
     <page-head title="业务办理"></page-head>
     <van-tabs v-model="active" swipeable animated>
-      <van-tab id="1">
-        <router-link slot="title" to="/business/applysign" >申请签约</router-link>
-        <!-- <apply-sign></apply-sign> -->
-        <router-view name="applysign"></router-view>
+      <van-tab >
+        <div @click="changeActive('applysign',0)" slot="title" >申请签约</div>
+        <div>
+          <router-view  name="applysign"></router-view>
+        </div>
       </van-tab>
-      <van-tab id="2">
-        <router-link slot="title" to="/business/auditingsign" >审核列表</router-link>
-        <router-view name="auditingsign"></router-view>
+      <van-tab >
+        <div  @click="changeActive('auditingsign',1)" slot="title" >审核列表</div>
+        <div><router-view name="auditingsign"></router-view></div>
       </van-tab>
-      <van-tab  id="3">
-        <router-link slot="title" to="/business/contractList" >签约列表</router-link>
-        <router-view name="contractList"></router-view>
+      <van-tab >
+        <div @click="changeActive('contractList',2)" slot="title"  >签约列表</div>
+        <div><router-view name="contractList"></router-view></div>
       </van-tab>
     </van-tabs>
   </div>
@@ -29,14 +30,21 @@ Vue.use(Tab).use(Tabs);
 export default {
   data() {
     return {
-      active: "0"
+      active: 0
     };
+  },
+  methods:{
+    changeActive(path,i){
+      this.$router.push(`/business/${path}`)
+      this.active = i
+      console.log(this.active)
+    }
   },
   components: {
     PageHead,
-    ApplySign,
-    AuditingSign,
-    ContractList
+    // ApplySign,
+    // AuditingSign,
+    // ContractList
   },
 
 };
