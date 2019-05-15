@@ -1,44 +1,51 @@
 <template>
   <div id="contract-list">
-    <template v-if="list.length">
-      <div v-for="(item, index) in list" :key="index" class="contract-list-wrap">
-        <div class="contract-list-title">{{item.APPLY_STATUS===0?'待审核':item.APPLY_STATUS===1?"审核通过":"审核不通过"}}</div>
-        <div class="contract-list-wrapper">
-          <div class="contract-list">
-            <div class="contract-list-l">用户名</div>
-            <div class="contract-list-r">{{item.USER_NO}}</div>
+    <div class="scroll-wrapper">
+      <div class="scroll-wrap">
+        <template v-if="list.length">
+          <div v-for="(item, index) in list" :key="index" class="contract-list-wrap">
+            <div
+              class="contract-list-title"
+            >{{item.APPLY_STATUS===0?'待审核':item.APPLY_STATUS===1?"审核通过":"审核不通过"}}</div>
+            <div class="contract-list-wrapper">
+              <div class="contract-list">
+                <div class="contract-list-l">用户名</div>
+                <div class="contract-list-r">{{item.USER_NO}}</div>
+              </div>
+              <div class="contract-list">
+                <div class="contract-list-l">用户名称</div>
+                <div class="contract-list-r">{{item.NAME}}</div>
+              </div>
+              <div class="contract-list">
+                <div class="contract-list-l">性质</div>
+                <div class="contract-list-r">{{item.WATER_NATURE}}</div>
+              </div>
+              <div class="contract-list">
+                <div class="contract-list-l">地址</div>
+                <div class="contract-list-r">{{item.ADDRESS}}</div>
+              </div>
+              <div class="contract-list">
+                <div class="contract-list-l">电话</div>
+                <div class="contract-list-r">{{item.PHONE}}</div>
+              </div>
+              <div class="contract-list">
+                <div class="contract-list-l">口径</div>
+                <div class="contract-list-r">{{item.CALIBER}}</div>
+              </div>
+              <div class="contract-list">
+                <div class="contract-list-l">大小表</div>
+                <div class="contract-list-r">{{item.METER_TYPE}}</div>
+              </div>
+            </div>
           </div>
-          <div class="contract-list">
-            <div class="contract-list-l">用户名称</div>
-            <div class="contract-list-r">{{item.NAME}}</div>
-          </div>
-          <div class="contract-list">
-            <div class="contract-list-l">性质</div>
-            <div class="contract-list-r">{{item.WATER_NATURE}}</div>
-          </div>
-          <div class="contract-list">
-            <div class="contract-list-l">地址</div>
-            <div class="contract-list-r">{{item.ADDRESS}}</div>
-          </div>
-          <div class="contract-list">
-            <div class="contract-list-l">电话</div>
-            <div class="contract-list-r">{{item.PHONE}}</div>
-          </div>
-          <div class="contract-list">
-            <div class="contract-list-l">口径</div>
-            <div class="contract-list-r">{{item.CALIBER}}</div>
-          </div>
-          <div class="contract-list">
-            <div class="contract-list-l">大小表</div>
-            <div class="contract-list-r">{{item.METER_TYPE}}</div>
-          </div>
-        </div>
+        </template>
       </div>
-    </template>
+    </div>
   </div>
 </template>
 <script>
 import { getItem } from "../../../utils";
+import BScroll from 'better-scroll'
 export default {
   data() {
     return {
@@ -64,6 +71,11 @@ export default {
           this.list = [...this.list, ...res.result.list];
         }
       });
+  },
+  methods:{
+    initScroll(){
+      
+    }
   }
 };
 </script>

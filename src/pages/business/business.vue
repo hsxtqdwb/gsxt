@@ -1,6 +1,6 @@
 <template>
   <div id="business">
-    <page-head title="业务办理"></page-head>
+    <page-head ref="businessHead" title="业务办理"></page-head>
     <van-tabs v-model="active" swipeable animated>
       <van-tab >
         <div @click="changeActive('applysign',0)" slot="title" >申请签约</div>
@@ -46,7 +46,6 @@ export default {
     // AuditingSign,
     // ContractList
   },
-
 };
 </script>
 <style lang="less" scoped>
