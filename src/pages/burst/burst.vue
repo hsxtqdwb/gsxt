@@ -51,6 +51,13 @@ export default {
                 this.params.CURRENT_PAGE = this.params.CURRENT_PAGE+1
                 this.getBurstList();
             });
+            window.addEventListener('resize',()=>{
+                const headHeight = head.$el.offsetHeight
+                scrollNode.style.height = document.documentElement.clientHeight - headHeight +'px'
+                this.$nextTick(()=>{
+                    this.scroll.refresh()
+                })
+            })
     },
     methods:{
         join:function(){
@@ -67,8 +74,11 @@ export default {
                             this.scroll.finishPullUp()
                         }
                         this.burstList = [...this.burstList,...res.result.list]
+                        this.$nextTick(()=>{
+                            this.scroll.refresh()
+                        })
                 }else{
-                    Toast(res.msg)
+                    Toast.fail(res.msg)
                 }
             })
         }

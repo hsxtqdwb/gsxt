@@ -2,14 +2,18 @@
   <div id="business">
     <page-head title="业务办理"></page-head>
     <van-tabs v-model="active" swipeable animated>
-      <van-tab  title="申请签约" id="1">
-        <apply-sign></apply-sign>
+      <van-tab id="1">
+        <router-link slot="title" to="/business/applysign" >申请签约</router-link>
+        <!-- <apply-sign></apply-sign> -->
+        <router-view name="applysign"></router-view>
       </van-tab>
-      <van-tab  title="审核列表" id="2">
-        <auditing-sign></auditing-sign>
+      <van-tab id="2">
+        <router-link slot="title" to="/business/auditingsign" >审核列表</router-link>
+        <router-view name="auditingsign"></router-view>
       </van-tab>
-      <van-tab  title="签约列表" id="3">
-        <contract-list></contract-list>
+      <van-tab  id="3">
+        <router-link slot="title" to="/business/contractList" >签约列表</router-link>
+        <router-view name="contractList"></router-view>
       </van-tab>
     </van-tabs>
   </div>

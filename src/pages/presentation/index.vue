@@ -26,6 +26,7 @@ export default {
         PAGE_SIZE:10,
         TYPE:3
       },
+      reportList:[],
       list: [
         {
           title: "某某小区水质量抽查报告",
@@ -55,6 +56,9 @@ export default {
       ...this.params
     }).then(res =>{
       console.log(res)
+      if(res.invokeResultCode === '000'){
+        this.reportList=res.result.list
+      }
     })
   },
   components: {
@@ -65,7 +69,8 @@ export default {
       // 点击选项时默认不会关闭菜单，可以手动关闭
       this.show = false;
       Vant.Toast(item.name);
-    }
+    },
+    getReportList(){}
   }
 };
 </script>

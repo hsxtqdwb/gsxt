@@ -108,6 +108,7 @@ import sfzz from "../../../assets/images/up/sf.png";
 import sfzf from "../../../assets/images/up/s.png";
 import fcz from "../../../assets/images/up/f.png";
 export default {
+    name:"applysign",
   data() {
     return {
       maxSize:5000000,

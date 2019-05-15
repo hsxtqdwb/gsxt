@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       params: {
-        CURRENT_PAGE: 1,
+        CURRENT_PAGE: 0,
         PAGE_SIZE: 15
       },
       list: []

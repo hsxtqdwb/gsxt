@@ -35,3 +35,50 @@ export const addClass = (node,name)=>{
         })
     }
  }
+ 
+ export const format = (str) => {
+    let arr = str.split(' ')
+    let date =  arr[0].split('-')
+    let newDate = ''
+    let newTime = ''
+    date.map((item,index)=>{
+      switch(index){
+        case 0:
+          newDate +=item+'年'
+          break;
+        case 1:
+          newDate +=item+'月'
+          break;
+        case 2:
+          newDate +=item+'日'
+          break;
+      } 
+    })
+    if(arr[1]){
+      let time = arr[1].split(':')
+      
+      time.map((value,key)=>{
+        switch(key){
+          case 0:
+          newTime +=value+'时'
+            break;
+          case 1:
+          newTime +=value+'分'
+            break;
+          case 2:
+          newTime +=value+'秒'
+            break;
+        } 
+      })
+    }
+    if(arr[1]){
+      return {
+        date:newDate,
+        time:newTime
+      }
+    }else{
+      return {
+        date:newDate
+      }
+    }
+ }

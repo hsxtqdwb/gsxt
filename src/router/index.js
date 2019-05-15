@@ -201,15 +201,24 @@ export default new Router({
       component: Business,
       children: [{
         path: 'applysign',
-        component: ApplySign
+        components: {
+          default:ApplySign,
+          applysign:ApplySign
+        }
       },
       {
         path: 'auditingsign',
-        component: AuditingSign
+        components:{
+          default:AuditingSign,
+          auditingsign:AuditingSign
+        } 
       },
       {
         path: 'contractList',
-        component: ContractList
+        components: {
+          default:ContractList,
+          contractList:ContractList
+        }
       }
       ]
     },
