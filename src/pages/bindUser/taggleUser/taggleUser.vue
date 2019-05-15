@@ -3,19 +3,21 @@
     <page-head title="用户列表"></page-head>
     <div class="u-list-wrap">
       <div class="u-list-title">已绑定用户列表</div>
-      <div class="u-list-content-wrap">
-        <van-swipe-cell :right-width="113">
-          <van-cell-group>
-            <!-- <van-cell title="0100000" />
-            <van-cell title="深圳******局"/>-->
-            <div class="u-list-content">
-              <div>0100000</div>
-              <div>深圳******局</div>
-            </div>
-          </van-cell-group>
-          <span slot="right">删除</span>
-        </van-swipe-cell>
-      </div>
+      <template v-if="list.length">
+        <div v-for="(item,index)in list" :key="index" class="u-list-content-wrap">
+          <van-swipe-cell :right-width="113">
+            <van-cell-group>
+              <!-- <van-cell title="0100000" />
+              <van-cell title="深圳******局"/>-->
+              <div class="u-list-content">
+                <div>{{item.USER_NO}}</div>
+                <div>{{item.USER_NAME}}</div>
+              </div>
+            </van-cell-group>
+            <span slot="right">删除</span>
+          </van-swipe-cell>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -23,23 +25,30 @@
 import PageHead from "../../../components/pageHead/pageHead";
 import { SwipeCell, CellGroup, Cell } from "vant";
 import Vue from "vue";
+import { getItem } from '../../../utils';
 Vue.use(SwipeCell);
 Vue.use(CellGroup);
 Vue.use(Cell);
 export default {
+  data(){
+    return {
+      list:[]
+    }
+  },
   mounted() {
-    console.log(this.http);
-    this.http
-      .get(
+    const OPEN_ID= getItem('OPEN_ID')
+    this.http.get(
         `/sw/metadata/DataSerController/getdata.do?servicecode=10003&grantcode=88888888`,
-        { OPEN_ID: "1215451121215145501575242GHN" }
+        { OPEN_ID }
       )
       .then(res => {
         if (res.invokeResultCode === "000") {
-          this.userData = res.result;
-          console.log(res.result);
+          this.list = res.result;
         }
       });
+  },
+  methods:{
+    
   },
   components: {
     PageHead

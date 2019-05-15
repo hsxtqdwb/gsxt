@@ -182,7 +182,7 @@ export default new Router({
       component: BindUserSearch
     },
     {
-      path: "/bindUser",
+      path: "/bindUser/:id",
       component: BindUser
     },
     {

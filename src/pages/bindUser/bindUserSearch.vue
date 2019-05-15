@@ -3,13 +3,13 @@
     <page-head title="绑定用户"></page-head>
 
     <div class="bind-wrap">
-      <div class="bind-list">已绑定用户列表</div>
+      <div class="bind-list" @click="getUserList">已绑定用户列表</div>
       <div class="bind-search">
         <p class="bind-info">绑定信息</p>
         <p class="num-p">给水号</p>
         <div class="input-sid">
-          <van-field placeholder="请输入给水号"></van-field>
-          <span class="input-search">立即查询</span>
+          <van-field v-model="User_NO" placeholder="请输入给水号"></van-field>
+          <span class="input-search" @click="searchNo">立即查询</span>
         </div>
         <div class="bind-tip">
           <p>温馨提示：</p>
@@ -31,9 +31,26 @@
 <script>
 import PageHead from "../../components/pageHead/pageHead";
 import Vue from "vue";
-import { Field } from "vant";
-Vue.use(Field);
+import { Field, Toast } from "vant";
+Vue.use(Field).use(Toast);
 export default {
+  data(){
+    return {
+      User_NO:''
+    }
+  },
+  methods:{
+    getUserList(){
+      this.$router.push(`/taggleUser`)
+    },
+    searchNo(){
+      if(!this.User_NO){
+        Toast('请输入给水号')
+        return
+      }
+      this.$router.push(`/bindUser/${this.User_NO}`)
+    }
+  },
   components: {
     PageHead
   }
