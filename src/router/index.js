@@ -32,8 +32,13 @@ const TaggleUser = (resolve) => {
     resolve(module)
   })
 }
-const bindUser = (resolve) => {
+const BindUser = (resolve) => {
   import('../pages/bindUser/bindUser.vue').then(module => {
+    resolve(module)
+  })
+}
+const BindUserSearch = (resolve) => {
+  import('../pages/bindUser/bindUserSearch.vue').then(module => {
     resolve(module)
   })
 }
@@ -173,8 +178,12 @@ export default new Router({
       component: User
     },
     {
-      path:"/bindUser",
-      component:bindUser
+      path: "/bindUserSearch",
+      component: BindUserSearch
+    },
+    {
+      path: "/bindUser",
+      component: BindUser
     },
     {
       path: '/taggleuser',

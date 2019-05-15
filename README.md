@@ -4,7 +4,7 @@
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 
@@ -16,13 +16,16 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
+
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ```bash
 # direct
 business 一户一表业务办理
 user 个人中心
-taggleUser 绑定用户
+taggleUser 绑定用户列表
+bindUser 绑定用户
+bindUserSearch 用户给水号查询
 changeInfo 用户登记业务办理
 changewaterproperty 用户用水性质变更
 index  首页

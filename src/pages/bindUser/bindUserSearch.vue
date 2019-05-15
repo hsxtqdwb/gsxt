@@ -4,16 +4,13 @@
 
     <div class="bind-wrap">
       <div class="bind-list">已绑定用户列表</div>
-      <div class="bind-input">
+      <div class="bind-search">
         <p class="bind-info">绑定信息</p>
         <p class="num-p">给水号</p>
-        <p class="bind-msg">TEST0003</p>
-        <p class="num-p">用户名称</p>
-        <p class="bind-msg">测试账号</p>
-        <p class="num-p">用户地址</p>
-        <p class="bind-msg">广东省深圳市南山区西丽街道</p>
-        <p class="num-p">手机号码</p>
-        <p class="bind-msg">1303030330</p>
+        <div class="input-sid">
+          <van-field placeholder="请输入给水号"></van-field>
+          <span class="input-search">立即查询</span>
+        </div>
         <div class="bind-tip">
           <p>温馨提示：</p>
           <p>1.同一微信号最多只能绑定6个用户</p>
@@ -28,7 +25,6 @@
           </p>
         </div>
       </div>
-      <input class="bind-save" type="button" value="立即绑定">
     </div>
   </div>
 </template>
@@ -71,7 +67,7 @@ export default {
       background-size: 15px 28px;
     }
   }
-  .bind-input {
+  .bind-search {
     width: 680px;
     margin: 30px 35px;
     background: #fff;
@@ -92,37 +88,28 @@ export default {
       color: #999999;
       margin-top: 25px;
     }
-    .bind-msg {
-      color: #666666;
-      font-size: 26px;
-      line-height: 40px;
-      padding: 20px 0;
-      border-bottom: solid 1px #eeeeee;
-      font-weight: 500;
+    .input-sid {
+      position: relative;
+      /deep/.van-cell {
+        padding: 20px 0 30px 0;
+      }
+      .input-search {
+        position: absolute;
+        right: 0;
+        top: 18px;
+        color: #34b8ef;
+        padding: 10px;
+        font-size: 26px;
+      }
     }
     .bind-tip {
-      padding-top: 20px;
+      padding: 30px 0;
       p {
         font-size: 24px;
         color: #999999;
         line-height: 30px;
       }
     }
-  }
-  .bind-save {
-    width: 680px;
-    height: 90px;
-    background: linear-gradient(
-      90deg,
-      rgba(52, 184, 239, 1),
-      rgba(90, 206, 251, 1)
-    );
-    border-radius: 5px;
-    margin: 0 30px 30px 30px;
-    border: none;
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 28px;
   }
 }
 </style>
