@@ -7,21 +7,13 @@
       <div class="bind-input">
         <p class="bind-info">绑定信息</p>
         <p class="num-p">给水号</p>
-        <div class="input-sid">
-          <van-field placeholder="请输入给水号"></van-field>
-        </div>
+        <p class="bind-msg">TEST0003</p>
         <p class="num-p">用户名称</p>
-        <div class="input-sid">
-          <van-field placeholder="请输入用户名称"></van-field>
-        </div>
+        <p class="bind-msg">测试账号</p>
         <p class="num-p">用户地址</p>
-        <div class="input-sid">
-          <van-field placeholder="请输入用户地址"></van-field>
-        </div>
+        <p class="bind-msg">广东省深圳市南山区西丽街道</p>
         <p class="num-p">手机号码</p>
-        <div class="input-sid">
-          <van-field placeholder="请输入手机号码"></van-field>
-        </div>
+        <p class="bind-msg">1303030330</p>
         <div class="bind-tip">
           <p>温馨提示：</p>
           <p>1.同一微信号最多只能绑定6个用户</p>
@@ -100,12 +92,13 @@ export default {
       color: #999999;
       margin-top: 25px;
     }
-    .input-sid {
-      position: relative;
+    .bind-msg {
+      color: #666666;
+      font-size: 26px;
+      line-height: 40px;
+      padding: 20px 0;
       border-bottom: solid 1px #eeeeee;
-      /deep/.van-cell {
-        padding: 20px 0 30px 0;
-      }
+      font-weight: 500;
     }
     .bind-tip {
       padding-top: 20px;
