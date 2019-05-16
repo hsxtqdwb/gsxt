@@ -4,14 +4,14 @@
     <div class="u-list-wrap">
       <div class="u-list-title">已绑定用户列表</div>
       <template v-if="list.length">
-        <div v-for="(item,index)in list" :key="index" class="u-list-content-wrap">
+        <div v-for="(item,index) in list" :key="index" class="u-list-content-wrap">
           <van-swipe-cell :right-width="113">
             <van-cell-group>
               <!-- <van-cell title="0100000" />
               <van-cell title="深圳******局"/>-->
               <div class="u-list-content">
                 <div>{{item.USER_NO}}</div>
-                <div>{{item.USER_NAME}}</div>
+                <div>{{item.NAME}}</div>
               </div>
             </van-cell-group>
             <span slot="right">删除</span>

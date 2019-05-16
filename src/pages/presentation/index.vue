@@ -23,7 +23,7 @@ export default {
     return {
       params:{
         CURRENT_PAGE:1,
-        PAGE_SIZE:10,
+        PAGE_SIZE:20,
         TYPE:3
       },
       reportList:[],
