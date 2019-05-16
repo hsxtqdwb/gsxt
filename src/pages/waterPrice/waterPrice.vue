@@ -36,7 +36,7 @@ export default {
 <style lang="less" scoped>
 #waterPrice {
   .waterPrice-list {
-    margin-top: 20px;
+    margin-top: 110px;
     .van-cell {
       padding: 0 35px;
       .van-cell__title {

@@ -110,7 +110,7 @@ export default {
 #invoice {
   .invoice-user-list {
     background: #ffffff;
-    margin-top: 20px;
+    margin-top: 110px;
     .van-cell {
       padding: 0 35px;
       .van-cell__title {

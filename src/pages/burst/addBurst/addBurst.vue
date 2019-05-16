@@ -1,7 +1,7 @@
 <template>
   <div>
     <page-head title="暴漏举报"></page-head>
-    <div class="apply-content-wrap">
+    <div class="apply-content-wrap appli-content-wrap-first">
       <div class="apply-content-title">基本信息</div>
       <div class="apply-content">
         <div class="apply-content-list">
@@ -15,7 +15,13 @@
         <div class="apply-content-list">
           <p class="apply-content-p">手机号码</p>
           <p class="apply-content-value">
-            <van-field :required="true" type="tel" v-model="params.PHONE" placeholder="请输入手机号码" maxlength="11"/>
+            <van-field
+              :required="true"
+              type="tel"
+              v-model="params.PHONE"
+              placeholder="请输入手机号码"
+              maxlength="11"
+            />
           </p>
         </div>
       </div>
@@ -41,7 +47,13 @@
         <div class="apply-content-list">
           <p class="apply-content-p">问题描述</p>
           <p class="apply-content-value">
-            <van-field :required="true" v-model="params.PROBLEM_DESC" type="textarea" placeholder="问题描述" autosize></van-field>
+            <van-field
+              :required="true"
+              v-model="params.PROBLEM_DESC"
+              type="textarea"
+              placeholder="问题描述"
+              autosize
+            ></van-field>
           </p>
         </div>
       </div>
@@ -104,19 +116,19 @@ export default {
       } = this.params;
       if (!PHONE) {
         Toast("请输入手机号吗");
-        return
+        return;
       } else if (!LINK_MAN) {
         Toast("请输入真实姓名");
-         return
+        return;
       } else if (!PROBLEM_DESC) {
         Toast("请输入问题描述");
-         return
+        return;
       } else if (!ADDRESS) {
         Toast("请输入地址");
-         return
+        return;
       } else if (!TYPE) {
         Toast("请输入类型");
-         return
+        return;
       }
       const OPEN_ID = getItem("OPEN_ID");
       const param = {
@@ -127,13 +139,13 @@ export default {
         ADDRESS,
         OPEN_ID
       };
-      if(FILE_URL){
-          param.FILE_URL=FILE_URL
+      if (FILE_URL) {
+        param.FILE_URL = FILE_URL;
       }
       this.http
         .get(
           `/sw/metadata/DataSerController/getdata.do?servicecode=10022&grantcode=88888888`,
-          {...param}
+          { ...param }
         )
         .then(res => {
           if (res.invokeResultCode === "000") {
@@ -191,6 +203,9 @@ export default {
   padding: 0 30px;
   margin: 30px auto 0;
   overflow: hidden;
+  &.appli-content-wrap-first {
+    margin-top: 120px;
+  }
   .apply-content-title {
     color: rgba(51, 51, 51, 1);
     font-size: 28px;

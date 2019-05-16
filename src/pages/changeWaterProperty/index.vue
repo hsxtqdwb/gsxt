@@ -9,7 +9,7 @@
         <auditing-sign></auditing-sign>
       </van-tab>
       <van-tab title="变更列表" id="3">
-          <change-list></change-list>
+        <change-list></change-list>
       </van-tab>
     </van-tabs>
   </div>
@@ -18,9 +18,9 @@
 import Vue from "vue";
 import { Tab, Tabs } from "vant";
 import PageHead from "../../components/pageHead/pageHead";
-import ChangeApply from './changeApply/'
+import ChangeApply from "./changeApply/";
 import AuditingSign from "./changeAuditing/";
-import ChangeList from './changeList/'
+import ChangeList from "./changeList/";
 Vue.use(Tab).use(Tabs);
 export default {
   data() {
@@ -39,6 +39,7 @@ export default {
 <style lang="less" scoped>
 #business {
   /deep/ .van-tabs__wrap {
+    margin-top: 90px;
     height: 76px;
     line-height: 76px;
     .van-tabs__line {
@@ -55,6 +56,9 @@ export default {
     height: 76px;
     font-size: 26px;
     color: #999999;
+  }
+  /deep/.van-tabs__content {
+    margin-top: 50px;
   }
 }
 </style>

@@ -17,63 +17,53 @@
       </div>
       <div class="r-content">
         <div class="r-left">用户名称</div>
-        <div class="r-right">
-          {{userData&&userData.NAME}}
-        </div>
+        <div class="r-right">{{userData&&userData.NAME}}</div>
       </div>
-       <div class="r-content">
+      <div class="r-content">
         <div class="r-left">地址</div>
-        <div class="r-right">
-          {{userData&&userData.ADDRESS}}
-        </div>
+        <div class="r-right">{{userData&&userData.ADDRESS}}</div>
       </div>
-       <div class="r-content">
+      <div class="r-content">
         <div class="r-left">性质</div>
-        <div class="r-right">
-          {{userData&&userData.WATER_NATURE}}
-        </div>
+        <div class="r-right">{{userData&&userData.WATER_NATURE}}</div>
       </div>
-       <div class="r-content">
+      <div class="r-content">
         <div class="r-left">电话</div>
-        <div class="r-right">
-          {{userData&&userData.PHONE}}
-        </div>
+        <div class="r-right">{{userData&&userData.PHONE}}</div>
       </div>
-       <div class="r-content">
+      <div class="r-content">
         <div class="r-left">口径</div>
-        <div class="r-right">
-          {{userData&&userData.CALIBER}}
-        </div>
+        <div class="r-right">{{userData&&userData.CALIBER}}</div>
       </div>
-       <div class="r-content">
+      <div class="r-content">
         <div class="r-left">大小表</div>
-        <div class="r-right">
-          {{userData&&userData.METER_TYPE}}
-        </div>
+        <div class="r-right">{{userData&&userData.METER_TYPE}}</div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import PageHead from "components/pageHead/pageHead";
-import {getItem} from '../../utils/index.js'
+import { getItem } from "../../utils/index.js";
 export default {
-  data(){
-    return{
-      userData:{
-
-      }
-    }
+  data() {
+    return {
+      userData: {}
+    };
   },
-  mounted(){
-    const USER_NO = getItem('USER_NO')
-    const OPEN_ID = getItem('OPEN_ID')
-    this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10009&grantcode=88888888`,{OPEN_ID})
-    .then(res=>{
-      if(res.invokeResultCode === '000'){
-        this.userData = res.result
-      }
-    })
+  mounted() {
+    const USER_NO = getItem("USER_NO");
+    const OPEN_ID = getItem("OPEN_ID");
+    this.http
+      .get(
+        `/sw/metadata/DataSerController/getdata.do?servicecode=10009&grantcode=88888888`,
+        { OPEN_ID }
+      )
+      .then(res => {
+        if (res.invokeResultCode === "000") {
+          this.userData = res.result;
+        }
+      });
   },
   components: {
     PageHead
@@ -81,17 +71,17 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.images(@url){
-    background-image: url("../../assets/images/user/@{url}@2x.png");
-    @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3) {
-        background-image: url("../../assets/images/user/@{url}@3x.png");
-    }
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+.images(@url) {
+  background-image: url("../../assets/images/user/@{url}@2x.png");
+  @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+    background-image: url("../../assets/images/user/@{url}@3x.png");
+  }
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 .r-avatar-wrap {
-  margin-top: 20px;
-  width: 738px;
+  margin-top: 110px;
+  width: 750px;
   height: 178px;
   background: #fff;
   display: flex;
@@ -125,27 +115,27 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .r-left{
-        line-height: 86px;
-        font-size: 28px;
-        color: rgba(51, 51, 51, 1);
-    };
-    &:nth-of-type(1){
-        border-top:none;
+    .r-left {
+      line-height: 86px;
+      font-size: 28px;
+      color: rgba(51, 51, 51, 1);
+    }
+    &:nth-of-type(1) {
+      border-top: none;
     }
   }
 }
-.r-arrow{
-    .images('r_arrow');
-    width:15px;
-    height: 27px;
-    display: block;
-    margin-left: 22px;
+.r-arrow {
+  .images("r_arrow");
+  width: 15px;
+  height: 27px;
+  display: block;
+  margin-left: 22px;
 }
-.r-right{
-    color: rgba(102, 102, 102, 1);
-    font-size: 28px;
-    font-family: "PingFang-SC-Medium";
-    display: flex;
+.r-right {
+  color: rgba(102, 102, 102, 1);
+  font-size: 28px;
+  font-family: "PingFang-SC-Medium";
+  display: flex;
 }
 </style>

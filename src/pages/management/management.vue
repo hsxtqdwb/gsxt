@@ -57,6 +57,7 @@ export default {
   background: url("../../assets/images/index/bg.png") no-repeat;
   background-size: 100% 100%;
   overflow: hidden;
+  margin-top: 90px;
   .i_userinfo {
     display: flex;
     flex-direction: column;
