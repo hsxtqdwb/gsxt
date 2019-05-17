@@ -58,7 +58,7 @@ export default {
 <style lang="less" scoped>
 .u-list-wrap {
   background: #fff;
-  margin-top: 20px;
+  margin-top: 110px;
   overflow: hidden;
   .u-list-title {
     color: rgba(51, 51, 51, 1);

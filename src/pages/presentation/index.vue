@@ -99,6 +99,7 @@ export default {
     border-bottom: solid 1px #eeeeee;
   }
   .presentation-list {
+    margin-top: 110px;
     div {
       border-bottom: solid 1px #eeeeee;
       p {

@@ -103,7 +103,7 @@ export default {
   display: flex;
   align-items: center;
   background: #fff;
-  margin-top: 20px;
+  margin-top: 110px;
   .u-avatar {
     width: 118px;
     height: 118px;

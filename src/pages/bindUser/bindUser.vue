@@ -3,7 +3,7 @@
     <page-head title="绑定用户"></page-head>
 
     <div class="bind-wrap">
-      <div class="bind-list">已绑定用户列表</div>
+      <div class="bind-list" @click="getUserList">已绑定用户列表</div>
       <div class="bind-input" v-if="userData">
         <p class="bind-info">绑定信息</p>
         <p class="num-p">给水号</p>
@@ -28,7 +28,10 @@
           </p>
         </div>
       </div>
-      <button @click="bindUserNo(userData.IS_BIND,$event)" :class="['bind-save',userData&&userData.IS_BIND==='Y'?'bind':'']" >立即绑定</button>
+      <button
+        @click="bindUserNo(userData.IS_BIND,$event)"
+        :class="['bind-save',userData&&userData.IS_BIND==='Y'?'bind':'']"
+      >立即绑定</button>
     </div>
   </div>
 </template>
@@ -36,63 +39,76 @@
 import PageHead from "../../components/pageHead/pageHead";
 import Vue from "vue";
 import { Field, Toast } from "vant";
-import { getItem } from '../../utils';
+import { getItem } from "../../utils";
 Vue.use(Field).use(Toast);
 export default {
-    data(){
-        return {
-            userData:null
-        }
+  data() {
+    return {
+      userData: null
+    };
+  },
+  mounted() {
+    this.getUserNo();
+  },
+  methods: {
+    getUserList() {
+      this.$router.push(`/taggleUser`);
     },
-    mounted(){
-        this.getUserNo()
+    bindUserNo(flag, ev) {
+      ev.preventDefault();
+      if (flag === "Y") {
+        Toast("此给水号已绑定");
+        return;
+      }
+      this.bindUser();
     },
-    methods:{
-        bindUserNo(flag,ev){
-            ev.preventDefault()
-            if(flag==='Y'){
-                Toast('此给水号已绑定')
-                return
-            }   
-            this.bindUser()
-        },
-        bindUser(){
-            const OPEN_ID = getItem('OPEN_ID')
-            const USER_NO = this.$route.params.id
-            this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10002&grantcode=88888888`,{
-                OPEN_ID,
-                USER_NO
-            }).then(res=>{
-                if(res.invokeResultCode === '000'){
-                    Toast.success(res.msg)
-                }else{
-                    Toast.fail(res.msg)
-                }
-            })
-        },
-        getUserNo(){
-            const USER_NO = this.$route.params.id
-            this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10001&grantcode=88888888`,{
-                USER_NO
-            }).then(res=>{
-                if(res.invokeResultCode==='000'){
-                    if(!res.result){
-
-                    }
-                    this.userData = res.result
-                }else{
-                    Toast.fail(res.msg)
-                }
-            })
-        }
+    bindUser() {
+      const OPEN_ID = getItem("OPEN_ID");
+      const USER_NO = this.$route.params.id;
+      this.http
+        .get(
+          `/sw/metadata/DataSerController/getdata.do?servicecode=10002&grantcode=88888888`,
+          {
+            OPEN_ID,
+            USER_NO
+          }
+        )
+        .then(res => {
+          if (res.invokeResultCode === "000") {
+            Toast.success(res.msg);
+          } else {
+            Toast.fail(res.msg);
+          }
+        });
     },
-    components: {
-        PageHead
+    getUserNo() {
+      const USER_NO = this.$route.params.id;
+      this.http
+        .get(
+          `/sw/metadata/DataSerController/getdata.do?servicecode=10001&grantcode=88888888`,
+          {
+            USER_NO
+          }
+        )
+        .then(res => {
+          if (res.invokeResultCode === "000") {
+            if (!res.result) {
+            }
+            this.userData = res.result;
+          } else {
+            Toast.fail(res.msg);
+          }
+        });
     }
+  },
+  components: {
+    PageHead
+  }
 };
 </script>
 <style lang="less" scoped>
 .bind-wrap {
+  margin-top: 110px;
   .bind-list {
     position: relative;
     background: #fff;
@@ -171,8 +187,8 @@ export default {
     color: #ffffff;
     font-weight: bold;
     font-size: 28px;
-    &.bind{
-        background: #e6e6e6
+    &.bind {
+      background: #e6e6e6;
     }
   }
 }

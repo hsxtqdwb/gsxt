@@ -58,6 +58,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .bind-wrap {
+  margin-top: 110px;
   .bind-list {
     position: relative;
     background: #fff;
