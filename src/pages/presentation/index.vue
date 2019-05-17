@@ -1,12 +1,18 @@
 <template>
   <div id="presentation">
-    <page-head title="水质报告"></page-head>
-    <div class="presentation-list">
-      <div v-for="(item,index) in list" :key="index">
-        <p>
-          <span class="presentation-list-left">{{item.title}}</span>
-          <span class="presentation-list-right">{{item.time}}</span>
-        </p>
+    <page-head class="headNode" title="水质报告"></page-head>
+    <div class="scroll-wrapper">
+      <div class="scroll-wrap">
+        <div class="presentation-list">
+          <template v-if="reportList.length">
+              <div v-for="(item,index) in reportList" :key="index">
+              <p>
+                <span class="presentation-list-left">{{item.DIC_NAME}}</span>
+                <span class="presentation-list-right">{{item.DIC_VALUE}}</span>
+              </p>
+            </div>
+          </template>
+        </div>
       </div>
     </div>
   </div>
@@ -14,6 +20,7 @@
 <script>
 import Vue from "vue";
 import PageHead from "../../components/pageHead/pageHead";
+import BScroll from "better-scroll";
 import { Cell, CellGroup, Actionsheet } from "vant";
 Vue.use(Cell)
   .use(CellGroup)
@@ -21,56 +28,67 @@ Vue.use(Cell)
 export default {
   data() {
     return {
-      params:{
-        CURRENT_PAGE:1,
-        PAGE_SIZE:20,
-        TYPE:3
+      params: {
+        CURRENT_PAGE: 0,
+        PAGE_SIZE: 20,
+        TYPE: 3
       },
-      reportList:[],
-      list: [
-        {
-          title: "某某小区水质量抽查报告",
-          time: "2017-01-02"
-        },
-        {
-          title: "某某小区水质量抽查报告",
-          time: "2017-01-02"
-        },
-        {
-          title: "某某小区水质量抽查报告",
-          time: "2017-01-02"
-        },
-        {
-          title: "某某小区水质量抽查报告",
-          time: "2017-01-02"
-        },
-        {
-          title: "某某小区水质量抽查报告",
-          time: "2017-01-02"
-        }
-      ]
+      reportList: [],
     };
   },
-  mounted(){
-    this.http.get(`sw/metadata/DataSerController/getdata.do?servicecode=10020&grantcode=88888888`,{
-      ...this.params
-    }).then(res =>{
-      console.log(res)
-      if(res.invokeResultCode === '000'){
-        this.reportList=res.result.list
-      }
+  mounted() {
+    this.getReportList()
+    this.$nextTick(()=>{
+      this.initScroll()
     })
   },
   components: {
     PageHead
   },
   methods: {
+    initScroll() {
+      const headNode = document.getElementsByClassName("headNode")[0];
+      let wrapNode = document.getElementsByClassName("scroll-wrapper")[0];
+        this.scroll = new BScroll(".scroll-wrapper", {
+                pullUpLoad: true,
+                click: true,
+                scrollY:true
+            });
+      wrapNode.style.height =document.documentElement.clientHeight - headNode.offsetHeight + "px";
+      this.scroll.on("pullingUp", () => {
+        this.params.CURRENT_PAGE = this.params.CURRENT_PAGE + 1;
+        this.getReportList();
+      });
+      window.addEventListener("resize", () => {
+        const headNode = document.getElementsByClassName("headNode")[0];
+        let wrapNode = document.getElementsByClassName("scroll-wrapper")[0];
+        wrapNode.style.height =
+          document.documentElement.clientHeight - headNode.offsetHeight + "px";
+        this.$nextTick(() => {
+          this.scroll.refresh();
+        });
+      });
+    },
     onSelect(item) {
       // 点击选项时默认不会关闭菜单，可以手动关闭
       this.show = false;
       Vant.Toast(item.name);
     },
-    getReportList(){}
+    getReportList() {
+      this.http
+        .get(
+          `sw/metadata/DataSerController/getdata.do?servicecode=10020&grantcode=88888888`,
+          {
+            ...this.params
+          }
+        )
+        .then(res => {
+          if (res.invokeResultCode === "000") {
+            this.reportList = [...this.reportList,...res.result.list];
+            this.scroll.finishPullUp()
+          }
+        });
+    }
   }
 };
 </script>

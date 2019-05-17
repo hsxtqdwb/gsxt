@@ -36,8 +36,14 @@ if ('addEventListener' in document) {
 }
 setItem('OPEN_ID','oB4nYjnoHhuWrPVi2pYLuPjnCaU0')
 setItem('USER_NO','TEST0001')
-// axios.get(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect`)
 
+new Http().get(`/connect/oauth2/authorize?appid=wx88a319f29c9a7c51&redirect_uri=http://www.cyszls.com:81/sw/WeixinServlet&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`).then(res=>{
+ alert(res)
+}).catch(e=>{
+  alert(e)
+})
+
+// axios.get(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect`)
 
 // axios.get(`/connect/oauth2/authorize?appid=wx88a319f29c9a7c51&redirect_url=http://192.168.0.101&response_type=code&scope=snsapi_userinfo#wechat_redirect`).then(res =>{
 //   alter(res)
