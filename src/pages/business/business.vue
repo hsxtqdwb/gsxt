@@ -1,7 +1,7 @@
 <template>
   <div id="business">
-    <page-head ref="businessHead" title="业务办理"></page-head>
-    <van-tabs v-model="active" swipeable animated>
+    <page-head class="business-head" ref="businessHead" title="业务办理"></page-head>
+    <van-tabs v-model="active" :swipeable="false" animated>
       <van-tab >
         <div @click="changeActive('applysign',0)" slot="title" >申请签约</div>
         <div>
@@ -10,11 +10,11 @@
       </van-tab>
       <van-tab >
         <div  @click="changeActive('auditingsign',1)" slot="title" >审核列表</div>
-        <div><router-view name="auditingsign"></router-view></div>
+        <div><router-view :setActive='setActive'  name="auditingsign"></router-view></div>
       </van-tab>
       <van-tab >
         <div @click="changeActive('contractList',2)" slot="title"  >签约列表</div>
-        <div><router-view name="contractList"></router-view></div>
+        <div><router-view :setActive='setActive' name="contractList"></router-view></div>
       </van-tab>
     </van-tabs>
   </div>
@@ -30,14 +30,27 @@ Vue.use(Tab).use(Tabs);
 export default {
   data() {
     return {
-      active: 0
+      active: 0,
     };
+  },
+  mounted(){
+    let arr = this.$route.path.split('/')
+    let pathname = arr[arr.length-1]
+    if(pathname === 'applysign'){
+      this.active = 0
+    }else if(pathname === 'auditingsign'){
+      this.active = 1
+    }else if(pathname === 'contractList'){
+      this.active = 2
+    }
   },
   methods:{
     changeActive(path,i){
       this.$router.push(`/business/${path}`)
       this.active = i
-      console.log(this.active)
+    },
+    setActive(active){
+      this.active = active
     }
   },
   components: {

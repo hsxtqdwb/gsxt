@@ -5,8 +5,8 @@
         <template v-if="list.length">
           <div v-for="(item, index) in list" :key="index" class="contract-list-wrap">
             <div
-              class="contract-list-title"
-            >{{item.APPLY_STATUS===0?'待审核':item.APPLY_STATUS===1?"审核通过":"审核不通过"}}</div>
+              :class='["contract-list-title",item.APPLY_STATUS==="-1"?"active":""]'
+            >{{item.APPLY_STATUS==="0"?'待审核':item.APPLY_STATUS==="1"?"审核通过":"审核不通过"}}</div>
             <div class="contract-list-wrapper">
               <div class="contract-list">
                 <div class="contract-list-l">用户名</div>
@@ -45,7 +45,7 @@
 </template>
 <script>
 import { getItem } from "../../../utils";
-import BScroll from 'better-scroll'
+import BScroll from "better-scroll";
 export default {
   data() {
     return {
@@ -57,31 +57,75 @@ export default {
     };
   },
   mounted() {
-    const OPEN_ID = getItem("OPEN_ID");
-    this.http
-      .get(
-        `/sw/metadata/DataSerController/getdata.do?servicecode=10013&grantcode=88888888`,
-        {
-          OPEN_ID,
-          ...this.params
-        }
-      )
-      .then(res => {
-        if (res.invokeResultCode === "000") {
-          this.list = [...this.list, ...res.result.list];
-        }
-      });
+    console.log(this.$route)
+    this.props.setActive(2)
+    this.getContractList();
+    this.$nextTick(() => {
+      this.initScroll();
+    });
   },
-  methods:{
-    initScroll(){
-      
+  methods: {
+    initScroll() {
+      let headNode = document.getElementsByClassName("business-head")[0];
+      let navNode = document.getElementsByClassName("van-tabs__nav")[0];
+      let scrollNode = document.getElementsByClassName("scroll-wrapper")[0];
+      scrollNode.style.height =
+        document.documentElement.clientHeight -
+        headNode.offsetHeight -
+        navNode.offsetHeight +
+        "px";
+      this.scroll = new BScroll(".scroll-wrapper", {
+        pullUpLoad: true,
+        click: true,
+        scrollY: true
+      });
+      this.scroll.on("pullingUp", () => {
+         this.params.CURRENT_PAGE = this.params.CURRENT_PAGE + 1;
+        this.getContractList();
+      });
+      window.addEventListener("resize", () => {
+        scrollNode.style.height =
+          document.documentElement.clientHeight -
+          headNode.offsetHeight -
+          navNode.offsetHeight +
+          "px";
+        this.$nextTick(() => {
+          this.scroll.refresh();
+        });
+      });
+    },
+    getContractList() {
+      const OPEN_ID = getItem("OPEN_ID");
+      this.http
+        .get(
+          `/sw/metadata/DataSerController/getdata.do?servicecode=10013&grantcode=88888888`,
+          {
+            OPEN_ID,
+            ...this.params
+          }
+        )
+        .then(res => {
+          if (res.invokeResultCode === "000") {
+            if(res.result.list === this.params.PAGE_SIZE){
+              this.scroll.finishPullUp();
+            }
+            this.list = [...this.list, ...res.result.list];
+          }
+        });
     }
+  },
+  beforeDestroy(){
+    this.scroll.destroy()
   }
 };
 </script>
 <style lang="less" scoped>
 #contract-list {
   width: 100%;
+  padding-top: 20px;
+}
+.scroll-wrapper {
+  overflow: hidden;
 }
 .contract-list-wrap {
   width: 680px;
@@ -132,5 +176,9 @@ export default {
       width: 0;
     }
   }
+  
+    .active{
+      color:#ef3434
+    }
 }
 </style>
