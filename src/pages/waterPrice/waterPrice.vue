@@ -3,7 +3,7 @@
     <page-head title="水价标准"></page-head>
     <div class="waterPrice-list">
       <van-cell
-        @click="getUrl('/priceDetail')"
+        @click="getUrl(`/priceDetail/${item.ID}`)"
         v-for="(item,index) in list"
         :key="index"
         :title="item.title"
@@ -41,7 +41,6 @@ export default {
       this.$router.push(url);
     },
     getList() {
-      const USER_NO = getItem("USER_NO");
       const OPEN_ID = getItem("OPEN_ID");
       this.http
         .get(
@@ -53,7 +52,6 @@ export default {
           }
         )
         .then(res => {
-          console.log(res);
           if (res.invokeResultCode === "000") {
             if (!res.result.list.length && this.page.CURRENT_PAGE == 0) {
               Toast("水价标准列表为空");
@@ -70,6 +68,9 @@ export default {
           }
         });
     }
+  },
+  beforeDestroy(){
+    Toast.clear()
   }
 };
 </script>

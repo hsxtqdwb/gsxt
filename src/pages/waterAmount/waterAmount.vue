@@ -86,7 +86,6 @@ export default {
         )
         .then(res => {
           if (res.invokeResultCode === "000") {
-            console.log(this.page.CURRENT_PAGE);
             if (!res.result.list.length && this.page.CURRENT_PAGE == 0) {
               Toast("水费账单列表为空");
               return;
@@ -113,7 +112,6 @@ export default {
         )
         .then(res => {
           if (res.invokeResultCode === "000") {
-            Toast.success(res.msg);
             this.userData = res.result;
           } else {
             Toast.fail(res.msg);

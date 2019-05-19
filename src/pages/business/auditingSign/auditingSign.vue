@@ -10,7 +10,7 @@
             <div class="auditing-audit-brand">
               <div :class="['auditing-brand-l',item.APPLY_STATUS==='-1'?'fail':'']">
                 <div>{{item.APPLY_STATUS==='0'?'待审核':item.APPLY_STATUS==='1'?"审核成功":"审核失败"}}</div>
-                <!-- <p>请耐心等待审核结果</p> -->
+                <p>请耐心等待审核结果</p>
               </div>
               <div class="auditing-brand-time">
                 <p>{{item.APPLY_DATE_TIME}}</p>
@@ -130,7 +130,7 @@ export default {
         color: rgba(102, 102, 102, 1);
       }
       &.fail{
-          color: red
+          color: #ef3434
       }
     }
     .auditing-brand-time {

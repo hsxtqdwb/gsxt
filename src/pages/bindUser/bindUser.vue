@@ -29,6 +29,7 @@
         </div>
       </div>
       <button
+      v-if="userData"
         @click="bindUserNo(userData.IS_BIND,$event)"
         :class="['bind-save',userData&&userData.IS_BIND==='Y'?'bind':'']"
       >立即绑定</button>
@@ -93,6 +94,7 @@ export default {
         .then(res => {
           if (res.invokeResultCode === "000") {
             if (!res.result) {
+              Toast('查无此用户')
             }
             this.userData = res.result;
           } else {
@@ -100,6 +102,9 @@ export default {
           }
         });
     }
+  },
+  beforeDestroy(){
+    Toast.clear()
   },
   components: {
     PageHead

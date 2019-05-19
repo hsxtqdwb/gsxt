@@ -5,10 +5,10 @@
       <div class="scroll-wrap">
         <div class="presentation-list">
           <template v-if="reportList.length">
-            <div @click="getUrl('/preDetail')" v-for="(item,index) in reportList" :key="index">
+            <div @click="getUrl(`/preDetail/${item.ID}`)" v-for="(item,index) in reportList" :key="index">
               <p>
-                <span class="presentation-list-left">{{item.DIC_NAME}}</span>
-                <span class="presentation-list-right">{{item.DIC_VALUE}}</span>
+                <span class="presentation-list-left">{{item.TITLE}}</span>
+                <span class="presentation-list-right">{{item.UPDATE_TIME}}</span>
               </p>
             </div>
           </template>
@@ -30,7 +30,7 @@ export default {
     return {
       params: {
         CURRENT_PAGE: 0,
-        PAGE_SIZE: 20,
+        PAGE_SIZE: 30,
         TYPE: 3
       },
       reportList: []
@@ -85,17 +85,18 @@ export default {
         )
         .then(res => {
           if (res.invokeResultCode === "000") {
-            console.log(res);
-            alert("需要加CURRENT_PAGE");
-            if (!res.result.list.length && this.page.CURRENT_PAGE == 0) {
+            if (!res.result.list.length && this.params.CURRENT_PAGE == 0) {
               Toast("水质列表为空");
               return;
             } else if (!res.result.list.length) {
               Toast("没有新数据");
               return;
             }
+            if(res.result.list === this.params.PAGE_SIZE){
+               this.scroll.finishPullUp();
+            }
             this.reportList = [...this.reportList, ...res.result.list];
-            this.scroll.finishPullUp();
+           
           }
         });
     },

@@ -1,93 +1,115 @@
 <template>
   <div id="auditing-sign">
-    <div class="auditing-sign-wrap">
-      <div>
-        <Step class="auditing-step" :index="2" :step="2"></Step>
-      </div>
-      <div class="auditing-audit-brand">
-        <div class="auditing-brand-l">
-          <div>待审核通过</div>
-          <p>请耐心等待审核结果</p>
+    <template v-if="AuditingData">
+      <div v-for="(item,index) in AuditingData" :key="index"  class="auditing-sign-wrap">
+        <div>
+          <Step class="auditing-step" :failIndex="item.APPLY_STATUS==='-1'?2:''" :index="2" :step="2"></Step>
         </div>
-        <div class="auditing-brand-time">
-          <P>{{new Date().getFullYear()}}年{{new Date().getMonth()+1}}{{new Date().getDate()+1}}</P>
-        </div>
-      </div>
-      <!-- <div class="auditing-list-wrap">
-        <div class="auditing-list">
-          <div class="auditing-list-l">用户名</div>
-          <div class="auditing-list-r">01000=30</div>
-        </div>
-        <div class="auditing-list">
-          <div class="auditing-list-l">用户名称</div>
-          <div class="auditing-list-r">0100030</div>
-        </div>
-        <div class="auditing-list">
-          <div class="auditing-list-l">性质</div>
-          <div class="auditing-list-r">0100030</div>
-        </div>
-        <div class="auditing-list">
-          <div class="auditing-list-l">地址</div>
-          <div class="auditing-list-r">0100030</div>
-        </div>
-        <div class="auditing-list">
-          <div class="auditing-list-l">电话</div>
-          <div class="auditing-list-r">0100030</div>
-        </div>
-        <div class="auditing-list">
-          <div class="auditing-list-l">口径</div>
-          <div class="auditing-list-r">0100030</div>
-        </div>
-        <div class="auditing-list">
-          <div class="auditing-list-l">大小表</div>
-          <div class="auditing-list-r">0100030</div>
-        </div>
-      </div>-->
-      <div class="auditing-content">
-        <div class="auditing-change-title">变更前信息</div>
-        <div class="auditing-content-list">
-          <div class="change-list">
-            <div class="change-list-l">用户编码</div>
-            <div class="change-list-r">0100678</div>
+        <div class="auditing-audit-brand">
+          <div :class="['auditing-brand-l',item.APPLY_STATUS==='-1'?'fail':'']">
+            <div>{{item.APPLY_STATUS==='0'?'待审核':item.APPLY_STATUS==='1'?"审核成功":"审核失败"}}</div>
+            <p>{{item.REPLY_CONTENT?item.REPLY_CONTENT:''}}</p>
           </div>
-          <div class="change-list">
-            <div class="change-list-l">用户名称</div>
-            <div class="change-list-r">0100678</div>
-          </div>
-          <div class="change-list">
-            <div class="change-list-l">用户地址</div>
-            <div class="change-list-r">0100678</div>
+          <div class="auditing-brand-time">
+            <P>{{item.APPLY_DATE_TIME}}</P>
           </div>
         </div>
-        <div class="auditing-change-title">变更后信息</div>
-        <div class="auditing-content-list">
-          <div class="change-list">
-            <div class="change-list-l">用户名称</div>
-            <div class="change-list-r">0100678</div>
+        <div class="auditing-content">
+          <div class="auditing-change-title">变更前信息</div>
+          <div class="auditing-content-list">
+            <div class="change-list">
+              <div class="change-list-l">用户编码</div>
+              <div class="change-list-r">{{item.USER_NO}}</div>
+            </div>
+            <div class="change-list">
+              <div class="change-list-l">用户名称</div>
+              <div class="change-list-r">{{item.NAME}}</div>
+            </div>
+            <div class="change-list">
+              <div class="change-list-l">用户地址</div>
+              <div class="change-list-r">{{item.ADDRESS}}</div>
+            </div>
           </div>
-          <div class="change-list">
-            <div class="change-list-l">联系人</div>
-            <div class="change-list-r">0100678</div>
-          </div>
-          <div class="change-list">
-            <div class="change-list-l">联系人电话</div>
-            <div class="change-list-r">0100678</div>
-          </div>
-          <div class="change-list">
-            <div class="change-list-l">身份证号码</div>
-            <div class="change-list-r">0100678</div>
+          <div class="auditing-change-title">变更后信息</div>
+          <div class="auditing-content-list">
+            <div class="change-list">
+              <div class="change-list-l">用户名称</div>
+              <div class="change-list-r">{{item.CHANGE_USER_NAME}}</div>
+            </div>
+            <div class="change-list">
+              <div class="change-list-l">联系人</div>
+              <div class="change-list-r">{{item.CHANGE_LINK_MAN}}</div>
+            </div>
+            <div class="change-list">
+              <div class="change-list-l">联系人电话</div>
+              <div class="change-list-r">{{item.CHANGE_PHONE}}</div>
+            </div>
+            <div class="change-list">
+              <div class="change-list-l">身份证号码</div>
+              <div class="change-list-r">{{item.CHANGE_ID_CARD_NO}}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 <script>
+import Vue from "vue";
 import Step from "components/step/step";
+import { getItem } from "../../../utils";
+import { Toast } from "vant";
+Vue.use(Toast);
 export default {
-  data(){
+  data() {
     return {
-      disable:true
+      disable: true,
+      AuditingData: null
+    };
+  },
+  mounted() {
+    this.getUserData().then(res => {
+      this.getAuditingData(res.USER_NO);
+    });
+  },
+  beforeDestroy(){
+    Toast.clear()
+  },
+  methods: {
+    getUserData() {
+      return new Promise((resolve, reject) => {
+        const OPEN_ID = getItem("OPEN_ID");
+        this.http
+          .get(
+            `/sw/metadata/DataSerController/getdata.do?servicecode=10006&grantcode=88888888&OPEN_ID=${OPEN_ID}`
+          )
+          .then(res => {
+            if (res.invokeResultCode === "000") {
+              resolve(res.result);
+            } else {
+              Toast.fail(res.msg);
+            }
+          });
+      });
+    },
+    getAuditingData(USER_NO) {
+      this.http
+        .get(
+          `/sw/metadata/DataSerController/getdata.do?servicecode=10015&grantcode=88888888`,
+          {
+            USER_NO
+          }
+        )
+        .then(res => {
+          if (res.invokeResultCode === "000") {
+              if(!res.result.length){
+                Toast('变更审核没有数据')
+              }
+            this.AuditingData = res.result;
+          } else {
+            Toast.fail(res.msg);
+          }
+        });
     }
   },
   components: {
@@ -133,6 +155,9 @@ export default {
         font-size: 26px;
         line-height: 30px;
         color: rgba(102, 102, 102, 1);
+      }
+      &.fail{
+          color: #ef3434
       }
     }
     .auditing-brand-time {

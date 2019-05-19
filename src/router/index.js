@@ -108,7 +108,7 @@ const ChangeWaterProperty = (resolve) => {
   })
 }
 const ChangeApply = (resolve) => {
-  import('../pages/changeWaterProperty/changeApply/').then(module => {
+  import('../pages/changeWaterProperty/changeApply/index.vue').then(module => {
     resolve(module)
   })
 }
@@ -251,36 +251,50 @@ export default new Router({
     {
       path: '/changeWaterProperty',
       component: ChangeWaterProperty,
+      redirect: "/changeWaterProperty/changeApply",
       children: [
         {
           path: 'changeApply',
-          component: ChangeApply
+          components:{
+            changeApply:ChangeApply 
+          } 
         },
         {
           path: 'changeAuditing',
-          component: ChangeAuditing
+          components:{
+            changeAuditing:ChangeAuditing
+          } 
         },
         {
           path: 'changeList',
-          component: ChangeList
+          components: {
+            changeList:ChangeList
+          }
         }
       ]
     },
     {
       path: '/changeInfo',
       component: ChangeInfo,
+      redirect: "/changeInfo/changeinfoAuditing",
       children: [
         {
           path: 'changeinfoAuditing',
-          component: ChangeinfoAuditing
+          components: {
+            ChangeinfoAuditing
+          }
         },
         {
           path: 'changeinfoContract',
-          component: ChangeinfoContract
+          components: {
+            ChangeinfoContract
+          }
         },
         {
           path: 'changeinfoSign',
-          component: ChangeinfoSign
+          components: {
+            ChangeinfoSign
+          }
         }
       ]
     },
@@ -309,7 +323,7 @@ export default new Router({
       component: BurstDetail
     },
     {
-      path: '/preDetail',
+      path: '/preDetail/:id',
       component: PreDetail
     }
   ]

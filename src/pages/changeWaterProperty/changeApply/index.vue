@@ -1,5 +1,5 @@
 <template>
-  <div id="apply-sign">
+  <div id="chgangesign">
     <div class="apply-sign-wrap">
       <div>
         <Step class="auditing-step" :index="1" :step="2"></Step>
@@ -254,7 +254,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-#apply-sign {
+#chgangesign {
   width: 100%;
 }
 .ys-select{

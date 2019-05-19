@@ -1,24 +1,35 @@
 <template>
   <div id="pricedetail">
     <page-head title="水质详情"></page-head>
-    <div class="p-content-wrap">
-      <h2 class="p-title" v-text="msg"></h2>
-      <p class="p-time" v-text="date"></p>
-      <p class="p-content" v-text="content"></p>
+    <div v-if="content" class="p-content-wrap">
+      <h2 class="p-title">{{content.TITLE}}</h2>
+      <p class="p-time" >{{content.UPDATE_TIME}}</p>
+      <p class="p-content">{{content.CONTENTS}}</p>
     </div>
   </div>
 </template>
 <script>
 import Vue from "vue";
 import PageHead from "../../../components/pageHead/pageHead";
+import { Toast } from 'vant';
+Vue.use(Toast)
 export default {
   data() {
     return {
-      msg: "五一开始全国水价涨幅12%",
-      date: "2019-05-17",
-      content:
-        "这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容"
-    };
+      content:null,
+    }
+  },
+  mounted(){
+    const ID = this.$route.params.id
+    this.http.get(`/gemshow-platform/metadata/DataSerController/getdata.do?servicecode=10025&grantcode=88888888`,{
+      ID
+    }).then(res=>{
+      if(res.in === '000'){
+        this.content = res.result
+      }else{
+        Toast.fail(res.msg)
+      }
+    })
   },
   components: {
     PageHead

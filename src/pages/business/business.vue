@@ -23,9 +23,9 @@
 import Vue from "vue";
 import { Tab, Tabs } from "vant";
 import PageHead from "../../components/pageHead/pageHead";
-import ApplySign from "./applySign/applySign";
-import AuditingSign from "./auditingSign/auditingSign";
-import ContractList from "./contractList/contractList";
+// import ApplySign from "./applySign/applySign";
+// import AuditingSign from "./auditingSign/auditingSign";
+// import ContractList from "./contractList/contractList";
 Vue.use(Tab).use(Tabs);
 export default {
   data() {
@@ -46,7 +46,7 @@ export default {
   },
   methods:{
     changeActive(path,i){
-      this.$router.push(`/business/${path}`)
+      this.$router.replace(`/business/${path}`)
       this.active = i
     },
     setActive(active){

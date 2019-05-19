@@ -1,15 +1,24 @@
 <template>
-  <div id="business">
-    <page-head title="业务办理"></page-head>
-    <van-tabs v-model="active" swipeable animated>
-      <van-tab title="申请变更" id="1">
-        <change-apply></change-apply>
+  <div id="changeWaterProperty">
+    <page-head class="change-list-head" title="业务办理"></page-head>
+    <van-tabs v-model="active" :swipeable="false" animated>
+      <van-tab>
+        <div @click="changeActive('changeApply',0)" slot="title">申请变更</div>
+        <div>
+          <router-view name="changeApply"></router-view>
+        </div>
       </van-tab>
-      <van-tab title="审核列表" id="2">
-        <auditing-sign></auditing-sign>
+      <van-tab>
+        <div @click="changeActive('changeAuditing',1)" slot="title">审核列表</div>
+        <div>
+          <router-view name="changeAuditing"></router-view>
+        </div>
       </van-tab>
-      <van-tab title="变更列表" id="3">
-        <change-list></change-list>
+      <van-tab>
+        <div @click="changeActive('changeList',2)" slot="title">变更列表</div>
+        <div>
+          <router-view name="changeList"></router-view>
+        </div>
       </van-tab>
     </van-tabs>
   </div>
@@ -18,26 +27,40 @@
 import Vue from "vue";
 import { Tab, Tabs } from "vant";
 import PageHead from "../../components/pageHead/pageHead";
-import ChangeApply from "./changeApply/";
-import AuditingSign from "./changeAuditing/";
-import ChangeList from "./changeList/";
 Vue.use(Tab).use(Tabs);
 export default {
   data() {
     return {
-      active: "0"
+      active: 0
     };
   },
+  mounted(){
+    this.initTab()
+  },
+  methods: {
+    changeActive(path, i) {
+      this.$router.replace(`/changeWaterProperty/${path}`);
+      this.active = i;
+    },
+    initTab() {
+      let arr = this.$route.path.split("/");
+      let pathname = arr[arr.length - 1];
+      if (pathname === "changeApply") {
+        this.active = 0;
+      } else if (pathname === "changeAuditing") {
+        this.active = 1;
+      } else if (pathname === "changeList") {
+        this.active = 2;
+      }
+    }
+  },
   components: {
-    PageHead,
-    ChangeApply,
-    AuditingSign,
-    ChangeList
+    PageHead
   }
 };
 </script>
 <style lang="less" scoped>
-#business {
+#changeWaterProperty {
   /deep/ .van-tabs__wrap {
     margin-top: 90px;
     height: 76px;

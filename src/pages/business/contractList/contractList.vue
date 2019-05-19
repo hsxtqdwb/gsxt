@@ -44,8 +44,11 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
 import { getItem } from "../../../utils";
 import BScroll from "better-scroll";
+import { Toast } from 'vant';
+Vue.use(Toast)
 export default {
   data() {
     return {
@@ -57,8 +60,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route)
-    this.props.setActive(2)
     this.getContractList();
     this.$nextTick(() => {
       this.initScroll();
@@ -110,11 +111,14 @@ export default {
               this.scroll.finishPullUp();
             }
             this.list = [...this.list, ...res.result.list];
+          }else{
+            Toast.fail(res.mag)
           }
         });
     }
   },
   beforeDestroy(){
+    Toast.clear()
     this.scroll.destroy()
   }
 };

@@ -193,6 +193,7 @@ export default {
     align-items: center;
     height: 160px;
     box-sizing: border-box;
+    border-top:1px solid rgba(238, 238, 238, 1);
     .i_list_icon {
       width: 70px;
       height: 70px;
@@ -205,6 +206,7 @@ export default {
       }
     }
     .i_list_desc {
+      width: 150px;
       .i_desc_title {
         color: #333;
         font-size: 28px;
@@ -225,20 +227,9 @@ export default {
       width: 1px;
       background: rgba(238, 238, 238, 1);
     }
-    &:nth-of-type(1)::before,
-    &:nth-of-type(2)::before {
-      width: 0;
-      height: 0;
-    }
-    &::before {
-      content: "";
-      display: block;
-      position: absolute;
-      right: 0;
-      top: 0;
-      height: 1px;
-      width: 340px;
-      background: rgba(238, 238, 238, 1);
+    &:nth-of-type(1),
+    &:nth-of-type(2) {
+     border-top:none
     }
   }
 }

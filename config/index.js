@@ -25,11 +25,18 @@ module.exports = {
         pathRewrite: {
           '^/sw': ''
         },
+      },
+      '/gemshow-platform': {
+        target: "http://www.cyszls.com:81/gemshow-platform",
+        changeOrigin: true,
+        pathRewrite: {
+          '^/gemshow-platform': ''
+        },
       }
     },
 
     // Various Dev Server settings
-    host: '192.168.0.101', // can be overwritten by process.env.HOST
+    host: '0.0.0.0', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
