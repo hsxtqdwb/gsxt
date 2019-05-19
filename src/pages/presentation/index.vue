@@ -5,7 +5,7 @@
       <div class="scroll-wrap">
         <div class="presentation-list">
           <template v-if="reportList.length">
-              <div v-for="(item,index) in reportList" :key="index">
+            <div @click="getUrl('/preDetail')" v-for="(item,index) in reportList" :key="index">
               <p>
                 <span class="presentation-list-left">{{item.DIC_NAME}}</span>
                 <span class="presentation-list-right">{{item.DIC_VALUE}}</span>
@@ -33,14 +33,14 @@ export default {
         PAGE_SIZE: 20,
         TYPE: 3
       },
-      reportList: [],
+      reportList: []
     };
   },
   mounted() {
-    this.getReportList()
-    this.$nextTick(()=>{
-      this.initScroll()
-    })
+    this.getReportList();
+    this.$nextTick(() => {
+      this.initScroll();
+    });
   },
   components: {
     PageHead
@@ -49,12 +49,13 @@ export default {
     initScroll() {
       const headNode = document.getElementsByClassName("headNode")[0];
       let wrapNode = document.getElementsByClassName("scroll-wrapper")[0];
-        this.scroll = new BScroll(".scroll-wrapper", {
-                pullUpLoad: true,
-                click: true,
-                scrollY:true
-            });
-      wrapNode.style.height =document.documentElement.clientHeight - headNode.offsetHeight + "px";
+      this.scroll = new BScroll(".scroll-wrapper", {
+        pullUpLoad: true,
+        click: true,
+        scrollY: true
+      });
+      wrapNode.style.height =
+        document.documentElement.clientHeight - headNode.offsetHeight + "px";
       this.scroll.on("pullingUp", () => {
         this.params.CURRENT_PAGE = this.params.CURRENT_PAGE + 1;
         this.getReportList();
@@ -84,10 +85,13 @@ export default {
         )
         .then(res => {
           if (res.invokeResultCode === "000") {
-            this.reportList = [...this.reportList,...res.result.list];
-            this.scroll.finishPullUp()
+            this.reportList = [...this.reportList, ...res.result.list];
+            this.scroll.finishPullUp();
           }
         });
+    },
+    getUrl(url) {
+      this.$router.push(url);
     }
   }
 };

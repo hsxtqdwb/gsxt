@@ -152,6 +152,21 @@ const IdentityVerification = (resolve) => {
     resolve(module)
   })
 }
+const PriceDetail = (resolve) => {
+  import('../pages/waterPrice/priceDetail').then(module => {
+    resolve(module)
+  })
+}
+const BurstDetail = (resolve) => {
+  import('../pages/burst/burstDetail').then(module => {
+    resolve(module)
+  })
+}
+const PreDetail = (resolve) => {
+  import('../pages/presentation/preDetail').then(module => {
+    resolve(module)
+  })
+}
 export default new Router({
   routes: [
     {
@@ -208,26 +223,26 @@ export default new Router({
     {
       path: '/business',
       component: Business,
-      redirect:"/business/applysign",
+      redirect: "/business/applysign",
       children: [{
         path: 'applysign',
         components: {
-          default:ApplySign,
-          applysign:ApplySign
+          default: ApplySign,
+          applysign: ApplySign
         }
       },
       {
         path: 'auditingsign',
-        components:{
-          default:AuditingSign,
-          auditingsign:AuditingSign
-        } 
+        components: {
+          default: AuditingSign,
+          auditingsign: AuditingSign
+        }
       },
       {
         path: 'contractList',
         components: {
-          default:ContractList,
-          contractList:ContractList
+          default: ContractList,
+          contractList: ContractList
         }
       }
       ]
@@ -283,6 +298,18 @@ export default new Router({
     {
       path: '/identityVerification',
       component: IdentityVerification
+    },
+    {
+      path: '/priceDetail',
+      component: PriceDetail
+    },
+    {
+      path: '/burstDetail',
+      component: BurstDetail
+    },
+    {
+      path: '/preDetail',
+      component: PreDetail
     }
   ]
 })

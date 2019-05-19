@@ -2,7 +2,13 @@
   <div id="waterPrice">
     <page-head title="水价标准"></page-head>
     <div class="waterPrice-list">
-      <van-cell v-for="(item,index) in msg" :key="index" :title="item.title" is-link/>
+      <van-cell
+        @click="getUrl('/priceDetail')"
+        v-for="(item,index) in msg"
+        :key="index"
+        :title="item.title"
+        is-link
+      />
     </div>
   </div>
 </template>
@@ -30,6 +36,11 @@ export default {
   },
   components: {
     PageHead
+  },
+  methods: {
+    getUrl(url) {
+      this.$router.push(url);
+    }
   }
 };
 </script>
