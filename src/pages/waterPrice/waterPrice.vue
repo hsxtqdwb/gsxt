@@ -2,34 +2,74 @@
   <div id="waterPrice">
     <page-head title="水价标准"></page-head>
     <div class="waterPrice-list">
-      <van-cell v-for="(item,index) in msg" :key="index" :title="item.title" is-link/>
+      <van-cell
+        @click="getUrl('/priceDetail')"
+        v-for="(item,index) in list"
+        :key="index"
+        :title="item.title"
+        is-link
+      />
     </div>
   </div>
 </template>
 <script>
 import Vue from "vue";
 import PageHead from "../../components/pageHead/pageHead";
+import { getItem } from "../../utils";
+import BScroll from "better-scroll";
+import { Toast } from "vant";
 import { Cell, CellGroup } from "vant";
 Vue.use(Cell).use(CellGroup);
 export default {
   data() {
     return {
-      selected: "1",
-      msg: [
-        {
-          title: "居民用水水价标准"
-        },
-        {
-          title: "非居民用水水价标准"
-        },
-        {
-          title: "污水处理费水价调整"
-        }
-      ]
+      page: {
+        CURRENT_PAGE: 0,
+        PAGE_SIZE: 10
+      },
+      list: []
     };
   },
   components: {
     PageHead
+  },
+  mounted() {
+    this.getList();
+  },
+  methods: {
+    getUrl(url) {
+      this.$router.push(url);
+    },
+    getList() {
+      const USER_NO = getItem("USER_NO");
+      const OPEN_ID = getItem("OPEN_ID");
+      this.http
+        .get(
+          `/sw/metadata/DataSerController/getdata.do?servicecode=10020&grantcode=88888888`,
+          {
+            PAGE_SIZE: this.page.PAGE_SIZE,
+            CURRENT_PAGE: this.page.CURRENT_PAGE,
+            TYPE: 3
+          }
+        )
+        .then(res => {
+          console.log(res);
+          if (res.invokeResultCode === "000") {
+            if (!res.result.list.length && this.page.CURRENT_PAGE == 0) {
+              Toast("水价标准列表为空");
+              return;
+            } else if (!res.result.list.length) {
+              Toast("没有新数据");
+              return;
+            }
+            this.list = [...this.list, ...res.result.list];
+            this.page.CURRENT_PAGE = res.result.pageInfo.currentPage + 1;
+            if (res.result.list.length === 10) {
+              this.scroll.finishPullUp();
+            }
+          }
+        });
+    }
   }
 };
 </script>

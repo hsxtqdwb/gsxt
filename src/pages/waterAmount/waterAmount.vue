@@ -34,27 +34,27 @@
 import PageHead from "components/pageHead/pageHead";
 import { getItem } from "../../utils";
 import BScroll from "better-scroll";
-import { Toast } from 'vant';
+import { Toast } from "vant";
 export default {
   data() {
     return {
       page: {
-        CURRENT_PAGE: 1,
-        PAGE_SIZE: 10
+        CURRENT_PAGE: 0,
+        PAGE_SIZE: 30
       },
       list: [],
-      userData:null
+      userData: null
     };
   },
   mounted() {
-    this.getUserData()
+    this.getUserData();
     this.getList();
     this.$nextTick(() => {
-      this.initScroll()
+      this.initScroll();
     });
   },
   methods: {
-    initScroll(){
+    initScroll() {
       const scrollNode = document.querySelector(".scroll-wrapper");
       const userNode = document.querySelector(".w-user-wrap");
       const headNode = document.querySelector(".headN");
@@ -86,7 +86,15 @@ export default {
         )
         .then(res => {
           if (res.invokeResultCode === "000") {
-            this.list=[...this.list,...res.result.list];
+            console.log(this.page.CURRENT_PAGE);
+            if (!res.result.list.length && this.page.CURRENT_PAGE == 0) {
+              Toast("水费账单列表为空");
+              return;
+            } else if (!res.result.list.length) {
+              Toast("没有新账单");
+              return;
+            }
+            this.list = [...this.list, ...res.result.list];
             this.page.CURRENT_PAGE = res.result.pageInfo.currentPage + 1;
             if (res.result.list.length === 10) {
               this.scroll.finishPullUp();
@@ -94,22 +102,27 @@ export default {
           }
         });
     },
-    getUserData(){
-      const OPEN_ID =getItem('OPEN_ID')
-      this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10006&grantcode=88888888`,{
-        OPEN_ID
-      }).then(res =>{
-        if(res.invokeResultCode === '000'){
-          Toast.success(res.msg)
-          this.userData = res.result
-        }else{
-          Toast.fail(res.msg)
-        }
-      })
+    getUserData() {
+      const OPEN_ID = getItem("OPEN_ID");
+      this.http
+        .get(
+          `/sw/metadata/DataSerController/getdata.do?servicecode=10006&grantcode=88888888`,
+          {
+            OPEN_ID
+          }
+        )
+        .then(res => {
+          if (res.invokeResultCode === "000") {
+            Toast.success(res.msg);
+            this.userData = res.result;
+          } else {
+            Toast.fail(res.msg);
+          }
+        });
     }
   },
-  beforeDestroy(){
-    this.scroll.destroy()
+  beforeDestroy() {
+    this.scroll.destroy();
   },
   components: {
     PageHead
@@ -130,6 +143,7 @@ export default {
   z-index: 99;
 }
 .w-user-wrap {
+  margin-top: 90px;
   height: 136px;
   z-index: 99;
   width: 100%;

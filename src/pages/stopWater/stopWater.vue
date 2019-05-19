@@ -22,16 +22,17 @@
 import Vue from "vue";
 import PageHead from "../../components/pageHead/pageHead";
 import BScroll from "better-scroll";
+import { Toast } from "vant";
+Vue.use(Toast);
 export default {
   data() {
     return {
       selected: "1",
       page: {
-        CURRENT_PAGE: 1,
+        CURRENT_PAGE: 0,
         PAGE_SIZE: 10
       },
-      msg: [
-      ]
+      msg: []
     };
   },
   mounted() {
@@ -45,9 +46,7 @@ export default {
       const scrollNode = document.querySelector(".scroll-wrapper");
       const headNode = document.querySelector(".headN");
       scrollNode.style.height =
-        document.documentElement.clientHeight -
-        headNode.offsetHeight +
-        "px";
+        document.documentElement.clientHeight - headNode.offsetHeight + "px";
       this.scroll = new BScroll(".scroll-wrapper", {
         pullUpLoad: true,
         click: true
@@ -68,7 +67,14 @@ export default {
         )
         .then(res => {
           if (res.invokeResultCode === "000") {
-            this.page.CURRENT_PAGE = this.page.CURRENT_PAGE+1
+            if (!res.result.list.length && this.page.CURRENT_PAGE == 0) {
+              Toast("通知列表列表为空");
+              return;
+            } else if (!res.result.list.length) {
+              Toast("没有新的通知");
+              return;
+            }
+            this.page.CURRENT_PAGE = this.page.CURRENT_PAGE + 1;
             this.msg = [...this.msg, ...res.result.list];
           }
         });
@@ -81,8 +87,9 @@ export default {
 </script>
 <style lang="less" scoped>
 #stopWater {
-  .scroll-wrapper{
+  .scroll-wrapper {
     overflow: hidden;
+    margin-top: 90px;
   }
   .stopWater-msg {
     background: #ffffff;

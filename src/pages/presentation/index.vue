@@ -5,7 +5,7 @@
       <div class="scroll-wrap">
         <div class="presentation-list">
           <template v-if="reportList.length">
-              <div v-for="(item,index) in reportList" :key="index">
+            <div @click="getUrl('/preDetail')" v-for="(item,index) in reportList" :key="index">
               <p>
                 <span class="presentation-list-left">{{item.DIC_NAME}}</span>
                 <span class="presentation-list-right">{{item.DIC_VALUE}}</span>
@@ -21,7 +21,7 @@
 import Vue from "vue";
 import PageHead from "../../components/pageHead/pageHead";
 import BScroll from "better-scroll";
-import { Cell, CellGroup, Actionsheet } from "vant";
+import { Toast, Cell, CellGroup, Actionsheet } from "vant";
 Vue.use(Cell)
   .use(CellGroup)
   .use(Actionsheet);
@@ -33,14 +33,14 @@ export default {
         PAGE_SIZE: 20,
         TYPE: 3
       },
-      reportList: [],
+      reportList: []
     };
   },
   mounted() {
-    this.getReportList()
-    this.$nextTick(()=>{
-      this.initScroll()
-    })
+    this.getReportList();
+    this.$nextTick(() => {
+      this.initScroll();
+    });
   },
   components: {
     PageHead
@@ -49,12 +49,13 @@ export default {
     initScroll() {
       const headNode = document.getElementsByClassName("headNode")[0];
       let wrapNode = document.getElementsByClassName("scroll-wrapper")[0];
-        this.scroll = new BScroll(".scroll-wrapper", {
-                pullUpLoad: true,
-                click: true,
-                scrollY:true
-            });
-      wrapNode.style.height =document.documentElement.clientHeight - headNode.offsetHeight + "px";
+      this.scroll = new BScroll(".scroll-wrapper", {
+        pullUpLoad: true,
+        click: true,
+        scrollY: true
+      });
+      wrapNode.style.height =
+        document.documentElement.clientHeight - headNode.offsetHeight + "px";
       this.scroll.on("pullingUp", () => {
         this.params.CURRENT_PAGE = this.params.CURRENT_PAGE + 1;
         this.getReportList();
@@ -84,10 +85,22 @@ export default {
         )
         .then(res => {
           if (res.invokeResultCode === "000") {
-            this.reportList = [...this.reportList,...res.result.list];
-            this.scroll.finishPullUp()
+            console.log(res);
+            alert("需要加CURRENT_PAGE");
+            if (!res.result.list.length && this.page.CURRENT_PAGE == 0) {
+              Toast("水质列表为空");
+              return;
+            } else if (!res.result.list.length) {
+              Toast("没有新数据");
+              return;
+            }
+            this.reportList = [...this.reportList, ...res.result.list];
+            this.scroll.finishPullUp();
           }
         });
+    },
+    getUrl(url) {
+      this.$router.push(url);
     }
   }
 };

@@ -7,7 +7,12 @@
       <div ref="scrollNode" class="scroll-wrapper">
         <div class="scroll-wrapp">
           <template v-if="burstList.length">
-            <div v-for="item in burstList" :key="item.ID" class="burst-list">
+            <div
+              @click="getUrl('/burstDetail')"
+              v-for="item in burstList"
+              :key="item.ID"
+              class="burst-list"
+            >
               <div class="burst-list-l">{{item.PROBLEM_DESC}}</div>
               <i class="burst-list-r"></i>
             </div>
@@ -85,6 +90,9 @@ export default {
             Toast.fail(res.msg);
           }
         });
+    },
+    getUrl(url) {
+      this.$router.push(url);
     }
   },
   components: {
