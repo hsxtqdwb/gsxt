@@ -21,7 +21,7 @@
 import Vue from "vue";
 import PageHead from "../../components/pageHead/pageHead";
 import BScroll from "better-scroll";
-import { Cell, CellGroup, Actionsheet } from "vant";
+import { Toast, Cell, CellGroup, Actionsheet } from "vant";
 Vue.use(Cell)
   .use(CellGroup)
   .use(Actionsheet);
@@ -85,6 +85,15 @@ export default {
         )
         .then(res => {
           if (res.invokeResultCode === "000") {
+            console.log(res);
+            alert("需要加CURRENT_PAGE");
+            if (!res.result.list.length && this.page.CURRENT_PAGE == 0) {
+              Toast("水质列表为空");
+              return;
+            } else if (!res.result.list.length) {
+              Toast("没有新数据");
+              return;
+            }
             this.reportList = [...this.reportList, ...res.result.list];
             this.scroll.finishPullUp();
           }
