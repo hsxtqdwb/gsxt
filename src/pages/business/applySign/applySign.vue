@@ -27,7 +27,7 @@
         <van-field  v-model="params.LINK_MAN" placeholder="请输入联系人姓名"/>
         <p>联系电话</p>
         <van-field  v-model="params.PHONE" maxLength="11" type="tel" placeholder="请输入您的联系方式"/>
-        <p>验证码</p>
+        <!-- <p>验证码</p> -->
         <!-- <van-field  v-model="params.value8" placeholder="请输入您手机收到得验证码"/> -->
         <p>身份证号码</p>
         <van-field  v-model="params.ID_CARD_NO" placeholder="请输入您的身份证号码"/>
@@ -162,12 +162,14 @@ export default {
       }
       const OPEN_ID = getItem('OPEN_ID')
       this.http.post(`/sw/metadata/DataSerController/getdata.do?servicecode=10012&grantcode=88888888&OPEN_ID=${OPEN_ID}`,{
-        OPEN_ID,
         NAME,
         ADDRESS:ADDRESS+ADDRESS_DETAIL,
         LINK_MAN,
         PHONE,
         ID_CARD_NO,
+        PROPERTY_CERT,
+        CARD_OPPOSITE_IMAGE,
+        CARD_POSITIVE_IMAGE
       }).then(res=>{
         if(res.invokeResultCode ==='000'){
           Toast.success(res.msg)

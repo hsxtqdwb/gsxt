@@ -14,7 +14,7 @@
                 <div>{{item.NAME}}</div>
               </div>
             </van-cell-group>
-            <span slot="right">删除</span>
+            <span @click="delUser(item.USER_NO)" slot="right">删除</span>
           </van-swipe-cell>
         </div>
       </template>
@@ -23,32 +23,52 @@
 </template>
 <script>
 import PageHead from "../../../components/pageHead/pageHead";
-import { SwipeCell, CellGroup, Cell } from "vant";
+import { SwipeCell, CellGroup, Cell, Toast } from "vant";
 import Vue from "vue";
-import { getItem } from '../../../utils';
+import { getItem } from "../../../utils";
 Vue.use(SwipeCell);
 Vue.use(CellGroup);
 Vue.use(Cell);
 export default {
-  data(){
+  data() {
     return {
-      list:[]
-    }
+      list: []
+    };
   },
   mounted() {
-    const OPEN_ID= getItem('OPEN_ID')
-    this.http.get(
-        `/sw/metadata/DataSerController/getdata.do?servicecode=10003&grantcode=88888888`,
-        { OPEN_ID }
-      )
-      .then(res => {
-        if (res.invokeResultCode === "000") {
-          this.list = res.result;
-        }
-      });
+    this.getUser()
   },
-  methods:{
-    
+  methods: {
+    delUser(USER_NO){
+      const OPEN_ID = getItem('OPEN_ID')
+      this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10005&grantcode=88888888`,{
+        OPEN_ID,
+        USER_NO
+      }).then(res=>{
+        if(res.invokeResultCode === '000'){
+          Toast.success(res.msg)
+          this.getUser()
+        }else{
+          Toast.fail(res.msg)
+        }
+      })
+    },
+    getUser() {
+      const OPEN_ID = getItem("OPEN_ID");
+      this.http
+        .get(
+          `/sw/metadata/DataSerController/getdata.do?servicecode=10003&grantcode=88888888`,
+          { OPEN_ID }
+        )
+        .then(res => {
+          if (res.invokeResultCode === "000") {
+            this.list = res.result;
+          }
+        });
+    }
+  },
+  beforeDestroy(){
+    Toast.clear()
   },
   components: {
     PageHead

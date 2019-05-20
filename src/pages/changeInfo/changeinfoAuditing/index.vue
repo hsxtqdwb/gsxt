@@ -149,10 +149,13 @@ export default {
     //请求变更
     changeUserInfo(){
       const OPEN_ID = getItem('OPEN_ID')
+      console.log(this.params)
       this.http.post(`/sw/metadata/DataSerController/getdata.do?servicecode=10014&grantcode=88888888&OPEN_ID=${OPEN_ID}`,{
+        
+        USER_NAME:this.userData.NAME,
+        ADDRESS:this.userData.ADDRESS,
+          USER_NO:this.userData.USER_NO,
         ...this.params,
-        USER_NO:this.userData.USER_NO,
-        NAME:this.userData.NAME
       }).then(res=>{
         if(res.invokeResultCode==='000'){
           Toast.success(res.msg)
