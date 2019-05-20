@@ -3,7 +3,7 @@ const request = (url,type,option,config) =>{
     let defaultConfig = {
         
     }
-    Object.assign(defaultConfig,config)
+    let newConfig =   Object.assign(defaultConfig,config)
     return new Promise((resolve,reject) => {
         switch (type) {
             case 'GET':
@@ -15,9 +15,11 @@ const request = (url,type,option,config) =>{
                 }
                break;
             case "POST":
-            Object.assign(defaultConfig,{data:option,method:"POST"})
+        
+            newConfig = Object.assign(defaultConfig,{data:option,method:"POST",'Content-Type':'x-www-form-urlencoded'})
         }
-        axios(url,defaultConfig).then(res=>{
+        console.log(newConfig)
+        axios(url,newConfig).then(res=>{
             resolve(res.data)
         }).catch(e=>reject(e))
     })
