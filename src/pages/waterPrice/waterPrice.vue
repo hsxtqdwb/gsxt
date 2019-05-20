@@ -43,7 +43,7 @@ export default {
     getList() {
       const OPEN_ID = getItem("OPEN_ID");
       this.http
-        .post(
+        .get(
           `/sw/metadata/DataSerController/getdata.do?servicecode=10020&grantcode=88888888`,
           {
             PAGE_SIZE: this.page.PAGE_SIZE,
