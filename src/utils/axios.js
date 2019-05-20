@@ -15,10 +15,8 @@ const request = (url,type,option,config) =>{
                 }
                break;
             case "POST":
-            axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-            newConfig = Object.assign(defaultConfig,{data:option,method:"POST"})
+            newConfig = Object.assign(defaultConfig,{data:option,method:"POST",headers:{'Content-Type':'application/x-www-form-urlencoded'}})
         }
-        console.log(newConfig)
         axios(url,newConfig).then(res=>{
             resolve(res.data)
         }).catch(e=>reject(e))
