@@ -125,13 +125,13 @@ export default {
     onRead(type,file) {
       switch(type){
         case 'one':
-          this.params.PROPERTY_CERT = file.content
+          this.params.PROPERTY_CERT =decodeURIComponent(String(file.content))
           break;
         case 'tow':
-          this.params.CARD_OPPOSITE_IMAGE = file.content
+          this.params.CARD_OPPOSITE_IMAGE = decodeURIComponent(String(file.content))
           break;
         case 'three':
-          this.params.CARD_POSITIVE_IMAGE = file.content
+          this.params.CARD_POSITIVE_IMAGE = decodeURIComponent(String(file.content))
           break;    
       }
     },
@@ -148,14 +148,31 @@ export default {
     },
     //请求变更
     changeUserInfo(){
+       const {APPLY_REASON,
+          CHANGE_USER_NAME,
+          CHANGE_LINK_MAN,
+          CHANGE_PHONE,
+          CHANGE_ID_CARD_NO,
+          PROPERTY_CERT,
+          CARD_OPPOSITE_IMAGE,
+          CARD_POSITIVE_IMAGE,} = this.params
       const OPEN_ID = getItem('OPEN_ID')
       console.log(this.params)
       this.http.post(`/sw/metadata/DataSerController/getdata.do?servicecode=10014&grantcode=88888888&OPEN_ID=${OPEN_ID}`,{
         
         USER_NAME:this.userData.NAME,
         ADDRESS:this.userData.ADDRESS,
-          USER_NO:this.userData.USER_NO,
-        ...this.params,
+        USER_NO:this.userData.USER_NO,
+        NAME:this.userData.NAME,
+        // ...this.params,
+        APPLY_REASON,
+          CHANGE_USER_NAME,
+          CHANGE_LINK_MAN,
+          CHANGE_PHONE,
+          CHANGE_ID_CARD_NO,
+          PROPERTY_CERT,
+          CARD_OPPOSITE_IMAGE,
+          CARD_POSITIVE_IMAGE
       }).then(res=>{
         if(res.invokeResultCode==='000'){
           Toast.success(res.msg)
