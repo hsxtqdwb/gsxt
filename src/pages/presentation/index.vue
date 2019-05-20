@@ -31,7 +31,7 @@ export default {
       params: {
         CURRENT_PAGE: 0,
         PAGE_SIZE: 30,
-        TYPE: 3
+        TYPE: 2
       },
       reportList: []
     };
