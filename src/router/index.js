@@ -167,8 +167,13 @@ const PreDetail = (resolve) => {
     resolve(module)
   })
 }
+const StopWaterDetail = (resolve) => {
+  import('../pages/stopWater/stopWaterDetail').then(module => {
+    resolve(module)
+  })
+}
 export default new Router({
-  mode:"history",
+  mode: "history",
   routes: [
     {
       path: "/test",
@@ -255,20 +260,20 @@ export default new Router({
       children: [
         {
           path: 'changeApply',
-          components:{
-            changeApply:ChangeApply 
-          } 
+          components: {
+            changeApply: ChangeApply
+          }
         },
         {
           path: 'changeAuditing',
-          components:{
-            changeAuditing:ChangeAuditing
-          } 
+          components: {
+            changeAuditing: ChangeAuditing
+          }
         },
         {
           path: 'changeList',
           components: {
-            changeList:ChangeList
+            changeList: ChangeList
           }
         }
       ]
@@ -325,6 +330,10 @@ export default new Router({
     {
       path: '/preDetail/:id',
       component: PreDetail
+    },
+    {
+      path: '/stopWaterDetail',
+      component: StopWaterDetail
     }
   ]
 })
