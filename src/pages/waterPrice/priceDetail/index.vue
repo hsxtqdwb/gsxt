@@ -23,7 +23,7 @@ export default {
     this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10025&grantcode=88888888`,{
       ID
     }).then(res=>{
-      if(res.in === '000'){
+      if(res.invokeResultCode === '000'){
         this.content = res.result
       }else{
         Toast.fail(res.msg)

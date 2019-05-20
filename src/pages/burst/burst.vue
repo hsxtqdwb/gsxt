@@ -8,7 +8,7 @@
         <div class="scroll-wrapp">
           <template v-if="burstList.length">
             <div
-              @click="getUrl('/burstDetail')"
+              @click="getUrl('/burstDetail/'+item.ID)"
               v-for="item in burstList"
               :key="item.ID"
               class="burst-list"

@@ -324,7 +324,7 @@ export default new Router({
       component: PriceDetail
     },
     {
-      path: '/burstDetail',
+      path: '/burstDetail/:id',
       component: BurstDetail
     },
     {

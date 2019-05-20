@@ -4,7 +4,7 @@
     <div class="p-content-wrap">
       <h2 class="p-title" v-text="msg"></h2>
       <p class="p-time" v-text="date"></p>
-      <p class="p-content" v-text="content"></p>
+      <p class="p-content" v-html="content.PROBLEM_DESC"></p>
     </div>
   </div>
 </template>
@@ -16,9 +16,18 @@ export default {
     return {
       msg: "五一开始全国水价涨幅12%",
       date: "2019-05-17",
-      content:
-        "这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容"
-    };
+      content:null
+      };
+  },
+  mounted(){
+    const ID = this.$route.params.id 
+    this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10024&grantcode=88888888`,{
+      ID
+    }).then(res=>{
+        if(res.invokeResultCode === '000'){
+          this.content = res.result
+        }
+    })
   },
   components: {
     PageHead
