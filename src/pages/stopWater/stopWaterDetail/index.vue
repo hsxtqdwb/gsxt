@@ -1,10 +1,10 @@
 <template>
-  <div id="pricedetail">
+  <div id="stopdetail">
     <page-head title="停水通知"></page-head>
     <div v-if="content" class="p-content-wrap">
       <h2 class="p-title" >{{content.TITLE}}</h2>
       <p class="p-time" >{{content.UPDATE_TIME}}</p>
-      <p class="p-content" >{{content.CONTENTS}}</p>
+      <p class="p-content" v-html="content.CONTENTS"></p>
     </div>
   </div>
 </template>
@@ -20,10 +20,10 @@ export default {
   },
     mounted(){
     const ID = this.$route.params.id
-    this.http.get(`/gemshow-platform/metadata/DataSerController/getdata.do?servicecode=10025&grantcode=88888888`,{
+    this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10025&grantcode=88888888`,{
       ID
     }).then(res=>{
-      if(res.in === '000'){
+      if(res.invokeResultCode === '000'){
         this.content = res.result
       }else{
         Toast.fail(res.msg)
@@ -39,10 +39,12 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-#pricedetail {
+#stopdetail {
   .p-content-wrap {
     padding: 35px;
-    margin-top: 90px;
+    padding-top: 125px;
+    min-height: 100vh;
+    box-sizing: border-box;
     background: #fff;
     .p-title {
       text-align: center;

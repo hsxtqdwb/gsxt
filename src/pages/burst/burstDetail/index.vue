@@ -1,5 +1,5 @@
 <template>
-  <div id="pricedetail">
+  <div id="burstdetail">
     <page-head title="暴漏举报详情"></page-head>
     <div class="p-content-wrap">
       <h2 class="p-title" v-text="msg"></h2>

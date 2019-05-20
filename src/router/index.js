@@ -332,7 +332,7 @@ export default new Router({
       component: PreDetail
     },
     {
-      path: '/stopWaterDetail',
+      path: '/stopWaterDetail/:id',
       component: StopWaterDetail
     }
   ]

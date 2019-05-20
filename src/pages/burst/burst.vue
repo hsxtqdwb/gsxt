@@ -119,7 +119,7 @@ export default {
   display: block;
 }
 .burst-list-wrap {
-  margin-top: 110px;
+  margin-top: 90px;
   .burst-list {
     padding: 0 30px;
     box-sizing: border-box;

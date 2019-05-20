@@ -4,7 +4,7 @@
     <div class="scroll-wrapper">
       <div class="scroll-wrapp">
         <template v-if="msg.length">
-          <div class="stopWater-msg" v-for="(item,index) in msg" :key="index">
+          <div @click="getDetail(item.ID)" class="stopWater-msg" v-for="(item,index) in msg" :key="index">
             <div class="stopWater-msg-top">
               <div class="stopWater-msg-title">{{item.TITLE}}</div>
               <div class="stopWater-msg-time">{{item.UPDATE_TIME}}</div>
@@ -78,6 +78,9 @@ export default {
             this.msg = [...this.msg, ...res.result.list];
           }
         });
+    },
+    getDetail(id){
+      this.$router.push(`/stopWaterDetail/${id}`)
     }
   },
   components: {

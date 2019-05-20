@@ -20,7 +20,7 @@ export default {
   },
     mounted(){
     const ID = this.$route.params.id
-    this.http.get(`/gemshow-platform/metadata/DataSerController/getdata.do?servicecode=10025&grantcode=88888888`,{
+    this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10025&grantcode=88888888`,{
       ID
     }).then(res=>{
       if(res.in === '000'){
@@ -42,8 +42,10 @@ export default {
 #pricedetail {
   .p-content-wrap {
     padding: 35px;
-    margin-top: 90px;
+    padding-top: 125px;
+    box-sizing: border-box;
     background: #fff;
+    min-height: calc(100vh);
     .p-title {
       text-align: center;
       font-size: 32px;
