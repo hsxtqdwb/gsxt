@@ -93,7 +93,8 @@ export default {
   },
   methods: {
     applyChange(){
-      const {APPLY_REASON,
+      const {
+        APPLY_REASON,
           CHANGE_USER_NAME,
           CHANGE_LINK_MAN,
           CHANGE_PHONE,
@@ -157,15 +158,12 @@ export default {
           CARD_OPPOSITE_IMAGE,
           CARD_POSITIVE_IMAGE,} = this.params
       const OPEN_ID = getItem('OPEN_ID')
-      console.log(this.params)
-      this.http.post(`/sw/metadata/DataSerController/getdata.do?servicecode=10014&grantcode=88888888&OPEN_ID=${OPEN_ID}`,{
-        
+      let formData = new FormData()
+      let obj= {
         USER_NAME:this.userData.NAME,
-        ADDRESS:this.userData.ADDRESS,
-        USER_NO:this.userData.USER_NO,
-        NAME:this.userData.NAME,
-        // ...this.params,
-        APPLY_REASON,
+          ADDRESS:this.userData.ADDRESS,
+          USER_NO:this.userData.USER_NO,
+          APPLY_REASON,
           CHANGE_USER_NAME,
           CHANGE_LINK_MAN,
           CHANGE_PHONE,
@@ -173,7 +171,11 @@ export default {
           PROPERTY_CERT,
           CARD_OPPOSITE_IMAGE,
           CARD_POSITIVE_IMAGE
-      }).then(res=>{
+      }
+      Object.keys(obj).map(item =>{
+        formData.append(item,obj[item])
+      })
+      this.http.post(`/sw/metadata/DataSerController/getdata.do?servicecode=10014&grantcode=88888888&OPEN_ID=${OPEN_ID}`,formData).then(res=>{
         if(res.invokeResultCode==='000'){
           Toast.success(res.msg)
         }else{

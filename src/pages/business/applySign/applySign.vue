@@ -161,7 +161,8 @@ export default {
         return
       }
       const OPEN_ID = getItem('OPEN_ID')
-      this.http.post(`/sw/metadata/DataSerController/getdata.do?servicecode=10012&grantcode=88888888&OPEN_ID=${OPEN_ID}`,{
+      let formData = new FormData()
+      let obj = {
         NAME,
         ADDRESS:ADDRESS+ADDRESS_DETAIL,
         LINK_MAN,
@@ -170,7 +171,11 @@ export default {
         PROPERTY_CERT,
         CARD_OPPOSITE_IMAGE,
         CARD_POSITIVE_IMAGE
-      }).then(res=>{
+      }
+      Object.keys(obj).map(item=>{
+        formData.append(item,obj[item])
+      })
+      this.http.post(`/sw/metadata/DataSerController/getdata.do?servicecode=10012&grantcode=88888888&OPEN_ID=${OPEN_ID}`,formData).then(res=>{
         if(res.invokeResultCode ==='000'){
           Toast.success(res.msg)
           this.params={

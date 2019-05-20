@@ -214,10 +214,13 @@ export default {
         return;
       }
       // TEST0001
+      let obj = {...this.params}
+      let formData = new FormData()
+      Object.keys(obj).map(item =>{
+        formData.append(item,obj[item])
+      })
       const OPEN_ID = getItem('OPEN_ID')
-      this.http.post(`/sw/metadata/DataSerController/getdata.do?servicecode=10017&grantcode=88888888&OPEN_ID=${OPEN_ID}`,{
-          ...this.params
-      }).then(res=>{
+      this.http.post(`/sw/metadata/DataSerController/getdata.do?servicecode=10017&grantcode=88888888&OPEN_ID=${OPEN_ID}`,formData).then(res=>{
         if(res.invokeResultCode==='000'){
           Toast.success(res.msg)
           this.params = {
