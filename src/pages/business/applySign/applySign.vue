@@ -168,6 +168,9 @@ export default {
         LINK_MAN,
         PHONE,
         ID_CARD_NO,
+        PROPERTY_CERT,
+        CARD_OPPOSITE_IMAGE,
+        CARD_POSITIVE_IMAGE
       }).then(res=>{
         if(res.invokeResultCode ==='000'){
           Toast.success(res.msg)
