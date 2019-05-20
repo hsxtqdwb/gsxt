@@ -67,9 +67,6 @@ export default {
           timestamp,
           jsApiList: ['chooseWXPay']
         })
-        wx.error(function(res){
-          console.log(res)
-        })
       }else{
         Toast.fail(res.msg)
       }
@@ -106,13 +103,11 @@ export default {
         })
         .then(res => {
           if (res.success === true) {
-            console.log(wx)
             this.params = {
               OPEN_ID,
               MONEY:this.yourPrice,
               BODY_DESC:"昌邑市自来水公司"
             }
-            console.log(res.result)
             // timestamp times
             // nonceStr nonce
             // package packg
