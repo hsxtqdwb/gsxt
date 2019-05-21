@@ -39,7 +39,6 @@ if ('addEventListener' in document) {
 }
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
   if (to.path!=='/author') {
     const OPEN_ID = getItem('OPEN_ID')
     if (to.query.code && !OPEN_ID) {
