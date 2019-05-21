@@ -34,20 +34,26 @@ if ('addEventListener' in document) {
       FastClick.attach(document.body);
   }, false);
 }
-setItem('OPEN_ID','oB4nYjnoHhuWrPVi2pYLuPjnCaU0')
-setItem('USER_NO','TEST0004')
-
-new Http().get(`/connect/oauth2/authorize?appid=wx88a319f29c9a7c51&redirect_uri=http://www.cyszls.com:81/sw/WeixinServlet&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`).then(res=>{
- alert(res)
-}).catch(e=>{
-  alert(e)
-})
 
 router.beforeEach((to,from,next)=>{
-  next()
+  
   const OPEN_ID = getItem('OPEN_ID')
-  if(!OPEN_ID){
-    
+  if(to.query.code&&!OPEN_ID){
+    const CODE = to.query.code
+    new Http().get(`/sw/metadata/DataSerController/getdata.do?servicecode=10007&grantcode=88888888`,{
+      CODE
+    })
+    .then(res=>{
+      if(res.invokeResultCode==='000'&&!res.result.errcode){
+        const OPEN_ID = res.result.openid
+        const USER_INFO = res.result
+        setItem('OPEN_ID',OPEN_ID)
+        setItem('USER_INFO',USER_INFO)
+        next(`/`)
+      }
+    })
+  }else if(!OPEN_ID){
+    next('/author')
   }else{
     next()
   }

@@ -3,9 +3,9 @@
     <PageHead title="个人档案"></PageHead>
     <div class="r-avatar-wrap">
       <div class="r-avatar">
-        <img src="../../assets/images/index/avatar.jpg" alt>
+        <img :src="avatar?avatar:'../../assets/images/index/avatar.jpg'" alt>
       </div>
-      <div class="r-nick">123</div>
+      <div class="r-nick">{{nick}}</div>
     </div>
     <div class="r-user-info">
       <div class="r-content">
@@ -48,12 +48,18 @@ import { getItem } from "../../utils/index.js";
 export default {
   data() {
     return {
-      userData: {}
+      userData: {},
+      nick:"",
+      avatar:""
     };
   },
   mounted() {
-    const USER_NO = getItem("USER_NO");
     const OPEN_ID = getItem("OPEN_ID");
+     const USER_INFO = getItem("USER_INFO");
+    if (USER_INFO) {
+      this.nick = USER_INFO.nickname;
+      this.avatar = USER_INFO.headimgurl;
+    }
     this.http
       .get(
         `/sw/metadata/DataSerController/getdata.do?servicecode=10009&grantcode=88888888`,

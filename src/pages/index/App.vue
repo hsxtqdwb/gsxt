@@ -3,10 +3,10 @@
     <div class="i_header">
       <div class="i_userinfo">
         <div class="i_avatar_wrap">
-          <img src="../../assets/images/index/avatar.jpg" alt>
+          <img :src="avatar?avater:'../../assets/images/index/avatar.jpg'" alt>
         </div>
         <div class="i_nickinfo">
-          <div class="i_nick">123456</div>
+          <div class="i_nick">{{nick}}</div>
           <div class="i_verify_wrap">
             <i class="i_verify_icon"></i>
             <span class="i_verify">已认证</span>
@@ -70,7 +70,7 @@
           <p class="i_desc_title">发票管家</p>
           <p class="i_desc_info">个人信息登记</p>
         </div>
-      </div> -->
+      </div>-->
       <div class="i_nav_list" @click="getUrl('/burst')">
         <div class="i_list_icon">
           <img src="../../assets/images/index/icon-7.png" alt>
@@ -104,8 +104,22 @@
 </template>
 
 <script>
+import { getItem } from "../../utils";
 export default {
   name: "App",
+  data() {
+    return {
+      nick: "",
+      avatar: ""
+    };
+  },
+  mounted() {
+    const USER_INFO = getItem("USER_INFO");
+    if (USER_INFO) {
+      this.nick = USER_INFO.nickname;
+      this.avatar = USER_INFO.headimgurl;
+    }
+  },
   methods: {
     getUrl(url) {
       this.$router.push(url);
@@ -193,7 +207,7 @@ export default {
     align-items: center;
     height: 160px;
     box-sizing: border-box;
-    border-top:1px solid rgba(238, 238, 238, 1);
+    border-top: 1px solid rgba(238, 238, 238, 1);
     .i_list_icon {
       width: 70px;
       height: 70px;
@@ -229,7 +243,7 @@ export default {
     }
     &:nth-of-type(1),
     &:nth-of-type(2) {
-     border-top:none
+      border-top: none;
     }
   }
 }

@@ -3,9 +3,9 @@
     <page-head title="个人中心"></page-head>
     <div class="u-avatar-wrap">
       <div class="u-avatar">
-        <img src="../../assets/images/index/avatar.jpg" alt>
+        <img :src="avatar?avatar:'../../assets/images/index/avatar.jpg'" alt>
       </div>
-      <div class="u-nick">123</div>
+      <div class="u-nick">{{nick}}</div>
     </div>
     <div class="u-content">
       <div class="u-left">户名</div>
@@ -63,11 +63,18 @@ export default {
   data() {
     return {
       visible: false,
-      userData:{}
+      userData:{},
+      nick:"",
+      avatar:""
     };
   },
   mounted(){
     const OPEN_ID = getItem('OPEN_ID')
+    const USER_INFO = getItem("USER_INFO");
+    if (USER_INFO) {
+      this.nick = USER_INFO.nickname;
+      this.avatar = USER_INFO.headimgurl;
+    }
     this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10006&grantcode=88888888`,{OPEN_ID}).then(res=>{
       if(res.invokeResultCode==='000'){
         this.userData = res.result

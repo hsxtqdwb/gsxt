@@ -4,10 +4,10 @@
     <div class="i_header">
       <div class="i_userinfo">
         <div class="i_avatar_wrap">
-          <img src="../../assets/images/index/avatar.jpg" alt>
+          <img :src="avatar?avatar:'../../assets/images/index/avatar.jpg'" alt>
         </div>
         <div class="i_nickinfo">
-          <div class="i_nick">123456</div>
+          <div class="i_nick">{{nick}}</div>
           <div class="i_verify_wrap">
             <i class="i_verify_icon"></i>
             <span class="i_verify">已认证</span>
@@ -38,10 +38,24 @@
 
 <script>
 import PageHead from "../../components/pageHead/pageHead";
+import { getItem } from '../../utils';
 export default {
   name: "App",
+  data(){
+    return{
+      nick:"",
+      avatar:""
+    }
+  },
   components: {
     PageHead
+  },
+  mounted(){
+    const USER_INFO =getItem(`USER_INFO`)
+    if(USER_INFO){
+      this.avatar = USER_INFO.headimgurl
+      this.nick=nickname
+    }
   },
   methods: {
     getUrl(url) {

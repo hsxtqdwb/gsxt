@@ -53,7 +53,6 @@ export default {
   mounted() {
     this.getUserData();
     let URL = window.location.href
-    console.log(URL)
     this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10026&grantcode=88888888`,{
       URL
     }).then(res=>{
@@ -96,6 +95,7 @@ export default {
     },
     rechargeAmount() {
       const OPEN_ID = getItem("OPEN_ID");
+      const _this = this
       this.http
         .get(`/sw/wxpay?OPEN_ID=${OPEN_ID}`, {
           MONEY: this.yourPrice,
@@ -130,7 +130,7 @@ export default {
               signType,
               paySign,
               success:(res)=>{
-                console.log(res)
+                this.rechargeSuccess()
               }
             })
           } else {
@@ -139,15 +139,15 @@ export default {
         });
     },
     rechargeSuccess(){
-      // const {
-      //   MONEY,
-      //   OPEN_ID,
-      //   BODY_DESC
-      // } = this.params
       this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10008&grantcode=88888888`,{
         ...this.params
       }).then(res=>{
-        console.log(res)
+        if(res.invokeResultCode === '000'){
+          Toast.success(res.msg)
+          this.$router.push('/user')
+        }else{
+          Toast.fail(res.msg)
+        }
       })
     }
   }
