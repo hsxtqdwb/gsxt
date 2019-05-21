@@ -1,25 +1,54 @@
 <template>
   <div id="burstdetail">
-    <page-head title="暴漏举报详情"></page-head>
-    <div class="p-content-wrap">
-      <h2>基本信息</h2>
-      <div class="title">联系人</div>
-      <p>{{content['LINK_MAN']}}</p>
-      <div class="title">手机号码</div>
-      <p>{{content['PHONE']}}</p>
-      <div class="title">地址</div>
-      <p>{{content['ADDRESS']}}</p>
-      <div class="title">类型</div>
-      <p>{{content['TYPE']}}</p>
-      <div class="title">暴露举报时间</div>
-      <p>{{content['CREATE_TIME']}}</p>
-      <div class="title">申请状态</div>
-      <p>{{content['STATUS']}}</p>
-      <h2>问题描述</h2>
-      <div class="title">问题描述</div>
-      <p>{{content['PROBLEM_DESC']}}</p>
-      <div class="title">批复备注</div>
-      <p>{{content['REPLY_REASON']}}</p>
+    <page-head title="报漏举报详情"></page-head>
+    <div class="b-content-wrap">
+      <div class="b-msg">
+        <h2>基本信息</h2>
+        <p>
+          联系人
+          <span>{{content['LINK_MAN']}}</span>
+        </p>
+        <p>
+          手机号
+          <span>{{content['PHONE']}}</span>
+        </p>
+        <p>
+          地址
+          <span>{{content['ADDRESS']}}</span>
+        </p>
+        <p>
+          举报类型
+          <span v-show="content['TYPE']==1">报漏</span>
+          <span v-show="content['TYPE']==2">举报</span>
+        </p>
+        <p>
+          申请状态
+          <span v-show="content['STATUS']==0">待处理</span>
+          <span v-show="content['STATUS']==1">已处理</span>
+        </p>
+        <p>
+          爆漏举报时间
+          <span>{{content['CREATE_TIME']?content['CREATE_TIME'].split(' ')[0]:""}}</span>
+        </p>
+      </div>
+      <div class="b-msg">
+        <h2>其它</h2>
+        <p>问题描述</p>
+        <p class="b-msg-b">{{content['PROBLEM_DESC']?content['PROBLEM_DESC']:"暂无描述"}}</p>
+        <p>批复备注</p>
+        <p class="b-msg-b">{{content['REPLY_REASON']?content['REPLY_REASON']:"暂无批复备注"}}</p>
+        <p>文件</p>
+        <div class="b-file">
+          <div
+            v-show="content['FILE_UR']"
+            class="b-img"
+            v-for="(item,index) in content['FILE_UR']"
+            :key="index"
+          >
+            <img src="item" alt>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -29,8 +58,6 @@ import PageHead from "../../../components/pageHead/pageHead";
 export default {
   data() {
     return {
-      msg: "五一开始全国水价涨幅12%",
-      date: "2019-05-17",
       content: {
         LINK_MAN: "",
         PHONE: "",
@@ -39,8 +66,17 @@ export default {
         PROBLEM_DESC: "",
         CREATE_TIME: "",
         STATUS: "",
-        REPLY_REASON: ""
-      }
+        REPLY_REASON: "",
+        FILE_UR: []
+      },
+      imgarr: [
+        "../../../assets/images/index/avatar.jpg",
+        "../../../assets/images/index/avatar.jpg",
+        "../../../assets/images/index/avatar.jpg",
+        "../../../assets/images/index/avatar.jpg",
+        "../../../assets/images/index/avatar.jpg",
+        "../../../assets/images/index/avatar.jpg"
+      ]
     };
   },
   mounted() {
@@ -66,25 +102,50 @@ export default {
 </script>
 <style lang="less" scoped>
 #burstdetail {
-  .p-content-wrap {
-    padding: 35px;
-    margin-top: 90px;
-    background: #fff;
-    h2 {
-      font-size: 28px;
-      color: #333333;
-      line-height: 40px;
-    }
-    .title {
-      font-size: 24px;
-      color: #999999;
-      line-height: 40px;
-    }
-    p {
-      font-size: 26px;
-      color: #666666;
-      line-height: 70px;
-      border-bottom: solid #eeeeee 1px;
+  .b-content-wrap {
+    padding-top: 90px;
+    .b-msg {
+      overflow: hidden;
+      margin-top: 20px;
+      background: #ffffff;
+      padding: 30px 35px 10px 35px;
+      h2 {
+        font-size: 28px;
+        color: #333333;
+        line-height: 50px;
+        padding-bottom: 20px;
+        margin-bottom: 10px;
+        border-bottom: solid 1px #eeeeee;
+      }
+      p {
+        overflow: hidden;
+        font-size: 26px;
+        color: #666666;
+        line-height: 70px;
+        span {
+          float: right;
+          color: #999999;
+        }
+      }
+      .b-msg-b {
+        text-indent: 2em;
+        color: #999999;
+      }
+      .b-file {
+        .b-img {
+          width: 220px;
+          height: 146px;
+          float: left;
+          padding-bottom: 20px;
+          overflow: hidden;
+          margin-left: 6px;
+          img {
+            width: 100%;
+            width: 220px;
+            height: 146px;
+          }
+        }
+      }
     }
   }
 }
