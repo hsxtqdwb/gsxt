@@ -39,13 +39,8 @@
         <p class="b-msg-b">{{content['REPLY_REASON']?content['REPLY_REASON']:"暂无批复备注"}}</p>
         <p>文件</p>
         <div class="b-file">
-          <div
-            v-show="content['FILE_UR']"
-            class="b-img"
-            v-for="(item,index) in content['FILE_UR']"
-            :key="index"
-          >
-            <img src="item" alt>
+          <div>
+            <img :src="fileUrl" alt>
           </div>
         </div>
       </div>
@@ -67,8 +62,9 @@ export default {
         CREATE_TIME: "",
         STATUS: "",
         REPLY_REASON: "",
-        FILE_UR: []
+        FILE_URL: ""
       },
+      fileUrl: "",
       imgarr: [
         "../../../assets/images/index/avatar.jpg",
         "../../../assets/images/index/avatar.jpg",
@@ -90,8 +86,9 @@ export default {
       )
       .then(res => {
         if (res.invokeResultCode === "000") {
-          console.log(res);
           this.content = res.result;
+          this.fileUrl =
+            "http://www.cyszls.com:81/sw/" + res.result["FILE_URL"];
         }
       });
   },
