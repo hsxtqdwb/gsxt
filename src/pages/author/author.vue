@@ -16,7 +16,7 @@ export default {
         if(res.invpkeResultCode === '000'){
            window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${
           res.result.appid
-        }&redirect_uri=http://www.cyszls.com:81/sw/WeixinServle&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+        }&redirect_uri=http://www.cyszls.com:81/gsxt&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
         }
        });
   }
