@@ -4,7 +4,6 @@
 <script>
 export default {
   mounted() {
-      console.log(1)
     let URL = window.location.href;
     this.http
       .get(
@@ -14,10 +13,12 @@ export default {
         }
       )
       .then(res => {
-        window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${
-          res.appid
-        }&redirect_uri=http://www.cyszls.com:81/gsxt&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
-      });
+        if(res.invpkeResultCode === '000'){
+           window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${
+          res.result.appid
+        }&redirect_uri=http://www.cyszls.com:81/sw/WeixinServle&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+        }
+       });
   }
 };
 </script>
