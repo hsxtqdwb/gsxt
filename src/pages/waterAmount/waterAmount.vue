@@ -121,6 +121,7 @@ export default {
   },
   beforeDestroy() {
     this.scroll.destroy();
+    Toast.clear()
   },
   components: {
     PageHead

@@ -4,14 +4,20 @@
     <div class="u-list-wrap">
       <div class="u-list-title">已绑定用户列表</div>
       <template v-if="list.length">
-        <div v-for="(item,index) in list" :key="index" class="u-list-content-wrap">
+        <div v-for="(item,index) in list" :key="item.USER_NO" class="u-list-content-wrap">
           <van-swipe-cell :right-width="113">
             <van-cell-group>
-              <!-- <van-cell title="0100000" />
-              <van-cell title="深圳******局"/>-->
               <div class="u-list-content">
-                <div>{{item.USER_NO}}</div>
-                <div>{{item.NAME}}</div>
+                <div
+                  class="u-list-l"
+                  :style="{borderBottom:index===list.length-1?'none':'1px solid #eee'}"
+                >
+                  <div>
+                    <div class="u-list-l-n">{{item.USER_NO}}</div>
+                    <div>{{item.NAME}}</div>
+                  </div>
+                  <i class="u-true"></i>
+                </div>
               </div>
             </van-cell-group>
             <span @click="delUser(item.USER_NO)" slot="right">删除</span>
@@ -36,22 +42,27 @@ export default {
     };
   },
   mounted() {
-    this.getUser()
+    this.getUser();
   },
   methods: {
-    delUser(USER_NO){
-      const OPEN_ID = getItem('OPEN_ID')
-      this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10005&grantcode=88888888`,{
-        OPEN_ID,
-        USER_NO
-      }).then(res=>{
-        if(res.invokeResultCode === '000'){
-          Toast.success(res.msg)
-          this.getUser()
-        }else{
-          Toast.fail(res.msg)
-        }
-      })
+    delUser(USER_NO) {
+      const OPEN_ID = getItem("OPEN_ID");
+      this.http
+        .get(
+          `/sw/metadata/DataSerController/getdata.do?servicecode=10005&grantcode=88888888`,
+          {
+            OPEN_ID,
+            USER_NO
+          }
+        )
+        .then(res => {
+          if (res.invokeResultCode === "000") {
+            Toast.success(res.msg);
+            this.getUser();
+          } else {
+            Toast.fail(res.msg);
+          }
+        });
     },
     getUser() {
       const OPEN_ID = getItem("OPEN_ID");
@@ -67,8 +78,8 @@ export default {
         });
     }
   },
-  beforeDestroy(){
-    Toast.clear()
+  beforeDestroy() {
+    Toast.clear();
   },
   components: {
     PageHead
@@ -76,6 +87,14 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.images(@url) {
+  background-image: url("../../../assets/images/taggleUser/@{url}@2x.png");
+  @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+    background-image: url("../../../assets/images/taggleUser/@{url}@3x.png");
+  }
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
 .u-list-wrap {
   background: #fff;
   margin-top: 110px;
@@ -94,10 +113,24 @@ export default {
     font-size: 26px;
     line-height: 40px;
     height: 127px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 30px;
+    .u-list-l {
+      display: flex;
+      // flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 30px;
+      height: 127px;
+      box-sizing: border-box;
+    }
+    .u-list-l-n{
+      margin-bottom: 10px;
+    }
+  }
+  .u-true{
+    display: block;
+    height: 19px;
+    width: 28px;
+    .images('true')
   }
   & /deep/ .van-cell__title {
     color: rgba(102, 102, 102, 1);

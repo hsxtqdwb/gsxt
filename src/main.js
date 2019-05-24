@@ -37,32 +37,33 @@ if ('addEventListener' in document) {
     FastClick.attach(document.body);
   }, false);
 }
-
+setItem('OPEN_ID','oB4nYjnoHhuWrPVi2pYLuPjnCaU0')
 router.beforeEach((to, from, next) => {
-  if (to.path!=='/author') {
+  // if (to.path!=='/author') {
     const OPEN_ID = getItem('OPEN_ID')
-    if (to.query.code && !OPEN_ID) {
-      const CODE = to.query.code
-      new Http().get(`/sw/metadata/DataSerController/getdata.do?servicecode=10007&grantcode=88888888`, {
-          CODE
-        })
-        .then(res => {
-          if (res.invokeResultCode === '000' && !res.result.errcode) {
-            const OPEN_ID = res.result.openid
-            const USER_INFO = res.result
-            setItem('OPEN_ID', OPEN_ID)
-            setItem('USER_INFO', USER_INFO)
-            next(`/`)
-          }
-        })
-    } else if (!OPEN_ID) {
+  //   if (to.query.code && !OPEN_ID) {
+  //     const CODE = to.query.code
+  //     new Http().get(`/sw/metadata/DataSerController/getdata.do?servicecode=10007&grantcode=88888888`, {
+  //         CODE
+  //       })
+  //       .then(res => {
+  //         if (res.invokeResultCode === '000' && !res.result.errcode) {
+  //           const OPEN_ID = res.result.openid
+  //           const USER_INFO = res.result
+  //           setItem('OPEN_ID', OPEN_ID)
+  //           setItem('USER_INFO', USER_INFO)
+  //           next(`/`)
+  //         }
+  //       })
+  //   } else
+     if (!OPEN_ID) {
       next('/author')
     } else {
       next()
     }
-  }else{
-    next()
-  }
+  // }else{
+  //   next()
+  // }
 })
 // axios.get(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect`)
 

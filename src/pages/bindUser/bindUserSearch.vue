@@ -31,24 +31,51 @@
 <script>
 import PageHead from "../../components/pageHead/pageHead";
 import Vue from "vue";
-import { Field, Toast } from "vant";
-Vue.use(Field).use(Toast);
+import { Field, Toast, Dialog } from "vant";
+Vue.use(Field)
+  .use(Toast)
+  .use(Dialog);
 export default {
-  data(){
+  data() {
     return {
-      User_NO:''
-    }
+      User_NO: ""
+    };
   },
-  methods:{
-    getUserList(){
-      this.$router.push(`/taggleUser`)
+  methods: {
+    getUserList() {
+      this.$router.push(`/taggleUser`);
     },
-    searchNo(){
-      if(!this.User_NO){
-        Toast('请输入给水号')
-        return
+    searchNo() {
+      if (!this.User_NO) {
+        Toast("请输入给水号");
+        return;
       }
-      this.$router.push(`/bindUser/${this.User_NO}`)
+      this.getUserNo(this.User_NO);
+    },
+    getUserNo(USER_NO) {
+      this.http
+        .get(
+          `/sw/metadata/DataSerController/getdata.do?servicecode=10001&grantcode=88888888`,
+          {
+            USER_NO
+          }
+        )
+        .then(res => {
+          if (res.invokeResultCode === "000") {
+            if (!res.result) {
+              Dialog.alert({
+                confirmButtonText:"知道了",
+                title: '提示',
+                message: "您查询的编码不存在"
+              }).then(() => {
+              });
+              return;
+            }
+            this.$router.push(`/bindUser/${this.User_NO}`);
+          } else {
+            Toast.fail(res.msg);
+          }
+        });
     }
   },
   components: {

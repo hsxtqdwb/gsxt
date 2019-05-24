@@ -77,6 +77,7 @@ export default {
         .then(res => {
           if (res.invokeResultCode === "000") {
             Toast.success(res.msg);
+            this.getUserNo()
           } else {
             Toast.fail(res.msg);
           }
