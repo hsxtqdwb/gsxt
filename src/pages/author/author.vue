@@ -13,10 +13,8 @@ export default {
         }
       )
       .then(res => {
-        if(res.invpkeResultCode === '000'){
-           window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${
-          res.result.appid
-        }&redirect_uri=http://www.cyszls.com/&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+        if(res.invokeResultCode === '000'){
+           window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${res.result.appid}&redirect_uri=http://www.cyszls.com/&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
         }
        });
   }
