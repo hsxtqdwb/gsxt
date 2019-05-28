@@ -1,8 +1,17 @@
 export const getItem = (name) =>{
-  return window.sessionStorage.getItem(name)
+  try{
+    return JSON.parse(window.sessionStorage.getItem(name))
+  }catch(err){
+
+    return window.sessionStorage.getItem(name)
+  }
 }
 export const setItem = (name,value) =>{
-  window.sessionStorage.setItem(name,value)
+  if(typeof value === 'object'){
+    window.sessionStorage.setItem(name,JSON.stringify(value))
+  }else{
+    window.sessionStorage.setItem(name,value)
+  }
 }
 
 export const hasClass = (node,name)=>{
