@@ -126,7 +126,7 @@ export default {
             wx.chooseWXPay(
               {
               appId,
-              timeStamp,
+              timestamp,
               package:packg,
               nonceStr,
               signType,
