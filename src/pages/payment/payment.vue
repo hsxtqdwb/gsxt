@@ -95,6 +95,7 @@ export default {
     },
     rechargeAmount() {
       const OPEN_ID = getItem("OPEN_ID");
+      alert(OPEN_ID)
       const _this = this
       this.http
         .get(`/sw/wxpay?OPEN_ID=${OPEN_ID}`, {
