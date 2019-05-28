@@ -125,7 +125,7 @@ export default {
             alert(appId)
             wx.chooseWXPay(
               {
-              appId,
+              // appId,
               timestamp:timeStamp,
               package:packg,
               nonceStr,
