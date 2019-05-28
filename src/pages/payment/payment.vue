@@ -121,6 +121,7 @@ export default {
               sign:paySign,
               appId
             } = res.result
+            alert(appId)
             wx.chooseWXPay(
               {
               appId,

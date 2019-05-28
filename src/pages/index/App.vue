@@ -115,6 +115,7 @@ export default {
   },
   mounted() {
     const USER_INFO = getItem("USER_INFO");
+    alert(JSON.stringify(USER_INFO))
     if (USER_INFO) {
       this.nick = USER_INFO.nickname;
       this.avatar = USER_INFO.headimgurl;
