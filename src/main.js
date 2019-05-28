@@ -48,7 +48,7 @@ router.beforeEach((to, from, next) => {
         .then(res => {
           alert(JSON.stringify(res))
           if (res.invokeResultCode === '000' && !res.result.errcode) {
-            const OPEN_ID = res.result.openId
+            const OPEN_ID = res.result.openid
             const USER_INFO = res.result
             setItem('OPEN_ID', OPEN_ID)
             setItem('USER_INFO', USER_INFO)
