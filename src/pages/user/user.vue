@@ -3,7 +3,7 @@
     <page-head title="个人中心"></page-head>
     <div class="u-avatar-wrap">
       <div class="u-avatar">
-        <img :src="avatar?avatar:'../../assets/images/index/avatar.jpg'" alt>
+        <img :src="avatar?avatar:require('../../assets/images/index/avatar.jpg')" alt>
       </div>
       <div class="u-nick">{{nick}}</div>
     </div>
@@ -112,11 +112,15 @@ export default {
   background: #fff;
   margin-top: 110px;
   .u-avatar {
-    width: 118px;
-    height: 118px;
+    width: 120px;
+    height: 120px;
     border-radius: 59px;
     overflow: hidden;
     margin-left: 30px;
+    img{
+      width: 100%;
+      height: 100%;
+    }
   }
   .u-nick {
     margin-left: 30px;

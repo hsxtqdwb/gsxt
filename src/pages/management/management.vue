@@ -4,7 +4,7 @@
     <div class="i_header">
       <div class="i_userinfo">
         <div class="i_avatar_wrap">
-          <img :src="avatar?avatar:'../../assets/images/index/avatar.jpg'" alt>
+          <img :src="avatar?avatar:require('../../assets/images/index/avatar.jpg')" alt>
         </div>
         <div class="i_nickinfo">
           <div class="i_nick">{{nick}}</div>
@@ -68,6 +68,7 @@ export default {
 .i_header {
   width: 750px;
   height: 319px;
+  z-index:99;
   background: url("../../assets/images/index/bg.png") no-repeat;
   background-size: 100% 100%;
   overflow: hidden;
@@ -132,6 +133,7 @@ export default {
   margin: 0 auto;
   background: #fff;
   border-radius: 10px;
+  z-index:999;
   position: relative;
   top: -35px;
   box-sizing: border-box;

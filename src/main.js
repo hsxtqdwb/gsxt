@@ -46,7 +46,6 @@ router.beforeEach((to, from, next) => {
           CODE
         })
         .then(res => {
-          alert(JSON.stringify(res))
           if (res.invokeResultCode === '000' && !res.result.errcode) {
             const OPEN_ID = res.result.openid
             const USER_INFO = res.result

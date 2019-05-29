@@ -3,7 +3,7 @@
     <div class="i_header">
       <div class="i_userinfo">
         <div class="i_avatar_wrap">
-          <img :src="avatar?avater:'../../assets/images/index/avatar.jpg'" alt>
+          <img :src="avatar?avater:require('../../assets/images/index/avatar.jpg')" alt>
         </div>
         <div class="i_nickinfo">
           <div class="i_nick">{{nick}}</div>
@@ -115,7 +115,6 @@ export default {
   },
   mounted() {
     const USER_INFO = getItem("USER_INFO");
-    alert(JSON.stringify(USER_INFO))
     if (USER_INFO) {
       this.nick = USER_INFO.nickname;
       this.avatar = USER_INFO.headimgurl;
@@ -134,6 +133,7 @@ export default {
   height: 319px;
   background: url("../../assets/images/index/bg.png") no-repeat;
   background-size: 100% 100%;
+  z-index:99;
   overflow: hidden;
   .i_userinfo {
     display: flex;
@@ -196,6 +196,7 @@ export default {
   background: #fff;
   border-radius: 10px;
   position: relative;
+  z-index:999;
   top: -35px;
   box-sizing: border-box;
   box-shadow: 2px 2px 2px rgba(51, 51, 51, 0.06);

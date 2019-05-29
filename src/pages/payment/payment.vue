@@ -34,7 +34,7 @@
 <script>
 import Vue from "vue";
 import PageHead from "../../components/pageHead/pageHead";
-import { getItem } from "../../utils";
+import { getItem, setItem } from "../../utils";
 import { Toast } from "vant";
 Vue.use(Toast);
 export default {
@@ -95,7 +95,6 @@ export default {
     },
     rechargeAmount() {
       const OPEN_ID = getItem("OPEN_ID");
-      alert(OPEN_ID)
       const _this = this
       this.http
         .get(`/sw/wxpay?OPEN_ID=${OPEN_ID}`, {
@@ -109,6 +108,7 @@ export default {
               MONEY:this.yourPrice,
               BODY_DESC:"昌邑市自来水公司"
             }
+            setItem('amountData',this.params)
             // timestamp times
             // nonceStr nonce
             // package packg
@@ -122,7 +122,6 @@ export default {
               sign:paySign,
               appId
             } = res.result
-            alert(appId)
             wx.chooseWXPay(
               {
               appId,
@@ -132,7 +131,9 @@ export default {
               signType,
               paySign,
               success:(res)=>{
-                this.rechargeSuccess()
+                this.$router.push('/user')
+               const amountData = getItem('amountData')
+                this.rechargeSuccess(amountData)
               }
             })
           } else {
@@ -140,13 +141,12 @@ export default {
           }
         });
     },
-    rechargeSuccess(){
+    rechargeSuccess(params){
       this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10008&grantcode=88888888`,{
-        ...this.params
+        ...params
       }).then(res=>{
         if(res.invokeResultCode === '000'){
           Toast.success(res.msg)
-          this.$router.push('/user')
         }else{
           Toast.fail(res.msg)
         }

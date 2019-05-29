@@ -3,7 +3,7 @@
     <PageHead title="个人档案"></PageHead>
     <div class="r-avatar-wrap">
       <div class="r-avatar">
-        <img :src="avatar?avatar:'../../assets/images/index/avatar.jpg'" alt>
+        <img :src="avatar?avatar:require('../../assets/images/index/avatar.jpg')" alt>
       </div>
       <div class="r-nick">{{nick}}</div>
     </div>
