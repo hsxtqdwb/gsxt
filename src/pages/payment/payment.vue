@@ -59,7 +59,7 @@ export default {
       if(res.invokeResultCode === '000'){
         const {appid,nonceStr,signature,timestamp} = res.result
         wx.config({
-          debug: true,
+          // debug: true,
           appId:appid,
           nonceStr,
           signature,
