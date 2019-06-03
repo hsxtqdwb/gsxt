@@ -133,6 +133,7 @@ export default {
               success:(res)=>{
                 this.$router.push('/user')
                const amountData = getItem('amountData')
+               alert(amountData)
                 this.rechargeSuccess(amountData)
               }
             })
@@ -142,7 +143,8 @@ export default {
         });
     },
     rechargeSuccess(params){
-      this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10008&grantcode=88888888`,{
+      const OPEN_ID = getItem('OPEN_ID')
+      this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10008&grantcode=88888888&OPEN_ID=${OPEN_ID}`,{
         ...params
       }).then(res=>{
         if(res.invokeResultCode === '000'){
