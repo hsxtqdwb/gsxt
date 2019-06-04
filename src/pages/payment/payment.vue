@@ -35,8 +35,8 @@
 import Vue from "vue";
 import PageHead from "../../components/pageHead/pageHead";
 import { getItem, setItem } from "../../utils";
-import { Toast } from "vant";
-Vue.use(Toast);
+import { Toast,Dialog } from "vant";
+Vue.use(Toast).use(Dialog);
 export default {
   components: {
     PageHead
@@ -87,6 +87,13 @@ export default {
         )
         .then(res => {
           if (res.invokeResultCode === "000") {
+            if(!res.result||!res.result.USER_NO){
+             Dialog.alert({
+                message: '您还未绑定给水号，请前往绑定用户'
+              }).then(() => {
+              this.$router.push(`/taggleUser`)
+              });
+            }
             this.userData = res.result;
           } else {
             Toast.fail(res.msg);
@@ -99,7 +106,8 @@ export default {
       this.http
         .get(`/sw/wxpay?OPEN_ID=${OPEN_ID}`, {
           MONEY: this.yourPrice,
-          BODY_DESC: "昌邑市自来水公司"
+          BODY_DESC: "昌邑市自来水公司",
+          USER_NO:this.userData.USER_NO
         })
         .then(res => {
           if (res.success === true) {
@@ -133,7 +141,6 @@ export default {
               success:(res)=>{
                 this.$router.push('/user')
                const amountData = getItem('amountData')
-               alert(amountData)
                 this.rechargeSuccess(amountData)
               }
             })
@@ -145,7 +152,8 @@ export default {
     rechargeSuccess(params){
       const OPEN_ID = getItem('OPEN_ID')
       this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10008&grantcode=88888888&OPEN_ID=${OPEN_ID}`,{
-        ...params
+        USER_NO:this.userData.USER_NO,
+        ACCOUNT_AMOUNT:params.MONEY
       }).then(res=>{
         if(res.invokeResultCode === '000'){
           Toast.success(res.msg)

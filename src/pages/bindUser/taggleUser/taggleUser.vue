@@ -7,7 +7,7 @@
         <div v-for="(item,index) in list" :key="item.USER_NO" class="u-list-content-wrap">
           <van-swipe-cell :right-width="113">
             <van-cell-group>
-              <div class="u-list-content">
+              <div @click="taggleUser(item.USER_NO)" class="u-list-content">
                 <div
                   class="u-list-l"
                   :style="{borderBottom:index===list.length-1?'none':'1px solid #eee'}"
@@ -16,7 +16,7 @@
                     <div class="u-list-l-n">{{item.USER_NO}}</div>
                     <div>{{item.NAME}}</div>
                   </div>
-                  <i class="u-true"></i>
+                  <!-- <i class="u-true"></i> -->
                 </div>
               </div>
             </van-cell-group>
@@ -45,6 +45,19 @@ export default {
     this.getUser();
   },
   methods: {
+    taggleUser(USER_NO){
+      const OPEN_ID = getItem(`OPEN_ID`)
+      this.http.get(`/sw/metadata/DataSerController/getdata.do?servicecode=10004&grantcode=88888888&OPEN_ID=${OPEN_ID}`,{
+        USER_NO
+      })
+      .then(res =>{
+        if(res.invokeResultCode === "000"){
+          Toast.success('切换用户成功')
+        }else{
+          Toast.fail(res.msg)
+        }
+      })
+    },
     delUser(USER_NO) {
       const OPEN_ID = getItem("OPEN_ID");
       this.http
@@ -117,7 +130,7 @@ export default {
       display: flex;
       // flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       margin: 0 30px;
       height: 127px;
       box-sizing: border-box;
