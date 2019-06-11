@@ -22,9 +22,9 @@
       <input class="userInput" v-model="yourPrice" placeholder="请输入您要充值的金额">
       <div class="arrears">
         <p v-if="userData">
-          <span>您已欠费:</span>
-          <span class="i-money" v-if="userData.ACCOUNT_AMOUNT<0">{{Math.abs(userData.ACCOUNT_AMOUNT)}}</span>
-          <span class="i-money" v-else>0</span>
+          <span v-if="userData.ACCOUNT_AMOUNT<=0">您已欠费:</span>
+          <span v-else>您的余额:</span>
+          <span class="i-money">{{Math.abs(userData.ACCOUNT_AMOUNT)}}</span>
           元
         </p>
         <p>充值欠费</p>
