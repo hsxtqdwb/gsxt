@@ -27,7 +27,7 @@
           <span class="i-money">{{Math.abs(userData.ACCOUNT_AMOUNT)}}</span>
           元
         </p>
-        <p>充值欠费</p>
+        <p>充值</p>
       </div>
       <div @click="rechargeAmount" class="save">立即缴费</div>
     </div>
