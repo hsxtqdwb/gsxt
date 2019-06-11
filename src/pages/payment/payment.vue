@@ -21,9 +21,10 @@
       <div class="else-price">输入其它金额</div>
       <input class="userInput" v-model="yourPrice" placeholder="请输入您要充值的金额">
       <div class="arrears">
-        <p>
-          你已欠费:
-          <span v-if="userData">{{userData.ACCOUNT_AMOUNT}}</span>元
+        <p v-if="userData">
+          <span v-if="userData.ACCOUNT_AMOUNT<0">您已欠费:</span>
+          <span v-else>您的余额:</span>
+          <span class="i-money">{{Math.abs(userData.ACCOUNT_AMOUNT)}}</span>元
         </p>
         <p>充值欠费</p>
       </div>
@@ -266,7 +267,7 @@ export default {
         float: right;
         color: #34b8ef;
       }
-      span {
+      .i-money {
         color: orange;
       }
     }
