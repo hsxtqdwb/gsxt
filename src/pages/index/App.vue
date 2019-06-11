@@ -119,6 +119,7 @@ export default {
       this.nick = USER_INFO.nickname;
       this.avatar = USER_INFO.headimgurl;
     }
+    alert(this.avatar)
   },
   methods: {
     getUrl(url) {
@@ -131,9 +132,9 @@ export default {
 .i_header {
   width: 750px;
   height: 319px;
+  z-index:99;
   background: url("../../assets/images/index/bg.png") no-repeat;
   background-size: 100% 100%;
-  z-index:99;
   overflow: hidden;
   .i_userinfo {
     display: flex;

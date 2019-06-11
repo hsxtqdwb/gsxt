@@ -91,7 +91,7 @@ export default {
              Dialog.alert({
                 message: '您还未绑定给水号，请前往绑定用户'
               }).then(() => {
-              this.$router.push(`/taggleUser`)
+              this.$router.push(`/bindUserSearch`)
               });
             }
             this.userData = res.result;

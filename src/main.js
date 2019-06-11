@@ -37,7 +37,6 @@ if ('addEventListener' in document) {
     FastClick.attach(document.body);
   }, false);
 }
-setItem('OPEN_ID','oB4nYjnoHhuWrPVi2pYLuPjnCaU0')
 router.beforeEach((to, from, next) => {
   if (to.path!=='/author') {
     const OPEN_ID = getItem('OPEN_ID')

@@ -43,6 +43,7 @@ export default {
     height: 30px;
     display: block;
     position: absolute;
+    z-index:99;
     top: 30px;
     left: 35px;
   }
