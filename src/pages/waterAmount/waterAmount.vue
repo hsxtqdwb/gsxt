@@ -142,7 +142,7 @@ export default {
   z-index: 99;
 }
 .w-user-wrap {
-  margin-top: 90px;
+  // margin-top: 90px;
   height: 136px;
   z-index: 99;
   width: 100%;
