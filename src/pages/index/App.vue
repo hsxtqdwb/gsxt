@@ -3,7 +3,7 @@
     <div class="i_header">
       <div class="i_userinfo">
         <div class="i_avatar_wrap">
-          <img :src="avatar?avater:require('../../assets/images/index/avatar.jpg')" alt>
+          <img :src="avatar" alt>
         </div>
         <div class="i_nickinfo">
           <div class="i_nick">{{nick}}</div>
@@ -119,7 +119,6 @@ export default {
       this.nick = USER_INFO.nickname;
       this.avatar = USER_INFO.headimgurl;
     }
-    alert(this.avatar)
   },
   methods: {
     getUrl(url) {
@@ -149,6 +148,7 @@ export default {
       img {
         width: 100%;
         height: 100%;
+        display: block;
       }
     }
     .i_nickinfo {
