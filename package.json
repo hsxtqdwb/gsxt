@@ -20,7 +20,7 @@
     "postcss-pxtorem": "^4.0.1",
     "px2rem-loader": "^0.1.9",
     "qs": "^6.7.0",
-    "vant": "^1.6.11",
+    "vant": "^2.1.8",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
